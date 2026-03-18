@@ -1,5 +1,12 @@
 import { useState, useCallback } from 'react';
-import type { Army } from '../data/types';
+import type { Army, TileCategory } from '../data/types';
+
+const CATEGORY_ORDER: Record<TileCategory, number> = {
+  hq: 0,
+  instant: 1,
+  soldier: 2,
+  module: 3,
+};
 import type { TileInstance } from '../utils/deck';
 import { buildDeck } from '../utils/deck';
 import { codeToSeed, seededShuffle } from '../utils/rng';
@@ -190,7 +197,7 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
         </section>
       )}
 
-      {/* Remaining tiles (collapsible) */}
+      {/* Remaining tiles (collapsible, sorted by category) */}
       {remaining.length > 0 && drawIndex > 0 && (
         <details className="group">
           <summary className="cursor-pointer text-sm text-stone-500 hover:text-stone-300 transition-colors select-none list-none flex items-center gap-2">
@@ -198,9 +205,11 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
             Show remaining {remaining.length} tile{remaining.length !== 1 ? 's' : ''} in deck
           </summary>
           <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-            {remaining.map((instance) => (
-              <TileCard key={instance.instanceId} tile={instance.tile} count={1} small />
-            ))}
+            {[...remaining]
+              .sort((a, b) => CATEGORY_ORDER[a.tile.category] - CATEGORY_ORDER[b.tile.category])
+              .map((instance) => (
+                <TileCard key={instance.instanceId} tile={instance.tile} count={1} small />
+              ))}
           </div>
         </details>
       )}
