@@ -142,7 +142,6 @@ function HomeScreen({
 }
 
 function ArmyCard({ army, onClick }: { army: Army; onClick: () => void }) {
-  const totalTiles = 1 + army.tiles.reduce((sum, t) => sum + t.count, 0);
 
   return (
     <button
@@ -164,10 +163,13 @@ function ArmyCard({ army, onClick }: { army: Army; onClick: () => void }) {
               {army.description}
             </p>
           </div>
-          <div className="shrink-0 text-center">
-            <div className="text-3xl font-bold text-stone-100">{totalTiles}</div>
-            <div className="text-xs text-stone-500 uppercase tracking-wider">tiles</div>
-          </div>
+          {army.hqImageUrl && (
+            <img
+              src={army.hqImageUrl}
+              alt={`${army.name} HQ`}
+              className="shrink-0 w-20 h-20 object-contain"
+            />
+          )}
         </div>
 
         <div className="mt-4 flex items-center gap-2 text-xs text-stone-500">
