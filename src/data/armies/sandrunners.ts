@@ -32,18 +32,18 @@ export const sandRunners: Army = {
     { id: 'sr-move', name: 'Move', category: 'instant', count: 3, imageUrl: imgRuch },
     { id: 'sr-sandstorm', name: 'Sandstorm', category: 'instant', count: 5, imageUrl: imgBurzapiaskowa },
     { id: 'sr-push', name: 'Push', category: 'instant', count: 2, imageUrl: imgOdepchniecie },
-    { id: 'sr-trigger', name: 'Trigger', category: 'instant', count: 1, imageUrl: imgCyngiel },
+    { id: 'sr-trigger', name: 'Trigger', category: 'soldier', count: 1, imageUrl: imgCyngiel },
 
     // Soldiers
     { id: 'sr-amok', name: 'Amok', category: 'soldier', count: 3, imageUrl: imgAmok },
     { id: 'sr-old-guard', name: 'Old Guard', category: 'soldier', count: 2, imageUrl: imgStaragwardia },
     { id: 'sr-pile-driver', name: 'Pile Driver', category: 'soldier', count: 3, imageUrl: imgKafar },
     { id: 'sr-pruner', name: 'Pruner', category: 'soldier', count: 2, imageUrl: imgSekator },
-    { id: 'sr-mirage', name: 'Mirage', category: 'soldier', count: 2, imageUrl: imgFatamorgana },
+    { id: 'sr-mirage', name: 'Mirage', category: 'module', count: 2, imageUrl: imgFatamorgana },
 
     // Modules
-    { id: 'sr-field-medic-santa', name: 'Field Medic Santa', category: 'module', count: 1, imageUrl: imgMedykpolowysanta },
-    { id: 'sr-field-medic-lu', name: 'Field Medic Lu', category: 'module', count: 1, imageUrl: imgMedykpolowylu },
+    { id: 'sr-field-medic-santa', name: 'Field Medic Santa', category: 'soldier', count: 1, imageUrl: imgMedykpolowysanta },
+    { id: 'sr-field-medic-lu', name: 'Field Medic Lu', category: 'soldier', count: 1, imageUrl: imgMedykpolowylu },
     { id: 'sr-officer-1', name: 'Officer I', category: 'module', count: 2, imageUrl: imgOficer1 },
     { id: 'sr-chief', name: 'Chief', category: 'module', count: 2, imageUrl: imgWodz },
     { id: 'sr-officer-2', name: 'Officer II', category: 'module', count: 1, imageUrl: imgOficer2 },
