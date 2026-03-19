@@ -202,9 +202,16 @@ function HomeScreen({
         {armies.map((army) => (
           <ArmyCard key={army.id} army={army} onClick={() => onSelectArmy(army)} />
         ))}
-        <div className="rounded-2xl border border-dashed border-stone-700 p-6 flex items-center justify-center text-stone-600 text-sm">
-          More armies coming soon…
-        </div>
+        <a
+          href="https://www.siepomaga.pl/na-pomoc-dla-julki"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-2xl border border-dashed border-stone-600 p-6 flex flex-col items-center justify-center text-center text-stone-400 hover:border-stone-500 hover:text-stone-300 transition-all duration-200 group"
+        >
+          <span className="text-sm font-medium group-hover:underline">
+            Enjoying the app? Join Partisants today
+          </span>
+        </a>
       </div>
     </div>
   );
