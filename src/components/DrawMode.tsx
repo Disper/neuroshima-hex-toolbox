@@ -206,7 +206,12 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
           </summary>
           <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
             {[...remaining]
-              .sort((a, b) => CATEGORY_ORDER[a.tile.category] - CATEGORY_ORDER[b.tile.category])
+              .sort(
+                (a, b) =>
+                  CATEGORY_ORDER[a.tile.category] - CATEGORY_ORDER[b.tile.category] ||
+                  a.tile.id.localeCompare(b.tile.id) ||
+                  a.instanceId.localeCompare(b.instanceId)
+              )
               .map((instance) => (
                 <TileCard key={instance.instanceId} tile={instance.tile} count={1} small />
               ))}
