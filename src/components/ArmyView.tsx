@@ -1,6 +1,5 @@
 import type { Army, TileCategory } from '../data/types';
 import { TileCard } from './TileCard';
-import { buildDeck } from '../utils/deck';
 
 interface ArmyViewProps {
   army: Army;
@@ -15,9 +14,6 @@ const sections: { category: TileCategory; label: string }[] = [
 ];
 
 export function ArmyView({ army, onStartDraw }: ArmyViewProps) {
-  const deck = buildDeck(army);
-  const totalTiles = deck.length;
-
   const hqTile = {
     id: `${army.id}-hq`,
     name: 'HQ',
@@ -53,12 +49,6 @@ export function ArmyView({ army, onStartDraw }: ArmyViewProps) {
                 {army.description}
               </p>
             </div>
-            <div className="shrink-0 text-center sm:text-right">
-              <div className="text-4xl font-bold text-stone-100">{totalTiles}</div>
-              <div className="text-xs text-stone-500 uppercase tracking-wider mt-1">
-                Total Tiles
-              </div>
-            </div>
           </div>
 
           {/* HQ ability */}
@@ -85,7 +75,6 @@ export function ArmyView({ army, onStartDraw }: ArmyViewProps) {
         const tiles = allTiles.filter((t) => t.category === category);
         if (tiles.length === 0) return null;
         const sectionTotal = tiles.reduce((sum, t) => sum + t.count, 0);
-
         return (
           <section key={category}>
             <div className="flex items-baseline justify-between mb-3">
