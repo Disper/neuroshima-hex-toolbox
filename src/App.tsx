@@ -2,15 +2,18 @@ import { useState } from 'react';
 import { armies } from './data/armies';
 import type { Army } from './data/types';
 import { ArmyView } from './components/ArmyView';
+import { CounterMode } from './components/CounterMode';
 import { DeckSetup } from './components/DeckSetup';
 import { DrawMode } from './components/DrawMode';
 
-type Screen = 'home' | 'army' | 'setup' | 'draw';
+type Screen = 'home' | 'army' | 'setup' | 'draw' | 'counter';
+type FeatureMode = 'randomizer' | 'counter';
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('home');
   const [selectedArmy, setSelectedArmy] = useState<Army | null>(null);
   const [deckCode, setDeckCode] = useState<string>('');
+  const [featureMode, setFeatureMode] = useState<FeatureMode>('randomizer');
 
   const goHome = () => {
     setScreen('home');
@@ -20,7 +23,11 @@ export default function App() {
 
   const selectArmy = (army: Army) => {
     setSelectedArmy(army);
-    setScreen('army');
+    if (featureMode === 'counter') {
+      setScreen('counter');
+    } else {
+      setScreen('army');
+    }
   };
 
   const handleStartDraw = () => setScreen('setup');
@@ -51,9 +58,13 @@ export default function App() {
               </button>
               <span>/</span>
               <button
-                onClick={() => setScreen('army')}
+                onClick={() => setScreen(featureMode === 'counter' ? 'counter' : 'army')}
                 className="hover:text-stone-300 transition-colors"
-                style={screen === 'army' ? { color: selectedArmy.accentColor } : undefined}
+                style={
+                  screen === 'army' || screen === 'counter'
+                    ? { color: selectedArmy.accentColor }
+                    : undefined
+                }
               >
                 {selectedArmy.name}
               </button>
@@ -76,6 +87,12 @@ export default function App() {
                   )}
                 </>
               )}
+              {screen === 'counter' && (
+                <>
+                  <span>/</span>
+                  <span style={{ color: selectedArmy.accentColor }}>Tile Counter</span>
+                </>
+              )}
             </nav>
           )}
         </div>
@@ -83,7 +100,12 @@ export default function App() {
 
       <main>
         {screen === 'home' && (
-          <HomeScreen armies={armies} onSelectArmy={selectArmy} />
+          <HomeScreen
+            armies={armies}
+            featureMode={featureMode}
+            onFeatureModeChange={setFeatureMode}
+            onSelectArmy={selectArmy}
+          />
         )}
         {screen === 'army' && selectedArmy && (
           <ArmyView army={selectedArmy} onStartDraw={handleStartDraw} />
@@ -103,6 +125,9 @@ export default function App() {
             onBackToSetup={() => setScreen('setup')}
           />
         )}
+        {screen === 'counter' && selectedArmy && (
+          <CounterMode army={selectedArmy} onBack={() => setScreen('home')} />
+        )}
       </main>
     </div>
   );
@@ -110,9 +135,13 @@ export default function App() {
 
 function HomeScreen({
   armies,
+  featureMode,
+  onFeatureModeChange,
   onSelectArmy,
 }: {
   armies: Army[];
+  featureMode: FeatureMode;
+  onFeatureModeChange: (m: FeatureMode) => void;
   onSelectArmy: (a: Army) => void;
 }) {
   return (
@@ -120,12 +149,43 @@ function HomeScreen({
       <div className="text-center space-y-3">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-stone-100 tracking-tight">
           Neuroshima Hex
-          <br />
-          <span className="text-stone-400">Tile Randomizer</span>
         </h1>
         <p className="text-stone-500 text-base sm:text-lg max-w-md mx-auto leading-relaxed">
-          Browse army tile lists and draw tiles one by one using a shareable deck code —
-          so all players draw in the same order.
+          Browse army tile lists and track or draw tiles.
+        </p>
+      </div>
+
+      {/* Feature selector */}
+      <div className="flex gap-3 justify-center">
+        <button
+          onClick={() => onFeatureModeChange('randomizer')}
+          className={[
+            'px-6 py-3 rounded-xl font-semibold text-base transition-all duration-200 border',
+            featureMode === 'randomizer'
+              ? 'bg-stone-700 border-stone-500 text-stone-100'
+              : 'border-stone-700 text-stone-500 hover:border-stone-600 hover:text-stone-300',
+          ].join(' ')}
+        >
+          🎲 Tile Randomizer
+        </button>
+        <button
+          onClick={() => onFeatureModeChange('counter')}
+          className={[
+            'px-6 py-3 rounded-xl font-semibold text-base transition-all duration-200 border',
+            featureMode === 'counter'
+              ? 'bg-stone-700 border-stone-500 text-stone-100'
+              : 'border-stone-700 text-stone-500 hover:border-stone-600 hover:text-stone-300',
+          ].join(' ')}
+        >
+          📋 Tile Counter
+        </button>
+      </div>
+
+      <div className="space-y-2">
+        <p className="text-stone-500 text-sm text-center">
+          {featureMode === 'randomizer'
+            ? 'Draw tiles one by one using a shareable deck code — so all players draw in the same order.'
+            : 'Manually count tiles by clicking to move them between Remaining and Drawn.'}
         </p>
       </div>
 
