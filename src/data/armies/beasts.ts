@@ -19,7 +19,7 @@ export const beasts: Army = {
     { id: 'beasts-pull', name: 'Pull', category: 'instant', count: 3, imageUrl: `${BASE}/bestie-przyciagniecie.png` },
 
     // Soldiers
-    { id: 'beasts-cerberus', name: 'Cerberus', category: 'soldier', count: 1, imageUrl: `${BASE}/bestie-cerber.png` },
+    { id: 'beasts-cerberus', name: 'Cerberus', category: 'soldier', count: 1, imageUrl: `${BASE}/bestie-cerber.png`, excludeFromDeck: true },
     { id: 'beasts-alpha', name: 'Alpha', category: 'soldier', count: 1, imageUrl: `${BASE}/bestie-alfa.png` },
     { id: 'beasts-swarm', name: 'Swarm', category: 'soldier', count: 2, imageUrl: `${BASE}/bestie-roj.png` },
     { id: 'beasts-ram', name: 'Ram', category: 'soldier', count: 4, imageUrl: `${BASE}/bestie-taran.png` },

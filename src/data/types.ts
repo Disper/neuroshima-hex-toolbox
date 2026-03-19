@@ -7,6 +7,8 @@ export interface TileDefinition {
   count: number;
   description?: string;
   imageUrl?: string;
+  /** If true, tile is shown in army list but excluded from the draw deck */
+  excludeFromDeck?: boolean;
 }
 
 export interface Army {

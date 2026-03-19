@@ -9,8 +9,9 @@ export interface TileInstance {
 export function buildDeck(army: Army): TileInstance[] {
   const instances: TileInstance[] = [];
 
-  // Expand each tile definition by count (HQ is excluded — placed separately by players)
+  // Expand each tile definition by count (HQ excluded — placed separately by players)
   for (const tile of army.tiles) {
+    if (tile.excludeFromDeck) continue;
     for (let i = 0; i < tile.count; i++) {
       instances.push({
         instanceId: `${tile.id}-${i}`,
