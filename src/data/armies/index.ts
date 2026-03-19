@@ -25,13 +25,30 @@ import { deathBreath } from './deathbreath';
 import { doomsdayMachine } from './doomsdaymachine';
 import type { Army } from '../types';
 
+// Order: Outpost, Borgo, Hegemony, Moloch first, then by release date (neuroshimahex.pl/produkty/dodatki-armijne/)
 export const armies: Army[] = [
-  moloch, wiremen, uranopolis, steelPolice,
-  beasts, mephisto, pirates,
-  borgo, outpost, hegemony, mississippi,
-  newYork, smart, neojungle, vegas, dancer, sharrash,
-  sandRunners, ironGang, desertPeople,
-  troglodytes, partisans, merchantsGuild, deathBreath, doomsdayMachine,
+  outpost, borgo, hegemony, moloch,
+  steelPolice,      // Mar 2012
+  dancer,           // Jul 2012
+  newYork,          // 2012
+  neojungle,        // 2012
+  sharrash,         // May 2013
+  mephisto,         // Oct 2013
+  doomsdayMachine,  // Dec 2013
+  mississippi,      // May 2014
+  vegas,            // Aug 2014
+  smart,            // Sep 2014
+  uranopolis,       // Jan 2015
+  deathBreath,      // Oct 2016
+  ironGang,         // Nov 2017
+  sandRunners,      // Oct 2019
+  troglodytes,      // Sep 2020
+  beasts,           // Sep 2021
+  pirates,          // Sep 2022
+  merchantsGuild,   // Sep 2023
+  partisans,        // Nov 2023
+  desertPeople,     // Sep 2024
+  wiremen,          // Sep 2025
 ];
 
 export const getArmy = (id: string): Army | undefined =>
