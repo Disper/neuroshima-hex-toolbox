@@ -2,6 +2,23 @@ import type { Army } from '../types';
 
 const BASE = 'https://neuroshimahex.pl/gfx/druciarze';
 
+// Wiremen instant/Technology tokens — each has a unique ability and image
+import sniperImg from '../../assets/wiremen/HEX_wiremen_TECH_snajper.png';
+import castlingIniImg from '../../assets/wiremen/HEX_wiremen_TECH_roszada_ini.png';
+import castlingMatkaImg from '../../assets/wiremen/HEX_wiremen_TECH_roszada_matka.png';
+import pushCiosImg from '../../assets/wiremen/HEX_wiremen_TECH_odepchniecie_cios.png';
+import pushMatkaImg from '../../assets/wiremen/HEX_wiremen_TECH_odepchniecie_matka.png';
+import pushStrzalImg from '../../assets/wiremen/HEX_wiremen_TECH_odepchniecie_strzal.png';
+import moveCiosImg from '../../assets/wiremen/HEX_wiremen_TECH_ruch_cios.png';
+import moveIniImg from '../../assets/wiremen/HEX_wiremen_TECH_ruch_ini.png';
+import moveMatkaImg from '../../assets/wiremen/HEX_wiremen_TECH_ruch_matka.png';
+import moveStrzalImg from '../../assets/wiremen/HEX_wiremen_TECH_ruch_strzal.png';
+import battleCiosIniImg from '../../assets/wiremen/HEX_wiremen_TECH_bitwa_cios_ini.png';
+import battleMatkaCiosImg from '../../assets/wiremen/HEX_wiremen_TECH_bitwa_matka_cios.png';
+import battleMatkaStrzalImg from '../../assets/wiremen/HEX_wiremen_TECH_bitwa_matka_strzal.png';
+import battleStrzalIniImg from '../../assets/wiremen/HEX_wiremen_TECH_bitwa_strzal_ini.png';
+import battleZeroIniImg from '../../assets/wiremen/HEX_wiremen_TECH_bitwa_zero_ini.png';
+
 export const wiremen: Army = {
   id: 'wiremen',
   name: 'Wiremen',
@@ -13,42 +30,22 @@ export const wiremen: Army = {
     'Inspirator — once per turn the Wiremen player may place an Inspiration marker on any Technology token.',
   hqImageUrl: `${BASE}/druciarze-sztab.jpg`,
   tiles: [
-    // Instant / Technology tokens (dual-purpose)
-    {
-      id: 'wiremen-sniper',
-      name: 'Sniper',
-      category: 'instant',
-      count: 1,
-      imageUrl: `${BASE}/druciarze-snajper.jpg`,
-    },
-    {
-      id: 'wiremen-castling',
-      name: 'Castling',
-      category: 'instant',
-      count: 2,
-      imageUrl: `${BASE}/druciarze-roszada.jpg`,
-    },
-    {
-      id: 'wiremen-push',
-      name: 'Push',
-      category: 'instant',
-      count: 3,
-      imageUrl: `${BASE}/druciarze-odepchniecie.jpg`,
-    },
-    {
-      id: 'wiremen-move',
-      name: 'Move',
-      category: 'instant',
-      count: 4,
-      imageUrl: `${BASE}/druciarze-ruch.jpg`,
-    },
-    {
-      id: 'wiremen-battle',
-      name: 'Battle',
-      category: 'instant',
-      count: 5,
-      imageUrl: `${BASE}/druciarze-bitwa.jpg`,
-    },
+    // Instant / Technology tokens — each unique (dual-purpose: instant or Technology field)
+    { id: 'wiremen-sniper', name: 'Sniper', category: 'instant', count: 1, imageUrl: sniperImg },
+    { id: 'wiremen-castling-ini', name: 'Castling (Initiative)', category: 'instant', count: 1, imageUrl: castlingIniImg },
+    { id: 'wiremen-castling-matka', name: 'Castling (Mother)', category: 'instant', count: 1, imageUrl: castlingMatkaImg },
+    { id: 'wiremen-push-cios', name: 'Push (Melee)', category: 'instant', count: 1, imageUrl: pushCiosImg },
+    { id: 'wiremen-push-matka', name: 'Push (Mother)', category: 'instant', count: 1, imageUrl: pushMatkaImg },
+    { id: 'wiremen-push-strzal', name: 'Push (Ranged)', category: 'instant', count: 1, imageUrl: pushStrzalImg },
+    { id: 'wiremen-move-cios', name: 'Move (Melee)', category: 'instant', count: 1, imageUrl: moveCiosImg },
+    { id: 'wiremen-move-ini', name: 'Move (Initiative)', category: 'instant', count: 1, imageUrl: moveIniImg },
+    { id: 'wiremen-move-matka', name: 'Move (Mother)', category: 'instant', count: 1, imageUrl: moveMatkaImg },
+    { id: 'wiremen-move-strzal', name: 'Move (Ranged)', category: 'instant', count: 1, imageUrl: moveStrzalImg },
+    { id: 'wiremen-battle-cios-ini', name: 'Battle (Melee + Initiative)', category: 'instant', count: 1, imageUrl: battleCiosIniImg },
+    { id: 'wiremen-battle-matka-cios', name: 'Battle (Mother + Melee)', category: 'instant', count: 1, imageUrl: battleMatkaCiosImg },
+    { id: 'wiremen-battle-matka-strzal', name: 'Battle (Mother + Ranged)', category: 'instant', count: 1, imageUrl: battleMatkaStrzalImg },
+    { id: 'wiremen-battle-strzal-ini', name: 'Battle (Ranged + Initiative)', category: 'instant', count: 1, imageUrl: battleStrzalIniImg },
+    { id: 'wiremen-battle-zero-ini', name: 'Battle (Zero Initiative)', category: 'instant', count: 1, imageUrl: battleZeroIniImg },
 
     // Soldiers
     {
