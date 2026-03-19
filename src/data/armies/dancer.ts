@@ -18,8 +18,8 @@ export const dancer: Army = {
     { id: 'dancer-push', name: 'Push', category: 'instant', count: 7, imageUrl: `${BASE}/dancer-odepchniecie.png` },
     { id: 'dancer-move', name: 'Move', category: 'instant', count: 10, imageUrl: `${BASE}/dancer-ruch.png` },
 
-    // Soldiers (Objects)
-    { id: 'dancer-red-object', name: 'Red Object', category: 'soldier', count: 1, imageUrl: `${BASE}/dancer-obiektczerwony.png` },
-    { id: 'dancer-yellow-object', name: 'Yellow Object', category: 'soldier', count: 1, imageUrl: `${BASE}/dancer-obiektzolty.png` },
+    // HQ Objects (placed separately, not in draw deck)
+    { id: 'dancer-red-object', name: 'Red Object', category: 'hq', count: 1, imageUrl: `${BASE}/dancer-obiektczerwony.png`, excludeFromDeck: true },
+    { id: 'dancer-yellow-object', name: 'Yellow Object', category: 'hq', count: 1, imageUrl: `${BASE}/dancer-obiektzolty.png`, excludeFromDeck: true },
   ],
 };
