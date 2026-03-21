@@ -1,5 +1,6 @@
 import type { TileDefinition } from '../data/types';
 import type { TileInstance } from './deck';
+import imgSquadLeader from '../assets/merchantsguild/gildiakupcow-lider-zwiadu.jpg';
 import { mulberry32 } from './rng';
 
 export const MERCHANTS_GUILD_ARMY_ID = 'merchants-guild';
@@ -16,6 +17,8 @@ function respawnTileDef(n: 1 | 2): TileDefinition {
     category: 'instant',
     count: 1,
     description: 'Random mode only — shuffled into the deck after a Squad Leader is drawn.',
+    imageUrl: imgSquadLeader,
+    imageOverlayLabel: n === 1 ? 'R1' : 'R2',
   };
 }
 

@@ -7,6 +7,8 @@ export interface TileDefinition {
   count: number;
   description?: string;
   imageUrl?: string;
+  /** If set with imageUrl, image is shown very dark with this label centered (e.g. Merchants Guild Respawns) */
+  imageOverlayLabel?: string;
   /** If true, tile is shown in army list but excluded from the draw deck */
   excludeFromDeck?: boolean;
   /** If true, tile is shown next to HQ in the army view (not in its category section) */

@@ -251,8 +251,14 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
           <p className="text-xs text-stone-500 uppercase tracking-wider mb-3 font-semibold">
             Last Drawn — tile {drawIndex} of {totalTiles}
           </p>
-          <div className="max-w-xs">
-            <TileCard tile={lastDrawn.tile} count={1} />
+          {/* Same grid as “Drawn” below so width matches a single tile column */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+            <TileCard
+              key={lastDrawn.instanceId}
+              tile={lastDrawn.tile}
+              count={1}
+              spotlight
+            />
           </div>
         </div>
       )}

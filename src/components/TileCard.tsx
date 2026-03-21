@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { TileDefinition, TileCategory } from '../data/types';
 
 interface TileCardProps {
@@ -8,6 +8,8 @@ interface TileCardProps {
   dimmed?: boolean;
   /** Compact mode for grids of many tiles */
   small?: boolean;
+  /** Larger art area — e.g. DrawMode “Last Drawn” spotlight */
+  spotlight?: boolean;
   onClick?: () => void;
 }
 
@@ -48,19 +50,34 @@ const categoryIcon: Record<TileCategory, string> = {
   module: '⚙',
 };
 
-export function TileCard({ tile, count, dimmed, small, onClick }: TileCardProps) {
+export function TileCard({ tile, count, dimmed, small, spotlight, onClick }: TileCardProps) {
   const cfg = categoryConfig[tile.category];
   const displayCount = count ?? tile.count;
   const [imgError, setImgError] = useState(false);
 
+  useEffect(() => {
+    setImgError(false);
+  }, [tile.id, tile.imageUrl, tile.imageOverlayLabel]);
+
   const hasImage = !!tile.imageUrl && !imgError;
+
+  const imageBoxClass = small
+    ? 'h-20'
+    : spotlight
+      ? 'h-44 sm:h-48'
+      : 'h-32';
+  const overlayTextClass = small
+    ? 'text-base'
+    : spotlight
+      ? 'text-3xl sm:text-4xl'
+      : 'text-2xl';
 
   return (
     <button
       onClick={onClick}
       disabled={!onClick}
       className={[
-        'relative rounded-xl border text-left transition-all duration-200 select-none overflow-hidden flex flex-col',
+        'relative w-full rounded-xl border text-left transition-all duration-200 select-none overflow-hidden flex flex-col',
         cfg.border,
         'bg-stone-900',
         dimmed ? 'opacity-30 scale-95' : 'opacity-100 scale-100',
@@ -80,21 +97,44 @@ export function TileCard({ tile, count, dimmed, small, onClick }: TileCardProps)
         ].join(' ')}
       >
         {hasImage ? (
-          <img
-            src={tile.imageUrl}
-            alt={tile.name}
-            loading="lazy"
-            onError={() => setImgError(true)}
-            className={[
-              'object-contain w-full',
-              small ? 'h-20' : 'h-32',
-            ].join(' ')}
-          />
+          tile.imageOverlayLabel ? (
+            <div
+              className={[
+                'relative w-full overflow-hidden rounded-lg bg-black',
+                imageBoxClass,
+              ].join(' ')}
+            >
+              <img
+                src={tile.imageUrl}
+                alt={tile.name}
+                loading="lazy"
+                onError={() => setImgError(true)}
+                className="absolute inset-0 m-auto max-h-full max-w-full object-contain brightness-[0.2] contrast-90"
+              />
+              <div className="absolute inset-0 bg-black/65" aria-hidden />
+              <span
+                className={[
+                  'absolute inset-0 flex items-center justify-center font-black tracking-wide text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]',
+                  overlayTextClass,
+                ].join(' ')}
+              >
+                {tile.imageOverlayLabel}
+              </span>
+            </div>
+          ) : (
+            <img
+              src={tile.imageUrl}
+              alt={tile.name}
+              loading="lazy"
+              onError={() => setImgError(true)}
+              className={['object-contain w-full', imageBoxClass].join(' ')}
+            />
+          )
         ) : (
           <div
             className={[
               'flex items-center justify-center text-stone-400',
-              small ? 'h-20 text-3xl' : 'h-32 text-5xl',
+              small ? 'h-20 text-3xl' : `${imageBoxClass} text-5xl`,
             ].join(' ')}
           >
             {categoryIcon[tile.category]}
