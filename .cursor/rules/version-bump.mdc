@@ -9,7 +9,7 @@ globs: src/version.ts
 When the user asks to push changes:
 
 1. **Before committing**, update `src/version.ts`:
-   - Increment `APP_VERSION` by 0.0.1 (e.g. 1.0.0 → 1.0.1, 1.0.1 → 1.0.2)
+   - Increment `APP_VERSION`: by default **0.0.1** (patch), unless the user asks for a **minor** bump (e.g. 1.0.3 → 1.1.0) or **major** when explicitly requested.
    - Set `APP_VERSION_DATE` to today's date in `YYYY-MM-DD` format
 2. Include the version file in the commit.
 3. Then run `git push`.

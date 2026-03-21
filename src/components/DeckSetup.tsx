@@ -1,6 +1,14 @@
 import { useState, useCallback, useRef } from 'react';
 import type { Army } from '../data/types';
+import {
+  generateIronGangDeckCode,
+  IRON_GANG_ARMY_ID,
+  IRON_GANG_DECK_CODE_LEN,
+  parseIronGangDeckCode,
+} from '../utils/ironGangDeck';
 import { generateCode, codeToSeed } from '../utils/rng';
+
+const STANDARD_CODE_LEN = 6;
 
 interface DeckSetupProps {
   army: Army;
@@ -9,7 +17,12 @@ interface DeckSetupProps {
 }
 
 export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
-  const [code, setCode] = useState<string>(() => generateCode());
+  const isIronGang = army.id === IRON_GANG_ARMY_ID;
+  const codeLen = isIronGang ? IRON_GANG_DECK_CODE_LEN : STANDARD_CODE_LEN;
+
+  const [code, setCode] = useState<string>(() =>
+    isIronGang ? generateIronGangDeckCode() : generateCode()
+  );
   const [inputValue, setInputValue] = useState('');
   const [mode, setMode] = useState<'new' | 'join'>('new');
   const [error, setError] = useState('');
@@ -17,9 +30,9 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleRegenerate = useCallback(() => {
-    setCode(generateCode());
+    setCode(isIronGang ? generateIronGangDeckCode() : generateCode());
     setCopied(false);
-  }, []);
+  }, [isIronGang]);
 
   const handleCopy = useCallback(async () => {
     await navigator.clipboard.writeText(code);
@@ -27,30 +40,42 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
     setTimeout(() => setCopied(false), 2000);
   }, [code]);
 
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value.toUpperCase().replace(/[^23456789ABCDEFGHJKMNPQRSTUVWXYZ_]/g, '');
-    setInputValue(val.slice(0, 6));
-    setError('');
-  }, []);
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value.toUpperCase().replace(/[^23456789ABCDEFGHJKMNPQRSTUVWXYZ_]/g, '');
+      setInputValue(val.slice(0, codeLen));
+      setError('');
+    },
+    [codeLen]
+  );
 
   const handleStart = useCallback(() => {
     if (mode === 'new') {
       onStart(code);
     } else {
-      if (inputValue.length !== 6) {
-        setError('Code must be exactly 6 characters.');
+      if (inputValue.length !== codeLen) {
+        setError(`Code must be exactly ${codeLen} characters.`);
         inputRef.current?.focus();
         return;
       }
-      const seed = codeToSeed(inputValue);
-      if (seed === null) {
-        setError('Invalid code. Please check and try again.');
-        inputRef.current?.focus();
-        return;
+      if (isIronGang) {
+        const { error: parseErr } = parseIronGangDeckCode(inputValue);
+        if (parseErr) {
+          setError(parseErr);
+          inputRef.current?.focus();
+          return;
+        }
+      } else {
+        const seed = codeToSeed(inputValue);
+        if (seed === null) {
+          setError('Invalid code. Please check and try again.');
+          inputRef.current?.focus();
+          return;
+        }
       }
       onStart(inputValue);
     }
-  }, [mode, code, inputValue, onStart]);
+  }, [mode, code, inputValue, codeLen, isIronGang, onStart]);
 
   return (
     <div className="max-w-xl mx-auto px-4 py-8 space-y-6">
@@ -66,8 +91,22 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
       <div>
         <h1 className="text-2xl font-bold text-stone-100">Set Up Deck</h1>
         <p className="text-stone-400 text-sm mt-1">
-          Every deck gets a shareable 6-character code. Anyone using the same code
-          draws tiles in the same order.
+          {isIronGang ? (
+            <>
+              Iron Gang uses a <strong className="text-stone-300">7-character</strong> code: the
+              first 6 set the shuffle order; the <strong className="text-stone-300">7th</strong>{' '}
+              sets Hook mode (<span className="text-stone-300">2</span> = no Hook,{' '}
+              <span className="text-stone-300">3</span> = Officer,{' '}
+              <span className="text-stone-300">4</span> = Order,{' '}
+              <span className="text-stone-300">5</span> = Motorcyclist). Share the full code so
+              everyone uses the same deck.
+            </>
+          ) : (
+            <>
+              Every deck gets a shareable 6-character code. Anyone using the same code draws tiles
+              in the same order.
+            </>
+          )}
         </p>
       </div>
 
@@ -76,7 +115,10 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
         {(['new', 'join'] as const).map((m) => (
           <button
             key={m}
-            onClick={() => { setMode(m); setError(''); }}
+            onClick={() => {
+              setMode(m);
+              setError('');
+            }}
             className={[
               'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200',
               mode === m
@@ -97,19 +139,28 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
             <p className="text-xs text-stone-500 uppercase tracking-wider font-semibold mb-3">
               Your Deck Code
             </p>
-            <div className="flex items-center gap-3">
-              {/* Code display — one char per cell */}
+            <div className="flex items-center gap-3 flex-wrap">
               <div className="flex gap-1.5">
                 {code.split('').map((char, i) => (
                   <div
                     key={i}
-                    className="w-10 h-12 rounded-lg border border-stone-600 bg-stone-800 flex items-center justify-center text-xl font-mono font-bold text-stone-100"
+                    className={[
+                      'w-10 h-12 rounded-lg border border-stone-600 bg-stone-800 flex items-center justify-center text-xl font-mono font-bold text-stone-100',
+                      isIronGang && i === 6
+                        ? 'ring-2 ring-amber-500/40 border-amber-600/50'
+                        : '',
+                    ].join(' ')}
                   >
                     {char}
                   </div>
                 ))}
               </div>
             </div>
+            {isIronGang && (
+              <p className="text-xs text-stone-500 mt-3">
+                7th character (highlighted) is random — regenerate for a new Hook mode and shuffle.
+              </p>
+            )}
           </div>
 
           <div className="flex gap-2">
@@ -128,8 +179,8 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
           </div>
 
           <p className="text-xs text-stone-500 leading-relaxed">
-            Share this code with other players so everyone draws the same tile order.
-            You can regenerate a new code any time before starting.
+            Share this code with other players so everyone draws the same tile order
+            {isIronGang ? ' and Hook option' : ''}.
           </p>
         </div>
       )}
@@ -144,8 +195,8 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
             >
               Enter Deck Code
             </label>
-            <div className="flex gap-1.5">
-              {Array.from({ length: 6 }).map((_, i) => (
+            <div className="flex gap-1.5 flex-wrap">
+              {Array.from({ length: codeLen }).map((_, i) => (
                 <div
                   key={i}
                   className={[
@@ -153,32 +204,31 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
                     inputValue[i]
                       ? 'border-stone-500 bg-stone-800 text-stone-100'
                       : 'border-stone-700 bg-stone-800/50 text-stone-600',
+                    isIronGang && i === 6 ? 'ring-2 ring-amber-500/30' : '',
                   ].join(' ')}
                 >
                   {inputValue[i] ?? '·'}
                 </div>
               ))}
             </div>
-            {/* Hidden but accessible input */}
             <input
               id="code-input"
               ref={inputRef}
               type="text"
               value={inputValue}
               onChange={handleInputChange}
-              placeholder="e.g. K7M3PX"
-              maxLength={6}
+              placeholder={isIronGang ? 'e.g. K7M3PX3' : 'e.g. K7M3PX'}
+              maxLength={codeLen}
               autoComplete="off"
               autoCapitalize="characters"
               spellCheck={false}
               className="mt-3 w-full bg-stone-800 border border-stone-600 rounded-xl px-4 py-2.5 text-stone-100 text-base font-mono tracking-widest uppercase placeholder:text-stone-600 focus:outline-none focus:border-stone-400 transition-colors"
             />
-            {error && (
-              <p className="text-red-400 text-xs mt-2">{error}</p>
-            )}
+            {error && <p className="text-red-400 text-xs mt-2">{error}</p>}
           </div>
           <p className="text-xs text-stone-500 leading-relaxed">
-            Paste the code shared by another player to draw tiles in the same order.
+            Paste the code shared by another player to draw tiles in the same order
+            {isIronGang ? ' (include all 7 characters).' : '.'}
           </p>
         </div>
       )}

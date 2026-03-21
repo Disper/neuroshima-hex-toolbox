@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import type { Army, TileCategory } from '../data/types';
 
 const CATEGORY_ORDER: Record<TileCategory, number> = {
@@ -9,6 +9,14 @@ const CATEGORY_ORDER: Record<TileCategory, number> = {
 };
 import type { TileInstance } from '../utils/deck';
 import { buildDeck } from '../utils/deck';
+import {
+  applyIronGangHookMode,
+  getIronGangHookBanner,
+  IRON_GANG_ARMY_ID,
+  parseIronGangDeckCode,
+  type IronGangHookMode,
+} from '../utils/ironGangDeck';
+import { MERCHANTS_GUILD_ARMY_ID, maybeInjectMerchantsGuildRespawns } from '../utils/merchantsGuildRandom';
 import { codeToSeed, seededShuffle } from '../utils/rng';
 import { TileCard } from './TileCard';
 
@@ -19,14 +27,35 @@ interface DrawModeProps {
   onBackToSetup: () => void;
 }
 
-function buildShuffledDeck(army: Army, code: string): TileInstance[] {
+function buildShuffledDeck(
+  army: Army,
+  code: string,
+  ironGangHookMode?: IronGangHookMode | null
+): TileInstance[] {
+  let base = buildDeck(army);
+  if (army.id === IRON_GANG_ARMY_ID && ironGangHookMode != null) {
+    base = applyIronGangHookMode(base, ironGangHookMode);
+  }
   const seed = codeToSeed(code);
-  if (seed === null) return buildDeck(army);
-  return seededShuffle(buildDeck(army), seed);
+  if (seed === null) return base;
+  return seededShuffle(base, seed);
 }
 
 export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProps) {
-  const [deck] = useState<TileInstance[]>(() => buildShuffledDeck(army, deckCode));
+  const igParsed = useMemo(
+    () => (army.id === IRON_GANG_ARMY_ID ? parseIronGangDeckCode(deckCode) : null),
+    [army.id, deckCode]
+  );
+  const ironGangHookMode = igParsed?.mode ?? null;
+  const ironGangCodeError = igParsed?.error ?? null;
+
+  const [deck, setDeck] = useState<TileInstance[]>(() =>
+    buildShuffledDeck(
+      army,
+      deckCode,
+      army.id === IRON_GANG_ARMY_ID ? parseIronGangDeckCode(deckCode).mode : null
+    )
+  );
   const [drawIndex, setDrawIndex] = useState(0);
   const [copied, setCopied] = useState(false);
 
@@ -37,14 +66,27 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
   const isDone = drawIndex >= totalTiles;
 
   const handleDraw = useCallback(() => {
-    if (drawIndex < totalTiles) {
-      setDrawIndex((i) => i + 1);
-    }
-  }, [drawIndex, totalTiles]);
+    if (drawIndex >= deck.length) return;
+    const justDrawn = deck[drawIndex];
+    const nextIndex = drawIndex + 1;
+    const seed = codeToSeed(deckCode);
+    const newDeck = maybeInjectMerchantsGuildRespawns(
+      deck,
+      nextIndex,
+      justDrawn.tile.id,
+      army.id,
+      seed
+    );
+    setDeck(newDeck);
+    setDrawIndex(nextIndex);
+  }, [deck, drawIndex, deckCode, army.id]);
 
   const handleReset = useCallback(() => {
+    const mode =
+      army.id === IRON_GANG_ARMY_ID ? parseIronGangDeckCode(deckCode).mode : null;
+    setDeck(buildShuffledDeck(army, deckCode, mode));
     setDrawIndex(0);
-  }, []);
+  }, [army, deckCode]);
 
   const handleCopyCode = useCallback(async () => {
     await navigator.clipboard.writeText(deckCode);
@@ -72,17 +114,55 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
         </button>
       </div>
 
+      {ironGangCodeError && (
+        <div className="rounded-2xl border border-red-500/40 bg-red-950/30 px-4 py-3 text-sm text-red-300">
+          {ironGangCodeError}
+        </div>
+      )}
+
+      {/* Merchants Guild — random respawn tiles */}
+      {army.id === MERCHANTS_GUILD_ARMY_ID && (
+        <div className="rounded-2xl border border-stone-600 bg-stone-900/80 px-4 py-3 text-sm text-stone-400">
+          <span className="font-semibold text-stone-300">Merchants Guild (random mode):</span>{' '}
+          <strong className="text-stone-200">Respawn 1</strong> and{' '}
+          <strong className="text-stone-200">Respawn 2</strong> are not in the deck at start. Each is
+          shuffled into the remaining deck after the{' '}
+          <strong className="text-stone-200">first</strong> and{' '}
+          <strong className="text-stone-200">second</strong> Squad Leader is drawn (same order for
+          everyone).
+        </div>
+      )}
+
+      {/* Iron Gang — Hook deck rule */}
+      {army.id === IRON_GANG_ARMY_ID && !ironGangCodeError && ironGangHookMode != null && (
+        <div className="rounded-2xl border border-stone-600 bg-stone-900/80 px-4 py-3 text-sm text-stone-400">
+          <span className="font-semibold text-stone-300">Iron Gang (this deck):</span>{' '}
+          {getIronGangHookBanner(ironGangHookMode)}{' '}
+          <span className="text-stone-500">
+            (7th character of the code encodes Hook: 2 = no Hook, 3 = Officer, 4 = Order, 5 =
+            Motorcyclist.)
+          </span>
+        </div>
+      )}
+
       {/* Deck code banner */}
       <div className="rounded-2xl border border-stone-700 bg-stone-900 px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <p className="text-xs text-stone-500 uppercase tracking-wider font-semibold mb-1">
-            Deck Code — share this to draw in the same order
+            {army.id === IRON_GANG_ARMY_ID
+              ? 'Deck Code — first 6 characters = shuffle; 7th = Hook mode (2–5)'
+              : 'Deck Code — share this to draw in the same order'}
           </p>
-          <div className="flex gap-1.5 items-center">
+          <div className="flex gap-1.5 items-center flex-wrap">
             {deckCode.split('').map((char, i) => (
               <div
                 key={i}
-                className="w-8 h-9 sm:w-10 sm:h-11 rounded-lg border border-stone-600 bg-stone-800 flex items-center justify-center text-base sm:text-xl font-mono font-bold text-stone-100"
+                className={[
+                  'w-8 h-9 sm:w-10 sm:h-11 rounded-lg border border-stone-600 bg-stone-800 flex items-center justify-center text-base sm:text-xl font-mono font-bold text-stone-100',
+                  army.id === IRON_GANG_ARMY_ID && i === 6
+                    ? 'ml-1 ring-2 ring-amber-500/40 border-amber-600/50'
+                    : '',
+                ].join(' ')}
               >
                 {char}
               </div>

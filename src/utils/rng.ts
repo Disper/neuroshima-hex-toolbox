@@ -7,7 +7,7 @@ const BASE = ALPHABET.length; // 32
 const CODE_LEN = 6;
 
 /** Mulberry32 — fast, high-quality 32-bit seeded PRNG */
-function mulberry32(seed: number): () => number {
+export function mulberry32(seed: number): () => number {
   let s = seed >>> 0;
   return () => {
     s = (s + 0x6d2b79f5) >>> 0;
@@ -32,11 +32,16 @@ export function seedToCode(seed: number): string {
   return code;
 }
 
+/**
+ * Decode the first 6 characters as the deck seed (used for shuffle order).
+ * Longer codes (e.g. Iron Gang 7-char with Hook suffix) use only the prefix.
+ */
 export function codeToSeed(code: string): number | null {
   const upper = code.toUpperCase().trim();
-  if (upper.length !== CODE_LEN) return null;
+  if (upper.length < CODE_LEN) return null;
+  const slice = upper.slice(0, CODE_LEN);
   let n = 0;
-  for (const char of upper) {
+  for (const char of slice) {
     const idx = ALPHABET.indexOf(char);
     if (idx === -1) return null;
     n = n * BASE + idx;

@@ -33,10 +33,10 @@ export const ironGang: Army = {
     { id: 'ig-lumberjack', name: 'Lumberjack', category: 'soldier', count: 5, imageUrl: imgDrwal },
     { id: 'ig-mountain', name: 'Mountain', category: 'soldier', count: 3, imageUrl: imgGora },
     { id: 'ig-motorcyclist', name: 'Motorcyclist', category: 'soldier', count: 4, imageUrl: imgMotocyklista },
+    { id: 'ig-hook', name: 'Hook', category: 'soldier', count: 1, imageUrl: imgHak },
 
     // Modules
     { id: 'ig-officer', name: 'Officer', category: 'module', count: 4, imageUrl: imgOficer },
     { id: 'ig-boss', name: 'Boss', category: 'module', count: 1, imageUrl: imgSzef },
-    { id: 'ig-hook', name: 'Hook', category: 'module', count: 1, imageUrl: imgHak },
   ],
 };

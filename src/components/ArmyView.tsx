@@ -23,7 +23,7 @@ export function ArmyView({ army, onStartDraw }: ArmyViewProps) {
     imageUrl: army.hqImageUrl,
   };
 
-  const allTiles = [hqTile, ...army.tiles];
+  const tilesWithHq = army.tiles.filter((t) => t.displayWithHq);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8 space-y-8">
@@ -72,7 +72,30 @@ export function ArmyView({ army, onStartDraw }: ArmyViewProps) {
 
       {/* Tile sections */}
       {sections.map(({ category, label }) => {
-        const tiles = allTiles.filter((t) => t.category === category);
+        if (category === 'hq') {
+          const sectionTotal =
+            1 + tilesWithHq.reduce((sum, t) => sum + t.count, 0);
+          return (
+            <section key={category}>
+              <div className="flex items-baseline justify-between mb-3">
+                <h2 className="text-lg font-semibold text-stone-200">{label}</h2>
+                <span className="text-sm text-stone-500">
+                  {sectionTotal} tile{sectionTotal !== 1 ? 's' : ''}
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-3 items-stretch">
+                <TileCard tile={hqTile} />
+                {tilesWithHq.map((tile) => (
+                  <TileCard key={tile.id} tile={tile} />
+                ))}
+              </div>
+            </section>
+          );
+        }
+
+        const tiles = army.tiles.filter(
+          (t) => t.category === category && !t.displayWithHq
+        );
         if (tiles.length === 0) return null;
         const sectionTotal = tiles.reduce((sum, t) => sum + t.count, 0);
         return (

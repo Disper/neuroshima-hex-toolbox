@@ -120,6 +120,7 @@ export default function App() {
         )}
         {screen === 'draw' && selectedArmy && deckCode && (
           <DrawMode
+            key={`${selectedArmy.id}-${deckCode}`}
             army={selectedArmy}
             deckCode={deckCode}
             onBack={() => setScreen('army')}
@@ -250,13 +251,22 @@ function ArmyCard({ army, onClick }: { army: Army; onClick: () => void }) {
 
         <div className="mt-4 flex items-center gap-2 text-xs text-stone-500">
           <span className="px-2 py-0.5 rounded bg-red-950/60 border border-red-500/30 text-red-400">
-            {army.tiles.filter((t) => t.category === 'instant').reduce((s, t) => s + t.count, 0)} instant
+            {army.tiles
+              .filter((t) => t.category === 'instant' && !t.excludeFromDeck)
+              .reduce((s, t) => s + t.count, 0)}{' '}
+            instant
           </span>
           <span className="px-2 py-0.5 rounded bg-blue-950/60 border border-blue-500/30 text-blue-400">
-            {army.tiles.filter((t) => t.category === 'soldier').reduce((s, t) => s + t.count, 0)} soldiers
+            {army.tiles
+              .filter((t) => t.category === 'soldier' && !t.excludeFromDeck)
+              .reduce((s, t) => s + t.count, 0)}{' '}
+            soldiers
           </span>
           <span className="px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">
-            {army.tiles.filter((t) => t.category === 'module').reduce((s, t) => s + t.count, 0)} modules
+            {army.tiles
+              .filter((t) => t.category === 'module' && !t.excludeFromDeck)
+              .reduce((s, t) => s + t.count, 0)}{' '}
+            modules
           </span>
         </div>
       </div>

@@ -40,11 +40,11 @@ export const desertPeople: Army = {
     { id: 'dp-tracker', name: 'Tracker', category: 'soldier', count: 2, imageUrl: imgTropiciel },
     { id: 'dp-rattlesnake', name: 'Rattlesnake', category: 'soldier', count: 1, imageUrl: imgGrzechotnik },
     { id: 'dp-worm-clan-warrior', name: 'Worm Clan Warrior', category: 'soldier', count: 3, imageUrl: imgWojownikKlanuCzerwia },
-    { id: 'dp-spearman', name: 'Spearman', category: 'soldier', count: 2, imageUrl: imgGrotnik },
-    { id: 'dp-hideout', name: 'Hideout', category: 'soldier', count: 1, imageUrl: imgKryjowka },
+    { id: 'dp-shaman', name: 'Shaman', category: 'soldier', count: 3, imageUrl: imgSzamanka },
 
     // Modules
-    { id: 'dp-shaman', name: 'Shaman', category: 'module', count: 3, imageUrl: imgSzamanka },
+    { id: 'dp-spearman', name: 'Spearman', category: 'module', count: 2, imageUrl: imgGrotnik },
+    { id: 'dp-hideout', name: 'Hideout', category: 'module', count: 1, imageUrl: imgKryjowka },
     { id: 'dp-officer', name: 'Officer', category: 'module', count: 2, imageUrl: imgOficer },
     { id: 'dp-scout', name: 'Scout', category: 'module', count: 2, imageUrl: imgZwiadowca },
   ],

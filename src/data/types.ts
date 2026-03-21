@@ -9,6 +9,8 @@ export interface TileDefinition {
   imageUrl?: string;
   /** If true, tile is shown in army list but excluded from the draw deck */
   excludeFromDeck?: boolean;
+  /** If true, tile is shown next to HQ in the army view (not in its category section) */
+  displayWithHq?: boolean;
 }
 
 export interface Army {
