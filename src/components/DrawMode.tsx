@@ -18,7 +18,11 @@ import {
   parseIronGangDeckCode,
   type IronGangHookMode,
 } from '../utils/ironGangDeck';
-import { MERCHANTS_GUILD_ARMY_ID, maybeInjectMerchantsGuildRespawns } from '../utils/merchantsGuildRandom';
+import {
+  insertMerchantsGuildReconnaissance,
+  MERCHANTS_GUILD_ARMY_ID,
+  MG_SQUAD_LEADER_TILE_ID,
+} from '../utils/merchantsGuildRandom';
 import { codeToSeed, seededShuffle } from '../utils/rng';
 import { TileCard } from './TileCard';
 
@@ -60,34 +64,46 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
   );
   const [drawIndex, setDrawIndex] = useState(0);
   const [copied, setCopied] = useState(false);
+  /** Merchants Guild: user has tapped shuffle for each Reconnaissance (reset with deck reset). */
+  const [mgRecon1Shuffled, setMgRecon1Shuffled] = useState(false);
+  const [mgRecon2Shuffled, setMgRecon2Shuffled] = useState(false);
 
   const totalTiles = deck.length;
   const drawn = deck.slice(0, drawIndex);
   const remaining = deck.slice(drawIndex);
+
+  const squadLeadersDrawn = useMemo(() => {
+    if (army.id !== MERCHANTS_GUILD_ARMY_ID) return 0;
+    return drawn.filter((t) => t.tile.id === MG_SQUAD_LEADER_TILE_ID).length;
+  }, [army.id, drawn]);
   const lastDrawn = drawn.length > 0 ? drawn[drawn.length - 1] : null;
   const isDone = drawIndex >= totalTiles;
 
   const handleDraw = useCallback(() => {
     if (drawIndex >= deck.length) return;
-    const justDrawn = deck[drawIndex];
-    const nextIndex = drawIndex + 1;
-    const seed = codeToSeed(deckCode);
-    const newDeck = maybeInjectMerchantsGuildRespawns(
-      deck,
-      nextIndex,
-      justDrawn.tile.id,
-      army.id,
-      seed
-    );
-    setDeck(newDeck);
-    setDrawIndex(nextIndex);
-  }, [deck, drawIndex, deckCode, army.id]);
+    setDrawIndex((i) => i + 1);
+  }, [deck.length, drawIndex]);
+
+  const handleShuffleReconnaissance = useCallback(
+    (which: 1 | 2) => {
+      if (army.id !== MERCHANTS_GUILD_ARMY_ID) return;
+      const seed = codeToSeed(deckCode);
+      setDeck((prev) =>
+        insertMerchantsGuildReconnaissance(prev, drawIndex, which, army.id, seed)
+      );
+      if (which === 1) setMgRecon1Shuffled(true);
+      else setMgRecon2Shuffled(true);
+    },
+    [army.id, deckCode, drawIndex]
+  );
 
   const handleReset = useCallback(() => {
     const mode =
       army.id === IRON_GANG_ARMY_ID ? parseIronGangDeckCode(deckCode).mode : null;
     setDeck(buildShuffledDeck(army, deckCode, mode));
     setDrawIndex(0);
+    setMgRecon1Shuffled(false);
+    setMgRecon2Shuffled(false);
   }, [army, deckCode]);
 
   const handleCopyCode = useCallback(async () => {
@@ -122,16 +138,17 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
         </div>
       )}
 
-      {/* Merchants Guild — random Reconnaissance tiles */}
+      {/* Merchants Guild — Reconnaissance tiles */}
       {army.id === MERCHANTS_GUILD_ARMY_ID && (
         <div className="rounded-2xl border border-stone-600 bg-stone-900/80 px-4 py-3 text-sm text-stone-400">
           <span className="font-semibold text-stone-300">Merchants Guild (random mode):</span>{' '}
           <strong className="text-stone-200">Reconnaissance 1</strong> and{' '}
-          <strong className="text-stone-200">Reconnaissance 2</strong> are not in the deck at start. Each is
-          shuffled into the remaining deck after the{' '}
-          <strong className="text-stone-200">first</strong> and{' '}
-          <strong className="text-stone-200">second</strong> Squad Leader is drawn (same order for
-          everyone).
+          <strong className="text-stone-200">Reconnaissance 2</strong> are not in the deck at start. After
+          the <strong className="text-stone-200">first</strong> Squad Leader is drawn, use{' '}
+          <strong className="text-stone-200">Shuffle Reconnaissance 1</strong>; after the{' '}
+          <strong className="text-stone-200">second</strong> Squad Leader, use{' '}
+          <strong className="text-stone-200">Shuffle Reconnaissance 2</strong>. Each inserts that tile at a
+          random position in the remaining deck (position is deterministic from the deck code).
         </div>
       )}
 
@@ -212,6 +229,32 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
           <span>{remaining.length} remaining</span>
         </div>
       </div>
+
+      {/* Merchants Guild — manual Reconnaissance shuffle */}
+      {army.id === MERCHANTS_GUILD_ARMY_ID &&
+      ((squadLeadersDrawn >= 1 && !mgRecon1Shuffled) ||
+        (squadLeadersDrawn >= 2 && !mgRecon2Shuffled)) ? (
+        <div className="flex flex-wrap gap-2">
+          {squadLeadersDrawn >= 1 && !mgRecon1Shuffled && (
+            <button
+              type="button"
+              onClick={() => handleShuffleReconnaissance(1)}
+              className="flex-1 min-w-[200px] py-3 px-4 rounded-xl font-semibold text-sm border-2 border-orange-500/50 bg-orange-950/40 text-orange-200 hover:bg-orange-900/50 hover:border-orange-400 transition-all focus:outline-none focus:ring-2 focus:ring-orange-500/40"
+            >
+              Shuffle Reconnaissance 1
+            </button>
+          )}
+          {squadLeadersDrawn >= 2 && !mgRecon2Shuffled && (
+            <button
+              type="button"
+              onClick={() => handleShuffleReconnaissance(2)}
+              className="flex-1 min-w-[200px] py-3 px-4 rounded-xl font-semibold text-sm border-2 border-orange-500/50 bg-orange-950/40 text-orange-200 hover:bg-orange-900/50 hover:border-orange-400 transition-all focus:outline-none focus:ring-2 focus:ring-orange-500/40"
+            >
+              Shuffle Reconnaissance 2
+            </button>
+          )}
+        </div>
+      ) : null}
 
       {/* Draw button / done */}
       {isDone ? (

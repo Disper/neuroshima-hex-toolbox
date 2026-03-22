@@ -16,7 +16,8 @@ function respawnTileDef(n: 1 | 2): TileDefinition {
     name: n === 1 ? 'Reconnaissance 1' : 'Reconnaissance 2',
     category: 'instant',
     count: 1,
-    description: 'Random mode only — shuffled into the deck after a Squad Leader is drawn.',
+    description:
+      'Random mode only — tap Shuffle Reconnaissance after the required Squad Leader(s) are drawn.',
     imageUrl: imgSquadLeader,
     imageOverlayLabel: n === 1 ? 'RC1' : 'RC2',
   };
@@ -53,38 +54,24 @@ export function insertIntoRemainingDeck(
   return copy;
 }
 
-export function maybeInjectMerchantsGuildRespawns(
+/**
+ * Insert Reconnaissance 1 or 2 into the remaining deck at a random position (seeded from deck code).
+ * Used when the player taps "Shuffle Reconnaissance" after the corresponding Squad Leader(s) have been drawn.
+ */
+export function insertMerchantsGuildReconnaissance(
   deck: TileInstance[],
   firstRemainingIndex: number,
-  justDrawnTileId: string,
+  which: 1 | 2,
   armyId: string,
   seed: number | null
 ): TileInstance[] {
   if (armyId !== MERCHANTS_GUILD_ARMY_ID) return deck;
-  if (justDrawnTileId !== MG_SQUAD_LEADER_TILE_ID) return deck;
-
-  const drawn = deck.slice(0, firstRemainingIndex);
-  const squadLeadersDrawn = drawn.filter(
-    (t) => t.tile.id === MG_SQUAD_LEADER_TILE_ID
-  ).length;
-
-  if (squadLeadersDrawn === 1) {
-    return insertIntoRemainingDeck(
-      deck,
-      firstRemainingIndex,
-      createMerchantsGuildRespawnInstance(1, armyId),
-      seed,
-      SALT_RESPAWN_1
-    );
-  }
-  if (squadLeadersDrawn === 2) {
-    return insertIntoRemainingDeck(
-      deck,
-      firstRemainingIndex,
-      createMerchantsGuildRespawnInstance(2, armyId),
-      seed,
-      SALT_RESPAWN_2
-    );
-  }
-  return deck;
+  const salt = which === 1 ? SALT_RESPAWN_1 : SALT_RESPAWN_2;
+  return insertIntoRemainingDeck(
+    deck,
+    firstRemainingIndex,
+    createMerchantsGuildRespawnInstance(which, armyId),
+    seed,
+    salt
+  );
 }
