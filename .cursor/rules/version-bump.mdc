@@ -1,15 +1,17 @@
 ---
-description: Version bump when pushing changes
-alwaysApply: false
+description: Patch version bump when pushing (unless major/minor requested)
+alwaysApply: true
 globs: src/version.ts
 ---
 
-# Version Bump on Push
+# Version bump when pushing
 
-When the user asks to push changes:
+Whenever the user asks to **push** (or otherwise ship) changes:
 
 1. **Before committing**, update `src/version.ts`:
-   - Increment `APP_VERSION`: by default **0.0.1** (patch), unless the user asks for a **minor** bump (e.g. 1.0.3 → 1.1.0) or **major** when explicitly requested.
-   - Set `APP_VERSION_DATE` to today's date in `YYYY-MM-DD` format
-2. Include the version file in the commit.
-3. Then run `git push`.
+   - Increment **`APP_VERSION`** with a **patch** bump by default (e.g. `1.1.1` → `1.1.2`), unless the user explicitly asks for a **minor** bump (`1.1.x` → `1.2.0`) or **major** bump (`1.x.x` → `2.0.0`).
+   - Set `APP_VERSION_DATE` to **today’s date** in `YYYY-MM-DD` format.
+2. **Include** `src/version.ts` in the same commit as the other changes (or the commit that you push).
+3. Then run **`git push`**.
+
+If there is nothing else to commit, still bump the patch version and push that version-only commit.
