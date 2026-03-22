@@ -44,12 +44,14 @@ export const sharrash: Army = {
     { id: 'sharrash-underground', name: 'Underground', category: 'module', count: 1, imageUrl: imgPodziemia },
     { id: 'sharrash-dump', name: 'Dump', category: 'module', count: 1, imageUrl: imgSmietnisko },
 
+    // Foundations
+    { id: 'sharrash-hole', name: 'Hole', category: 'foundation', count: 1, imageUrl: imgDziura },
+
     // Modules
     { id: 'sharrash-mother', name: 'Mother', category: 'module', count: 1, imageUrl: imgMatka },
     { id: 'sharrash-transport', name: 'Transport', category: 'module', count: 2, imageUrl: imgTransport },
     { id: 'sharrash-officer', name: 'Officer', category: 'module', count: 1, imageUrl: imgOficer },
     { id: 'sharrash-medic', name: 'Medic', category: 'module', count: 2, imageUrl: imgMedyk },
     { id: 'sharrash-scout', name: 'Scout', category: 'module', count: 1, imageUrl: imgZwiadowca },
-    { id: 'sharrash-hole', name: 'Hole', category: 'module', count: 1, imageUrl: imgDziura },
   ],
 };
