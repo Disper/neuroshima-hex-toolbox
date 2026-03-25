@@ -18,7 +18,7 @@ export const troglodytes: Army = {
   id: 'troglodytes',
   name: 'Troglodytes',
   color: '#0a1414',
-  accentColor: '#67e8f9',
+  accentColor: '#597b8b',
   description:
     'Cave-dwelling mutants adapted to cold and darkness. Troglodytes field Bears, Archers, Ice Monkeys, and the unique Satiety system — markers placed when Cannibalizing that grow stronger as the battle progresses.',
   hqAbility: 'Gourmand — adjacent units may place Greater Satiety when they Cannibalize.',

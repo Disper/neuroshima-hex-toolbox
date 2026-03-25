@@ -22,7 +22,7 @@ export const beasts: Army = {
   id: 'beasts',
   name: 'Beasts',
   color: '#14200f',
-  accentColor: '#84cc16',
+  accentColor: '#97672b',
   description:
     'Feral mutants and monstrous creatures that roam the wasteland. Beasts overwhelm enemies with raw numbers and relentless aggression — fast, hard-hitting Hive units backed by a surprisingly large Battle token pool.',
   hqAbility: 'Lair — at game start, place Cerberus adjacent to HQ. Beasts HQ has Initiative 1.',

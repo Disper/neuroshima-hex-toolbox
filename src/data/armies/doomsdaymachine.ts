@@ -22,7 +22,7 @@ export const doomsdayMachine: Army = {
   id: 'doomsday-machine',
   name: 'Doomsday Machine',
   color: '#0a0a0f',
-  accentColor: '#64748b',
+  accentColor: '#5a645f',
   description:
     'An autonomous war machine that deploys Shooter units — Alpha, Gamma, Delta, Omega — and Gauss Cannons. Doomsday Machine has five Medics, the most in the game, and relies on Fire Positions and Traps for area control.',
   hqAbility: 'Once per turn, one friendly unit may rotate.',

@@ -12,7 +12,7 @@ export const dancer: Army = {
   id: 'dancer',
   name: 'Dancer',
   color: '#0a0a1a',
-  accentColor: '#8b5cf6',
+  accentColor: '#7d6d60',
   description:
     'Three board Objects (Blue, Red, Yellow) replace a normal HQ. The army has the highest instant count in the game — huge stacks of Action, Battle, Push Back, and Move. Strengths: durable units and Healing; Objects can hurt the enemy outside Battle. Weakness: only three units — you lose when any Object is destroyed (see NeuroshimaHex.pl / Dancer).',
   hqAbility:

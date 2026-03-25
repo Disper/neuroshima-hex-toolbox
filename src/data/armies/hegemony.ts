@@ -24,7 +24,7 @@ export const hegemony: Army = {
   id: 'hegemony',
   name: 'Hegemony',
   color: '#1a1005',
-  accentColor: '#fb923c',
+  accentColor: '#9d882c',
   description:
     'A ruthless criminal empire that controls the wasteland through fear and firepower. Hegemony combines cheap, abundant Gangers with elite specialists and powerful support modules to dominate the mid-game.',
   hqAbility: 'All friendly adjacent units gain +1 melee attack strength.',

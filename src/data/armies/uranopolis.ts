@@ -26,7 +26,7 @@ export const uranopolis: Army = {
   id: 'uranopolis',
   name: 'Uranopolis',
   color: '#1a0f2e',
-  accentColor: '#a855f7',
+  accentColor: '#596155',
   description:
     'A technologically advanced city-state whose citizens wield powerful generators and cutting-edge weaponry. Uranopolis units are fragile but pack devastating firepower, supported by a powerful array of modules.',
   hqAbility: 'Provides Power to each adjacent friendly unit.',

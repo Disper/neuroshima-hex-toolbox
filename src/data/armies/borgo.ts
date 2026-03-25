@@ -19,7 +19,7 @@ export const borgo: Army = {
   id: 'borgo',
   name: 'Borgo',
   color: '#1a0a0f',
-  accentColor: '#f43f5e',
+  accentColor: '#4a657f',
   description:
     'A savage mutant gang led by the towering Super-mutant. Borgo floods the board with cheap, aggressive fighters and overwhelms enemies through sheer numbers, backed by the highest Battle token count in the game.',
   hqAbility: 'All friendly adjacent units gain +1 to Initiative.',

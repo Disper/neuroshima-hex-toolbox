@@ -28,7 +28,7 @@ export const moloch: Army = {
   id: 'moloch',
   name: 'Moloch',
   color: '#1e293b',
-  accentColor: '#f97316',
+  accentColor: '#a93e29',
   description:
     'A mechano-electronic entity spanning several states. After 30 years it is larger and more powerful than ever, sending machine armies across the wasteland. Strong and durable, but slow and with few Battle tokens.',
   hqAbility: '+1 to ranged attack strength for all adjacent friendly units.',

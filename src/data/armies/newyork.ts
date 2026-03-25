@@ -26,7 +26,7 @@ export const newYork: Army = {
   id: 'new-york',
   name: 'New York',
   color: '#0f1419',
-  accentColor: '#6366f1',
+  accentColor: '#56647d',
   description:
     'A hardened urban militia defending the ruins of the Big Apple. New York fields a mix of cops, snipers, and street fighters — strong ranged firepower backed by versatile modules and Mine tokens for area control.',
   hqAbility: 'Adjacent friendly units gain +1 durability (one extra wound before death). Lost when unit leaves adjacency or HQ is netted.',

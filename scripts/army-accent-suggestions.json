@@ -1,0 +1,227 @@
+[
+  {
+    "id": "beasts",
+    "file": "beasts.ts",
+    "image": "../../assets/beasts/bestie-sztab.png",
+    "sampledHex": "#97672b",
+    "accentColor": "#97672b",
+    "oldAccent": "#84cc16",
+    "contrast": "4.89"
+  },
+  {
+    "id": "borgo",
+    "file": "borgo.ts",
+    "image": "../../assets/borgo/borgo-sztab.png",
+    "sampledHex": "#4a657f",
+    "accentColor": "#4a657f",
+    "oldAccent": "#f43f5e",
+    "contrast": "6.07"
+  },
+  {
+    "id": "dancer",
+    "file": "dancer.ts",
+    "image": "../../assets/dancer/dancer-obiektniebieski.png",
+    "sampledHex": "#7d6d60",
+    "accentColor": "#7d6d60",
+    "oldAccent": "#8b5cf6",
+    "contrast": "4.97"
+  },
+  {
+    "id": "death-breath",
+    "file": "deathbreath.ts",
+    "image": "../../assets/deathbreath/deathbreath-sztab.png",
+    "sampledHex": "#8d5131",
+    "accentColor": "#8d5131",
+    "oldAccent": "#78716c",
+    "contrast": "6.26"
+  },
+  {
+    "id": "desert-people",
+    "file": "desertpeople.ts",
+    "image": "../../assets/desertpeople/ludziepustyni-sztab.jpg",
+    "sampledHex": "#76552e",
+    "accentColor": "#76552e",
+    "oldAccent": "#e5c07b",
+    "contrast": "6.75"
+  },
+  {
+    "id": "doomsday-machine",
+    "file": "doomsdaymachine.ts",
+    "image": "../../assets/doomsdaymachine/doomsdaymachine-sztab.png",
+    "sampledHex": "#5a645f",
+    "accentColor": "#5a645f",
+    "oldAccent": "#64748b",
+    "contrast": "6.14"
+  },
+  {
+    "id": "hegemony",
+    "file": "hegemony.ts",
+    "image": "../../assets/hegemony/hegemonia-sztab.png",
+    "sampledHex": "#9d882c",
+    "accentColor": "#9d882c",
+    "oldAccent": "#fb923c",
+    "contrast": "3.50"
+  },
+  {
+    "id": "iron-gang",
+    "file": "irongang.ts",
+    "image": "../../assets/irongang/irongang-sztab.png",
+    "sampledHex": "#afaf16",
+    "accentColor": "#959512",
+    "oldAccent": "#94a3b8",
+    "contrast": "3.19"
+  },
+  {
+    "id": "mephisto",
+    "file": "mephisto.ts",
+    "image": "../../assets/mephisto/mephisto-sztab.png",
+    "sampledHex": "#854d38",
+    "accentColor": "#854d38",
+    "oldAccent": "#ef4444",
+    "contrast": "6.74"
+  },
+  {
+    "id": "merchants-guild",
+    "file": "merchantsguild.ts",
+    "image": "../../assets/merchantsguild/gildiakupcow-sztab.jpg",
+    "sampledHex": "#9d8a2b",
+    "accentColor": "#9d8a2b",
+    "oldAccent": "#c2410c",
+    "contrast": "3.44"
+  },
+  {
+    "id": "mississippi",
+    "file": "mississippi.ts",
+    "image": "../../assets/mississippi/missisipi-sztab.png",
+    "sampledHex": "#706a41",
+    "accentColor": "#706a41",
+    "oldAccent": "#14b8a6",
+    "contrast": "5.49"
+  },
+  {
+    "id": "moloch",
+    "file": "moloch.ts",
+    "image": "../../assets/moloch/moloch-sztab.png",
+    "sampledHex": "#a93e29",
+    "accentColor": "#a93e29",
+    "oldAccent": "#f97316",
+    "contrast": "6.16"
+  },
+  {
+    "id": "neojungle",
+    "file": "neojungle.ts",
+    "image": "../../assets/neojungle/neodzungla-sztab.png",
+    "sampledHex": "#437232",
+    "accentColor": "#437232",
+    "oldAccent": "#22c55e",
+    "contrast": "5.69"
+  },
+  {
+    "id": "new-york",
+    "file": "newyork.ts",
+    "image": "../../assets/newyork/nowyjork-sztab.png",
+    "sampledHex": "#56647d",
+    "accentColor": "#56647d",
+    "oldAccent": "#6366f1",
+    "contrast": "5.97"
+  },
+  {
+    "id": "outpost",
+    "file": "outpost.ts",
+    "image": "../../assets/outpost/posterunek-sztab.png",
+    "sampledHex": "#63982a",
+    "accentColor": "#63982a",
+    "oldAccent": "#34d399",
+    "contrast": "3.47"
+  },
+  {
+    "id": "partisans",
+    "file": "partisans.ts",
+    "image": "../../assets/partisans/partyzanci-sztab.jpg",
+    "sampledHex": "#5a333d",
+    "accentColor": "#5a333d",
+    "oldAccent": "#facc15",
+    "contrast": "10.63"
+  },
+  {
+    "id": "pirates",
+    "file": "pirates.ts",
+    "image": "../../assets/pirates/piraci-sztab.jpg",
+    "sampledHex": "#177d88",
+    "accentColor": "#177d88",
+    "oldAccent": "#f59e0b",
+    "contrast": "4.86"
+  },
+  {
+    "id": "sand-runners",
+    "file": "sandrunners.ts",
+    "image": "../../assets/sandrunners/sandrunners-sztab.png",
+    "sampledHex": "#95501d",
+    "accentColor": "#95501d",
+    "oldAccent": "#d4a574",
+    "contrast": "6.10"
+  },
+  {
+    "id": "sharrash",
+    "file": "sharrash.ts",
+    "image": "../../assets/sharrash/sharrash-sztab.png",
+    "sampledHex": "#497762",
+    "accentColor": "#497762",
+    "oldAccent": "#dc2626",
+    "contrast": "5.12"
+  },
+  {
+    "id": "smart",
+    "file": "smart.ts",
+    "image": "../../assets/smart/smart-sztab.png",
+    "sampledHex": "#575b5d",
+    "accentColor": "#575b5d",
+    "oldAccent": "#06b6d4",
+    "contrast": "6.86"
+  },
+  {
+    "id": "steel-police",
+    "file": "steelpolice.ts",
+    "image": "../../assets/steelpolice/stalowapolicja-sztab.png",
+    "sampledHex": "#7b4767",
+    "accentColor": "#7b4767",
+    "oldAccent": "#3b82f6",
+    "contrast": "7.14"
+  },
+  {
+    "id": "troglodytes",
+    "file": "troglodytes.ts",
+    "image": "../../assets/troglodytes/troglodyci-sztab.png",
+    "sampledHex": "#597b8b",
+    "accentColor": "#597b8b",
+    "oldAccent": "#67e8f9",
+    "contrast": "4.53"
+  },
+  {
+    "id": "uranopolis",
+    "file": "uranopolis.ts",
+    "image": "../../assets/uranopolis/uranopolis-sztab.png",
+    "sampledHex": "#596155",
+    "accentColor": "#596155",
+    "oldAccent": "#a855f7",
+    "contrast": "6.43"
+  },
+  {
+    "id": "vegas",
+    "file": "vegas.ts",
+    "image": "../../assets/vegas/vegas-sztab.png",
+    "sampledHex": "#935d3f",
+    "accentColor": "#935d3f",
+    "oldAccent": "#eab308",
+    "contrast": "5.41"
+  },
+  {
+    "id": "wiremen",
+    "file": "wiremen.ts",
+    "image": "../../assets/wiremen/druciarze-sztab.jpg",
+    "sampledHex": "#8a526d",
+    "accentColor": "#8a526d",
+    "oldAccent": "#2dd4bf",
+    "contrast": "5.99"
+  }
+]

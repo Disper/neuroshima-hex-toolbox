@@ -23,7 +23,7 @@ export const mephisto: Army = {
   id: 'mephisto',
   name: 'Mephisto',
   color: '#1a0505',
-  accentColor: '#ef4444',
+  accentColor: '#854d38',
   description:
     'A colossal bio-mechanical demon assembled from interchangeable body parts. Mephisto\'s tiles are its own limbs and organs — each one a combat piece that snaps onto the growing creature on the board.',
   hqAbility: 'Once per turn, one Mephisto unit (including HQ) may rotate in any direction.',

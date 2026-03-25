@@ -22,7 +22,7 @@ export const pirates: Army = {
   id: 'pirates',
   name: 'Pirates',
   color: '#0c1a2e',
-  accentColor: '#f59e0b',
+  accentColor: '#177d88',
   description:
     'Ruthless river raiders who control the waterways of the wasteland. Pirates are a nimble, aggressive army with strong ranged firepower and tricks that move both their own units and enemy pieces across the board.',
   hqAbility: 'Drift — HQ moves on Water Fields. Uses special water board setup.',

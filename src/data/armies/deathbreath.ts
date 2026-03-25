@@ -21,7 +21,7 @@ export const deathBreath: Army = {
   id: 'death-breath',
   name: 'Death Breath',
   color: '#0a0f14',
-  accentColor: '#78716c',
+  accentColor: '#8d5131',
   description:
     'A zombie horde that spreads infection across the board. Death Breath fields Infected, Grippers, and Zombies, backed by Reappearance and Castling with the Opponent tokens to recycle units. Eight Battle tokens make it one of the most combat-heavy armies.',
   hqAbility: 'Revival — when Death Breath kills an enemy, place units from Zombie Pool on the empty spaces after Battle.',

@@ -21,7 +21,7 @@ export const outpost: Army = {
   id: 'outpost',
   name: 'Outpost',
   color: '#0d1a10',
-  accentColor: '#34d399',
+  accentColor: '#63982a',
   description:
     'A disciplined human military unit holding the line against all threats. Outpost has the most Move tokens in the game, letting it reposition constantly, and fields highly versatile Commandos that excel in any situation.',
   hqAbility: 'Adjacent units may repeat their action in an Initiative segment 1 later. Units that acted in Initiative 0 cannot repeat.',

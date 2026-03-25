@@ -22,7 +22,7 @@ export const smart: Army = {
   id: 'smart',
   name: 'Smart',
   color: '#0a0f14',
-  accentColor: '#06b6d4',
+  accentColor: '#575b5d',
   description:
     'An AI-controlled army of robots, cyborgs, and bio-droids. Smart combines heavy firepower — Gauss Cannons, MK3 Golems, Rippers — with Terror tokens and strong module support. Few instants, but devastating when they strike.',
   hqAbility: 'Adjacent units may perform an extra move and/or rotate, as if they had Mobility.',

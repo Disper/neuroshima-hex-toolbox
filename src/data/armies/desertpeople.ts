@@ -21,7 +21,7 @@ export const desertPeople: Army = {
   id: 'desert-people',
   name: 'Desert Tribes',
   color: '#1a1408',
-  accentColor: '#e5c07b',
+  accentColor: '#76552e',
   description:
     'Tribal warriors of the wasteland who blend stealth, ranged combat, and shamanic support. Desert People field Coyotes, Archers, Young Warriors, and Shamans — a versatile mix of scouts and fighters backed by Mirage tokens.',
   hqAbility: 'Self-defense — in its Initiative, destroys one adjacent enemy unit. Does not affect enemy HQs.',

@@ -23,7 +23,7 @@ export const mississippi: Army = {
   id: 'mississippi',
   name: 'Mississippi',
   color: '#0f1a14',
-  accentColor: '#14b8a6',
+  accentColor: '#706a41',
   description:
     'A toxic wasteland faction that thrives in polluted swamps and poisoned waters. Mississippi relies on stealth, poison, and area denial — Shadows, Poisoners, and Boilers control the board while Mutants and Guardians hold the line.',
   hqAbility: 'Once per turn, HQ may Push one adjacent enemy unit.',

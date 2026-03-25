@@ -22,7 +22,7 @@ export const sandRunners: Army = {
   id: 'sand-runners',
   name: 'Sand Runners',
   color: '#1a140a',
-  accentColor: '#d4a574',
+  accentColor: '#95501d',
   description:
     'A desert tribe surviving in the wasteland. Sand Runners rely on Sandstorm tokens for area control, Field Medics for healing, and a mix of veterans and specialists — Optymist, Vulture, and Secateur hold the line.',
   hqAbility: 'Two-sided HQ — one side eliminates a slower target before it attacks; the other has different abilities.',

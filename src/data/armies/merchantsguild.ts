@@ -25,7 +25,7 @@ export const merchantsGuild: Army = {
   id: 'merchants-guild',
   name: 'Merchants Guild',
   color: '#1a1408',
-  accentColor: '#c2410c',
+  accentColor: '#9d8a2b',
   description:
     'A wealthy trading faction that buys victory. Merchants Guild fields Paid Snipers, Black Market, Bomber Chris, and Welders — backed by Commanders, Bosses, and the unique Gamble mechanic for high-risk, high-reward plays.',
   hqAbility: 'Capital — gain Gamble when HQ destroys units in Battle. Start with 2 Gamble.',

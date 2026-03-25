@@ -23,7 +23,7 @@ export const neojungle: Army = {
   id: 'neojungle',
   name: 'Neojungle',
   color: '#0d1a0d',
-  accentColor: '#22c55e',
+  accentColor: '#437232',
   description:
     'A mutated jungle that has reclaimed the wasteland. Neojungle fights with monstrous creatures, poison, and living terrain — Rippers, Poisoners, and Tree Walls control the board while Symbionts and Roots provide support.',
   hqAbility: 'Matrix — adjacent units form a Matrix. Units adjacent to the Matrix join it. Modules on Matrix units apply to all Matrix units.',

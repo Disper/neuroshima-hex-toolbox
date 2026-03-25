@@ -34,7 +34,7 @@ export const wiremen: Army = {
   id: 'wiremen',
   name: 'Wiremen',
   color: '#0f2520',
-  accentColor: '#2dd4bf',
+  accentColor: '#8a526d',
   description:
     'A community of rebels living inside Moloch itself — rogue cyborgs, escaped mutants, researchers and survivors. They fight using stolen Machine resources and cutting-edge cybernetics, blurring the line between friend and foe.',
   hqAbility:

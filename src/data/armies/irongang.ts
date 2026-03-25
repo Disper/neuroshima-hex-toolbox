@@ -16,7 +16,7 @@ export const ironGang: Army = {
   id: 'iron-gang',
   name: 'Iron Gang',
   color: '#141414',
-  accentColor: '#94a3b8',
+  accentColor: '#959512',
   description:
     'A biker gang that rules the roads with brute force and mobility. Iron Gang fields Lumberjacks, Mountains, and Bikers, backed by the unique Order token — the most versatile instant in the game, with nine copies.',
   hqAbility:

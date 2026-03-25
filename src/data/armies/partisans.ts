@@ -22,7 +22,7 @@ export const partisans: Army = {
   id: 'partisans',
   name: 'Partisans',
   color: '#14100a',
-  accentColor: '#facc15',
+  accentColor: '#5a333d',
   description:
     'Resistance fighters who strike from the shadows. Partisans combine Tactics and Withdrawal tokens for flexibility, Cyborg Charlie and Provocateurs for board control, and a mix of specialists — Bunker Manager, Sleeper Agent, Dr. Assistant.',
   hqAbility: 'Trap Launcher — once per turn, place a face-down Trap marker on any empty field in a straight line from the HQ.',

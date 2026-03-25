@@ -21,7 +21,7 @@ export const vegas: Army = {
   id: 'vegas',
   name: 'Vegas',
   color: '#1a0f0a',
-  accentColor: '#eab308',
+  accentColor: '#935d3f',
   description:
     'A casino-run city-state where mercenaries and bodyguards enforce the house rules. Vegas excels at repositioning — Rotation, Castling, and Push tokens let it shuffle the board, while Agitators and Shooters apply pressure.',
   hqAbility: 'Control Seizure — enemy units connected to HQ (in its direction) are taken over and count as yours.',
