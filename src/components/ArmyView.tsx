@@ -11,8 +11,8 @@ const sections: { category: TileCategory; label: string }[] = [
   { category: 'instant', label: 'Instant Tokens' },
   { category: 'soldier', label: 'Soldiers' },
   { category: 'implant', label: 'Implants' },
-  { category: 'foundation', label: 'Foundations' },
   { category: 'module', label: 'Modules' },
+  { category: 'foundation', label: 'Foundations' },
 ];
 
 export function ArmyView({ army, onStartDraw }: ArmyViewProps) {
