@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import type { Army, TileCategory, TileDefinition } from '../data/types';
 import type { TileInstance } from '../utils/deck';
 import { buildDeck } from '../utils/deck';
@@ -10,8 +10,22 @@ import {
 } from '../utils/wiremenTechBonuses';
 import { TileCard } from './TileCard';
 
-/** One extra column on large screens vs 2/3; standard `small` cards (not ultra-narrow) */
-const COUNTER_TILE_GRID = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2';
+/** Three columns below lg (narrower on phones); four from lg up; slightly tighter gap on small screens */
+const COUNTER_TILE_GRID = 'grid grid-cols-3 lg:grid-cols-4 gap-1.5 sm:gap-2';
+
+/** Single layout branch — avoids duplicate tile grids in the DOM */
+function useMinWidthLg(): boolean {
+  const [wide, setWide] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(min-width: 1024px)').matches : false
+  );
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const fn = () => setWide(mq.matches);
+    mq.addEventListener('change', fn);
+    return () => mq.removeEventListener('change', fn);
+  }, []);
+  return wide;
+}
 
 const CATEGORY_ORDER: Record<TileCategory, number> = {
   hq: 0,
@@ -284,6 +298,61 @@ function CategoryRemainingBlock({
   );
 }
 
+/** One army: summary, drawn, then all remaining categories (for stacked mobile layout) */
+function CounterArmyFullPanel({
+  army,
+  remaining,
+  drawn,
+  stackIdentical,
+  onRemainingClick,
+  onDrawnClick,
+}: {
+  army: Army;
+  remaining: TileInstance[];
+  drawn: TileInstance[];
+  stackIdentical: boolean;
+  onRemainingClick: (instance: TileInstance) => void;
+  onDrawnClick: (instance: TileInstance) => void;
+}) {
+  const categories = useMemo(() => {
+    const t = deckTotalsByCategory(army);
+    return DECK_CATEGORIES.filter((cat) => t[cat] > 0);
+  }, [army]);
+
+  return (
+    <section className="space-y-6 min-w-0">
+      <CounterArmySummary army={army} remaining={remaining} drawn={drawn} />
+      <div className="space-y-3">
+        <h3 className="text-base font-semibold text-stone-400">Drawn ({drawn.length})</h3>
+        <CounterDrawnColumn
+          drawn={drawn}
+          stackIdentical={stackIdentical}
+          onDrawnClick={onDrawnClick}
+        />
+      </div>
+      <div className="space-y-6">
+        <h3 className="text-base font-semibold text-stone-400">Remaining ({remaining.length})</h3>
+        <div className="space-y-8">
+          {categories.map((cat) => (
+            <div
+              key={cat}
+              className="border-t border-stone-800/80 pt-6 first:border-t-0 first:pt-0"
+            >
+              <CategoryRemainingBlock
+                army={army}
+                category={cat}
+                remaining={remaining}
+                stackIdentical={stackIdentical}
+                onRemainingClick={onRemainingClick}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 interface CounterModeProps {
   armies: [Army, Army];
   onBack: () => void;
@@ -331,6 +400,8 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
     setDrawn1([]);
   }, [army0, army1]);
 
+  const wideLayout = useMinWidthLg();
+
   const colClass = 'min-w-0 lg:border-l lg:border-stone-800 lg:pl-8';
 
   return (
@@ -369,8 +440,9 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
         </label>
       </div>
 
+      {/* Narrow: full first army, then full second; wide: side-by-side category alignment */}
+      {wideLayout ? (
       <div className="space-y-8">
-        {/* Army summaries — same row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           <CounterArmySummary army={army0} remaining={remaining0} drawn={drawn0} />
           <div className={colClass}>
@@ -378,7 +450,6 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
           </div>
         </div>
 
-        {/* Drawn — aligned row */}
         <div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
             <div className="min-w-0 space-y-3">
@@ -404,7 +475,6 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
           </div>
         </div>
 
-        {/* Remaining — category rows aligned across armies */}
         <div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start mb-6">
             <h3 className="text-base font-semibold text-stone-400">
@@ -442,6 +512,28 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
           </div>
         </div>
       </div>
+      ) : (
+      <div className="space-y-10">
+        <CounterArmyFullPanel
+          army={army0}
+          remaining={remaining0}
+          drawn={drawn0}
+          stackIdentical={stackIdentical}
+          onRemainingClick={handleRemaining0}
+          onDrawnClick={handleDrawn0}
+        />
+        <div className="border-t border-stone-700 pt-10">
+          <CounterArmyFullPanel
+            army={army1}
+            remaining={remaining1}
+            drawn={drawn1}
+            stackIdentical={stackIdentical}
+            onRemainingClick={handleRemaining1}
+            onDrawnClick={handleDrawn1}
+          />
+        </div>
+      </div>
+      )}
     </div>
   );
 }
