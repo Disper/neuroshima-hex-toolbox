@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect } from 'react';
+import { useState, useCallback, useMemo, useEffect, useId } from 'react';
 import type { Army, TileCategory, TileDefinition } from '../data/types';
 import type { TileInstance } from '../utils/deck';
 import { buildDeck } from '../utils/deck';
@@ -200,9 +200,56 @@ function CounterDrawnColumn({
           count={instances.length}
           countInParentheses={stackIdentical && instances.length > 1}
           small
+          drawnOverlay
           onClick={() => onDrawnClick(instances[0])}
         />
       ))}
+    </div>
+  );
+}
+
+function DrawnFoldable({
+  drawn,
+  stackIdentical,
+  onDrawnClick,
+}: {
+  drawn: TileInstance[];
+  stackIdentical: boolean;
+  onDrawnClick: (instance: TileInstance) => void;
+}) {
+  const [open, setOpen] = useState(true);
+  const panelId = useId();
+  const triggerId = `${panelId}-drawn-trigger`;
+
+  return (
+    <div className="space-y-3 min-w-0">
+      <button
+        type="button"
+        id={triggerId}
+        aria-expanded={open}
+        aria-controls={panelId}
+        onClick={() => setOpen((o) => !o)}
+        className="group flex w-full items-center justify-between gap-2 rounded-lg text-left py-1 -mx-1 px-1 focus:outline-none focus:ring-2 focus:ring-white/20"
+      >
+        <span className="text-base font-semibold text-stone-400 group-hover:text-stone-200">
+          Drawn ({drawn.length})
+        </span>
+        <span
+          className="text-stone-500 text-xs font-normal shrink-0 group-hover:text-stone-400"
+          aria-hidden
+        >
+          {open ? '▼' : '▶'}
+        </span>
+      </button>
+      <div id={panelId} role="region" aria-labelledby={triggerId} hidden={!open}>
+        {open ? (
+          <CounterDrawnColumn
+            drawn={drawn}
+            stackIdentical={stackIdentical}
+            onDrawnClick={onDrawnClick}
+          />
+        ) : null}
+      </div>
     </div>
   );
 }
@@ -322,14 +369,11 @@ function CounterArmyFullPanel({
   return (
     <section className="space-y-6 min-w-0">
       <CounterArmySummary army={army} remaining={remaining} drawn={drawn} />
-      <div className="space-y-3">
-        <h3 className="text-base font-semibold text-stone-400">Drawn ({drawn.length})</h3>
-        <CounterDrawnColumn
-          drawn={drawn}
-          stackIdentical={stackIdentical}
-          onDrawnClick={onDrawnClick}
-        />
-      </div>
+      <DrawnFoldable
+        drawn={drawn}
+        stackIdentical={stackIdentical}
+        onDrawnClick={onDrawnClick}
+      />
       <div className="space-y-6">
         <h3 className="text-base font-semibold text-stone-400">Remaining ({remaining.length})</h3>
         <div className="space-y-8">
@@ -452,21 +496,15 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
 
         <div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
-            <div className="min-w-0 space-y-3">
-              <h3 className="text-base font-semibold text-stone-400">
-                Drawn ({drawn0.length})
-              </h3>
-              <CounterDrawnColumn
+            <div className="min-w-0">
+              <DrawnFoldable
                 drawn={drawn0}
                 stackIdentical={stackIdentical}
                 onDrawnClick={handleDrawn0}
               />
             </div>
-            <div className={`min-w-0 space-y-3 ${colClass}`}>
-              <h3 className="text-base font-semibold text-stone-400">
-                Drawn ({drawn1.length})
-              </h3>
-              <CounterDrawnColumn
+            <div className={`min-w-0 ${colClass}`}>
+              <DrawnFoldable
                 drawn={drawn1}
                 stackIdentical={stackIdentical}
                 onDrawnClick={handleDrawn1}

@@ -12,6 +12,8 @@ interface TileCardProps {
   small?: boolean;
   /** Larger art area — e.g. DrawMode “Last Drawn” spotlight */
   spotlight?: boolean;
+  /** Light red wash — e.g. Tile Counter “Drawn” pile */
+  drawnOverlay?: boolean;
   onClick?: () => void;
 }
 
@@ -73,6 +75,7 @@ export function TileCard({
   dimmed,
   small,
   spotlight,
+  drawnOverlay,
   onClick,
 }: TileCardProps) {
   const cfg = categoryConfig[tile.category];
@@ -203,6 +206,12 @@ export function TileCard({
             {cfg.label}
           </span>
         </div>
+      )}
+      {drawnOverlay && (
+        <div
+          className="pointer-events-none absolute inset-0 rounded-xl bg-red-500/10 ring-inset ring-1 ring-red-400/20"
+          aria-hidden
+        />
       )}
     </button>
   );
