@@ -10,6 +10,9 @@ import {
 } from '../utils/wiremenTechBonuses';
 import { TileCard } from './TileCard';
 
+/** One extra column on large screens vs 2/3; standard `small` cards (not ultra-narrow) */
+const COUNTER_TILE_GRID = 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2';
+
 const CATEGORY_ORDER: Record<TileCategory, number> = {
   hq: 0,
   instant: 1,
@@ -169,7 +172,7 @@ function CounterDrawnColumn({
     );
   }
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+    <div className={COUNTER_TILE_GRID}>
       {(stackIdentical
         ? sortGroupsByCategory(groupInstancesByTileId(drawn))
         : sortByCategory(drawn).map((instance) => ({
@@ -259,7 +262,7 @@ function CategoryRemainingBlock({
           </div>
         </div>
       )}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-2">
+      <div className={`${COUNTER_TILE_GRID} mt-2`}>
         {(stackIdentical
           ? sortGroupsByCategory(groupInstancesByTileId(tiles))
           : tiles.map((instance) => ({
