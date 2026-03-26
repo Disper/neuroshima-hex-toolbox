@@ -1,4 +1,4 @@
-export const APP_VERSION = '1.1.12';
-export const APP_VERSION_DATE = '2026-03-25';
+export const APP_VERSION = '1.2.0';
+export const APP_VERSION_DATE = '2026-03-26';
 
 export const APP_VERSION_FULL = `${APP_VERSION}-${APP_VERSION_DATE}`;

@@ -1,4 +1,11 @@
-import { useState, useEffect } from 'react';
+import {
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from 'react';
 import { armies } from './data/armies';
 import type { Army, TileCategory } from './data/types';
 import { APP_VERSION_FULL } from './version';
@@ -11,6 +18,51 @@ import { TileFlipMode } from './components/TileFlipMode';
 type Screen = 'home' | 'army' | 'setup' | 'draw' | 'counter';
 type FeatureMode = 'randomizer' | 'counter' | 'tileflip';
 
+/** Serialized app state for History API — lets mobile Back step inside the SPA instead of closing the tab. */
+type AppHistoryStateV1 = {
+  v: 1;
+  screen: Screen;
+  featureMode: FeatureMode;
+  selectedArmyId: string | null;
+  deckCode: string;
+  counterAId: string | null;
+  counterBId: string | null;
+};
+
+function parseAppHistoryState(raw: unknown): AppHistoryStateV1 | null {
+  if (!raw || typeof raw !== 'object') return null;
+  const o = raw as Record<string, unknown>;
+  if (o.v !== 1) return null;
+  const screen = o.screen;
+  const featureMode = o.featureMode;
+  if (
+    screen !== 'home' &&
+    screen !== 'army' &&
+    screen !== 'setup' &&
+    screen !== 'draw' &&
+    screen !== 'counter'
+  ) {
+    return null;
+  }
+  if (featureMode !== 'randomizer' && featureMode !== 'counter' && featureMode !== 'tileflip') {
+    return null;
+  }
+  return {
+    v: 1,
+    screen,
+    featureMode,
+    selectedArmyId: typeof o.selectedArmyId === 'string' ? o.selectedArmyId : null,
+    deckCode: typeof o.deckCode === 'string' ? o.deckCode : '',
+    counterAId: typeof o.counterAId === 'string' ? o.counterAId : null,
+    counterBId: typeof o.counterBId === 'string' ? o.counterBId : null,
+  };
+}
+
+function findArmy(id: string | null): Army | null {
+  if (!id) return null;
+  return armies.find((a) => a.id === id) ?? null;
+}
+
 export default function App() {
   const [screen, setScreen] = useState<Screen>('home');
   const [selectedArmy, setSelectedArmy] = useState<Army | null>(null);
@@ -18,12 +70,38 @@ export default function App() {
   const [featureMode, setFeatureMode] = useState<FeatureMode>('randomizer');
   const [counterArmies, setCounterArmies] = useState<[Army | null, Army | null]>([null, null]);
 
-  const goHome = () => {
+  const applyingPopStateRef = useRef(false);
+
+  const goHome = useCallback(() => {
     setScreen('home');
     setSelectedArmy(null);
     setDeckCode('');
     setCounterArmies([null, null]);
-  };
+  }, []);
+
+  const applyHistorySnapshot = useCallback((s: AppHistoryStateV1) => {
+    let nextScreen = s.screen;
+    const sel = findArmy(s.selectedArmyId);
+    const ca = findArmy(s.counterAId);
+    const cb = findArmy(s.counterBId);
+    if (nextScreen === 'army' || nextScreen === 'setup' || nextScreen === 'draw') {
+      if (!sel) nextScreen = 'home';
+    }
+    if (nextScreen === 'draw' && !s.deckCode) nextScreen = 'setup';
+    if (nextScreen === 'counter' && (!ca || !cb)) nextScreen = 'home';
+
+    setFeatureMode(s.featureMode);
+    setDeckCode(s.deckCode);
+    setScreen(nextScreen);
+    setSelectedArmy(sel);
+    if (nextScreen === 'home' && s.featureMode !== 'counter') {
+      setCounterArmies([null, null]);
+    } else if (nextScreen === 'counter' || s.featureMode === 'counter') {
+      setCounterArmies([ca, cb]);
+    } else {
+      setCounterArmies([null, null]);
+    }
+  }, []);
 
   const selectArmy = (army: Army) => {
     if (featureMode === 'counter') {
@@ -45,6 +123,55 @@ export default function App() {
       setScreen('counter');
     }
   }, [featureMode, counterArmies, screen]);
+
+  /** Sync History API so Back/Forward map to app state (especially mobile system Back). */
+  useEffect(() => {
+    const onPopState = (e: PopStateEvent) => {
+      applyingPopStateRef.current = true;
+      const parsed = parseAppHistoryState(e.state);
+      if (!parsed) {
+        goHome();
+        return;
+      }
+      applyHistorySnapshot(parsed);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, [goHome, applyHistorySnapshot]);
+
+  const selectedArmyId = selectedArmy?.id ?? null;
+  const counterAId = counterArmies[0]?.id ?? null;
+  const counterBId = counterArmies[1]?.id ?? null;
+
+  useEffect(() => {
+    if (applyingPopStateRef.current) {
+      applyingPopStateRef.current = false;
+      return;
+    }
+    const snapshot: AppHistoryStateV1 = {
+      v: 1,
+      screen,
+      featureMode,
+      selectedArmyId,
+      deckCode,
+      counterAId,
+      counterBId,
+    };
+    const next = JSON.stringify(snapshot);
+    const cur = window.history.state;
+    const curJson = cur === null || cur === undefined ? null : JSON.stringify(cur);
+    if (curJson === next) return;
+    if (cur === null || cur === undefined) {
+      window.history.replaceState(snapshot, '');
+      return;
+    }
+    window.history.pushState(snapshot, '');
+  }, [screen, featureMode, selectedArmyId, deckCode, counterAId, counterBId]);
+
+  /** Reset scroll when switching home feature tabs or navigating between screens (same document scroll). */
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [screen, featureMode]);
 
   const handleStartDraw = () => setScreen('setup');
 
@@ -198,6 +325,13 @@ function HomeScreen({
   onFeatureModeChange: (m: FeatureMode) => void;
   onSelectArmy: (a: Army) => void;
 }) {
+  const [armySearch, setArmySearch] = useState('');
+  const filteredArmies = useMemo(() => {
+    const q = armySearch.trim().toLowerCase();
+    if (!q) return armies;
+    return armies.filter((a) => a.name.toLowerCase().includes(q));
+  }, [armies, armySearch]);
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-10">
       <div className="text-center space-y-3">
@@ -250,6 +384,22 @@ function HomeScreen({
         <TileFlipMode />
       ) : (
         <>
+          <div className="max-w-md mx-auto w-full">
+            <label htmlFor="army-search" className="sr-only">
+              Filter armies by name
+            </label>
+            <input
+              id="army-search"
+              type="search"
+              value={armySearch}
+              onChange={(e) => setArmySearch(e.target.value)}
+              placeholder="Search armies…"
+              autoComplete="off"
+              spellCheck={false}
+              className="w-full rounded-lg border border-stone-600 bg-stone-900/80 px-3 py-2 text-sm text-stone-100 placeholder:text-stone-500 shadow-inner focus:border-amber-600/60 focus:outline-none focus:ring-2 focus:ring-amber-500/25"
+            />
+          </div>
+
           <div className="space-y-2">
             <p className="text-stone-500 text-sm text-center">
               {featureMode === 'randomizer'
@@ -272,23 +422,31 @@ function HomeScreen({
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {armies.map((army) => {
-              const counterPickFirst = counterArmies[0]?.id === army.id;
-              const counterBlockDuplicate =
-                featureMode === 'counter' &&
-                Boolean(counterArmies[0]) &&
-                !counterArmies[1] &&
-                counterArmies[0]!.id === army.id;
-              return (
-                <ArmyCard
-                  key={army.id}
-                  army={army}
-                  disabled={counterBlockDuplicate}
-                  selectedRing={featureMode === 'counter' && counterPickFirst && Boolean(counterArmies[0])}
-                  onClick={() => onSelectArmy(army)}
-                />
-              );
-            })}
+            {filteredArmies.length === 0 ? (
+              <p className="col-span-full text-center text-stone-500 text-sm py-6">
+                No armies match “{armySearch.trim()}”.
+              </p>
+            ) : (
+              filteredArmies.map((army) => {
+                const counterPickFirst = counterArmies[0]?.id === army.id;
+                const counterBlockDuplicate =
+                  featureMode === 'counter' &&
+                  Boolean(counterArmies[0]) &&
+                  !counterArmies[1] &&
+                  counterArmies[0]!.id === army.id;
+                return (
+                  <ArmyCard
+                    key={army.id}
+                    army={army}
+                    disabled={counterBlockDuplicate}
+                    selectedRing={
+                      featureMode === 'counter' && counterPickFirst && Boolean(counterArmies[0])
+                    }
+                    onClick={() => onSelectArmy(army)}
+                  />
+                );
+              })
+            )}
             <a
               href="https://www.siepomaga.pl/na-pomoc-dla-julki"
               target="_blank"
