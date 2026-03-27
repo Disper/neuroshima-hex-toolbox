@@ -1,0 +1,240 @@
+Akcelerator
+Kwasopluj
+Akcja
+Agitator
+Atak powietrzny
+Alfa
+Strzelec Alfa
+Anihilator
+Anomalia
+Arachnoid
+Łucznik
+Opancerzony wartownik
+Opancerzony łowca
+Zabójca
+Asystentka doktora
+Wieżyczka automatyczna
+Lawina
+Bitwa
+Bitwa (walka wręcz + inicjatywa)
+Bitwa (matka + walka wręcz)
+Bitwa (matka + strzał)
+Bitwa (strzał + inicjatywa)
+Bitwa (zerowa inicjatywa)
+Niedźwiedź
+Bestia
+Motocyklista
+Biodroid
+Czarna skrzynka
+Czarny rynek
+Bloker
+Obiekt niebieski
+Ochroniarz
+Bojler
+Wybuchowy Chris
+Szef
+Bosman
+Brutal
+Łapówkarz
+Robal
+Zarządca bunkra
+Skanibalizowanie wroga
+Karawana
+Roszada
+Roszada (inicjatywa)
+Roszada (matka)
+Roszada z przeciwnikiem
+Szofer
+Wódz
+Szpon
+Szpony
+Komander
+Komandos
+Glina
+Truposz
+Kojot
+Krokodyl
+Miażdżyciel
+Cyborg
+Cyborg Charlie
+Ryzykant
+Łowczyni głów
+Dron strażnik
+Strzelec Delta
+Pożeracz
+Sieciarz Zagłady
+Podwójny ruch
+Wiertło
+Strzał pyłowy
+Ładunek wybuchowy
+Fanatyk
+Medyk polowy Lu
+Medyk polowy Santa
+Stanowisko ogniowe
+Wędkarz
+Grotnik
+Mróz
+Strzelec Gamma
+Ganger
+Działko Gaussa
+Gladiator
+Przyciągnięcie
+Granat
+Chwytacz
+Strażnik
+Strażnik
+Gustav 2.0
+CKM
+Hakerka
+Kafar
+Harpun
+Sternik
+Kryjówka
+Pirat drogowy
+Skrytobójca
+Rój
+Dziura
+Hak
+Polowanie
+Łowca
+Hybryda
+Lodowa małpa
+Sopel
+Mroźna matrona
+Inkubator
+Zarażony
+Kły
+Juggernaut
+Dzieciaki
+Śmietnisko
+Kolec lewy
+Kończyny
+Drwal
+Golem MK3
+Szalony Sid
+Wojownik klanu Czerwia
+Główny procesor bojowy
+Medyk
+Najemnik
+Mina
+Miraż
+Pancerz mobilny
+Monstrum
+Moździerz
+Matka
+Moduł matka
+Motorówka
+Góra
+Ruch
+Ruch (inicjatywa)
+Ruch (walka wręcz)
+Ruch (matka)
+Ruch (strzał)
+Mutant
+Mutacja
+Paszcza
+Sieciarz
+Supersieciarz
+Truciciel
+Tropiciel
+Oficer
+Oficer I
+Oficer II
+Strzelec Omega
+Optymista
+Rozkaz
+Płatny snajper
+Paraliż
+Plaga
+Truciciel
+Sonda
+Obrońca
+Prowokatorka
+Odepchnięcie
+Odepchnięcie (walka wręcz)
+Odepchnięcie (matka)
+Odepchnięcie (strzał)
+Pchacz
+Kwatermistrz
+Ruchome piaski
+Sieciarz na dystans
+Łowca
+Szczury
+Grzechotnik
+Powrót
+Centrum rozpoznania
+Obiekt czerwony
+Kolec prawy
+Rozpruwacz
+Wyrzutnia rakietowa
+Korzenie
+Obrót
+Biegacz
+Dywersant
+Burza piaskowa
+Skalpel
+Celownik
+Zwiadowca
+Lider zwiadu
+Zwiadowca weteran
+Szarpak
+Sekator
+Sierżant
+Cień
+Szamanka
+Strzelec wyborowy
+Strzelec
+Strzelba
+Uśpiony agent
+Rozkrajacz
+Mała bomba
+Zasłona dymna
+Szmugler
+Snajper
+Szpieg sprzątacz
+Szpieg strzelec
+Sterydomat
+Szturmowiec
+Strateg
+Supermutant
+Superoficer
+Klebowisko
+Symbiont Alfa
+Symbiont Beta
+Symbiont Gamma
+Taktyka
+Ogon
+Czołg
+Tawerna
+Macki
+Terror
+Szef
+Mózg
+Klaun
+Taran
+Bydlak
+Utwardzacz
+Bomba toksyczna
+Transmiter
+Transport
+Transporter
+Podmiana
+Pułapka
+Cyngiel
+Roztrajacz
+Tundra
+Twister
+Podziemia
+Uniwersalny żołnierz
+Jeżowiec
+Pnącza
+Sęp
+Ściana drzew
+Działko wodne
+Fala
+Kowalski
+Wycofanie
+Obiekt żółty
+Młodzi wojownicy
+Zombiak
+Strefa

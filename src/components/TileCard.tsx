@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import type { TileDefinition, TileCategory } from '../data/types';
+import { useLocale } from '../i18n/locale';
+import { getImageOverlayLabel, getTileDisplayName } from '../i18n/display';
+import type { UiMessageKey } from '../i18n/ui';
 
 interface TileCardProps {
   tile: TileDefinition;
@@ -17,42 +20,45 @@ interface TileCardProps {
   onClick?: () => void;
 }
 
+const CATEGORY_LABEL_KEY: Record<TileCategory, UiMessageKey> = {
+  hq: 'tileCatHq',
+  instant: 'tileCatInstant',
+  soldier: 'tileCatSoldier',
+  implant: 'tileCatImplant',
+  foundation: 'tileCatFoundation',
+  module: 'tileCatModule',
+};
+
 const categoryConfig: Record<
   TileCategory,
-  { label: string; border: string; badge: string; fallbackBg: string }
+  { border: string; badge: string; fallbackBg: string }
 > = {
   hq: {
-    label: 'HQ',
     border: 'border-amber-500/50',
     badge: 'bg-amber-500 text-amber-950',
     fallbackBg: 'bg-amber-950/60',
   },
   instant: {
-    label: 'Instant',
     border: 'border-red-500/40',
     badge: 'bg-red-500 text-red-950',
     fallbackBg: 'bg-red-950/50',
   },
   soldier: {
-    label: 'Soldier',
     border: 'border-blue-500/40',
     badge: 'bg-blue-500 text-blue-950',
     fallbackBg: 'bg-blue-950/50',
   },
   implant: {
-    label: 'Implant',
     border: 'border-violet-500/40',
     badge: 'bg-violet-500 text-violet-950',
     fallbackBg: 'bg-violet-950/50',
   },
   foundation: {
-    label: 'Foundation',
     border: 'border-slate-500/40',
     badge: 'bg-slate-500 text-slate-950',
     fallbackBg: 'bg-slate-950/50',
   },
   module: {
-    label: 'Module',
     border: 'border-emerald-500/40',
     badge: 'bg-emerald-500 text-emerald-950',
     fallbackBg: 'bg-emerald-950/50',
@@ -78,13 +84,16 @@ export function TileCard({
   drawnOverlay,
   onClick,
 }: TileCardProps) {
+  const { locale, t } = useLocale();
   const cfg = categoryConfig[tile.category];
+  const displayName = getTileDisplayName(tile, locale);
+  const overlayText = getImageOverlayLabel(tile, locale) ?? tile.imageOverlayLabel;
   const displayCount = count ?? tile.count;
   const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
     setImgError(false);
-  }, [tile.id, tile.imageUrl, tile.imageOverlayLabel]);
+  }, [tile.id, tile.imageUrl, tile.imageOverlayLabel, locale]);
 
   const hasImage = !!tile.imageUrl && !imgError;
 
@@ -124,7 +133,7 @@ export function TileCard({
         ].join(' ')}
       >
         {hasImage ? (
-          tile.imageOverlayLabel ? (
+          overlayText ? (
             <div
               className={[
                 'relative w-full overflow-hidden rounded-lg bg-black',
@@ -133,7 +142,7 @@ export function TileCard({
             >
               <img
                 src={tile.imageUrl}
-                alt={tile.name}
+                alt={displayName}
                 loading="lazy"
                 onError={() => setImgError(true)}
                 className="absolute inset-0 m-auto max-h-full max-w-full object-contain brightness-[0.2] contrast-90"
@@ -145,13 +154,13 @@ export function TileCard({
                   overlayTextClass,
                 ].join(' ')}
               >
-                {tile.imageOverlayLabel}
+                {overlayText}
               </span>
             </div>
           ) : (
             <img
               src={tile.imageUrl}
-              alt={tile.name}
+              alt={displayName}
               loading="lazy"
               onError={() => setImgError(true)}
               className={['object-contain w-full', imageBoxClass].join(' ')}
@@ -178,13 +187,13 @@ export function TileCard({
           ].join(' ')}
           title={
             countInParentheses && displayCount > 1
-              ? `${tile.name} (${displayCount})`
-              : tile.name
+              ? `${displayName} (${displayCount})`
+              : displayName
           }
         >
           {countInParentheses && displayCount > 1
-            ? `${tile.name} (${displayCount})`
-            : tile.name}
+            ? `${displayName} (${displayCount})`
+            : displayName}
         </span>
         {!countInParentheses && displayCount > 1 && (
           <span
@@ -203,7 +212,7 @@ export function TileCard({
       {!small && (
         <div className="px-2 pb-2">
           <span className={['text-xs font-medium rounded px-1.5 py-0.5', cfg.badge].join(' ')}>
-            {cfg.label}
+            {t(CATEGORY_LABEL_KEY[tile.category])}
           </span>
         </div>
       )}

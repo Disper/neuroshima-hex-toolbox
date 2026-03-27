@@ -35,34 +35,30 @@ export function generateIronGangDeckCode(): string {
   return seedToCode(seed) + suffix;
 }
 
+/** Structured parse failure for i18n (see ui keys deck.igError.*). */
+export type IronGangParseError =
+  | { kind: 'wrong-length' }
+  | { kind: 'invalid-seed' }
+  | { kind: 'invalid-suffix' };
+
 /**
  * Parse Iron Gang 7-character deck code: seed is first 6 chars, Hook mode is 7th.
  */
 export function parseIronGangDeckCode(code: string): {
   mode: IronGangHookMode | null;
-  error: string | null;
+  error: IronGangParseError | null;
 } {
   const upper = code.toUpperCase().trim();
   if (upper.length !== IRON_GANG_DECK_CODE_LEN) {
-    return {
-      mode: null,
-      error: `Iron Gang deck code must be exactly ${IRON_GANG_DECK_CODE_LEN} characters (6 for shuffle + 1 for Hook mode).`,
-    };
+    return { mode: null, error: { kind: 'wrong-length' } };
   }
   if (codeToSeed(upper) === null) {
-    return {
-      mode: null,
-      error: 'Invalid characters in the first 6 positions (shuffle seed).',
-    };
+    return { mode: null, error: { kind: 'invalid-seed' } };
   }
   const suffix = upper[6];
   const mode = HOOK_SUFFIX_TO_MODE[suffix];
   if (!mode) {
-    return {
-      mode: null,
-      error:
-        'Invalid 7th character (Hook mode). Use 2 = no Hook, 3 = Officer, 4 = Order, 5 = Biker.',
-    };
+    return { mode: null, error: { kind: 'invalid-suffix' } };
   }
   return { mode, error: null };
 }

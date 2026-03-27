@@ -1,19 +1,12 @@
 import { useState, useCallback, useMemo } from 'react';
 import type { Army, TileCategory } from '../data/types';
-
-const CATEGORY_ORDER: Record<TileCategory, number> = {
-  hq: 0,
-  instant: 1,
-  soldier: 2,
-  implant: 3,
-  foundation: 4,
-  module: 5,
-};
+import { getArmyDisplayName } from '../i18n/display';
+import { useLocale } from '../i18n/locale';
+import type { UiMessageKey } from '../i18n/ui';
 import type { TileInstance } from '../utils/deck';
 import { buildDeck } from '../utils/deck';
 import {
   applyIronGangHookMode,
-  getIronGangHookBanner,
   IRON_GANG_ARMY_ID,
   parseIronGangDeckCode,
   type IronGangHookMode,
@@ -25,6 +18,22 @@ import {
 } from '../utils/merchantsGuildRandom';
 import { codeToSeed, seededShuffle } from '../utils/rng';
 import { TileCard } from './TileCard';
+
+const CATEGORY_ORDER: Record<TileCategory, number> = {
+  hq: 0,
+  instant: 1,
+  soldier: 2,
+  implant: 3,
+  foundation: 4,
+  module: 5,
+};
+
+const IG_HOOK_BANNER_KEY: Record<IronGangHookMode, UiMessageKey> = {
+  'no-hook': 'drawIgHookNoHook',
+  'replace-officer': 'drawIgHookOfficer',
+  'replace-order': 'drawIgHookOrder',
+  'replace-motorcyclist': 'drawIgHookBiker',
+};
 
 interface DrawModeProps {
   army: Army;
@@ -48,12 +57,28 @@ function buildShuffledDeck(
 }
 
 export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProps) {
+  const { locale, t } = useLocale();
+
   const igParsed = useMemo(
     () => (army.id === IRON_GANG_ARMY_ID ? parseIronGangDeckCode(deckCode) : null),
     [army.id, deckCode]
   );
   const ironGangHookMode = igParsed?.mode ?? null;
-  const ironGangCodeError = igParsed?.error ?? null;
+
+  const ironGangErrorText = useMemo(() => {
+    const e = igParsed?.error ?? null;
+    if (!e) return null;
+    switch (e.kind) {
+      case 'wrong-length':
+        return t('deckIgErrorWrongLength');
+      case 'invalid-seed':
+        return t('deckIgErrorInvalidSeed');
+      case 'invalid-suffix':
+        return t('deckIgErrorInvalidSuffix');
+      default:
+        return t('deckErrorInvalid');
+    }
+  }, [igParsed?.error, t]);
 
   const [deck, setDeck] = useState<TileInstance[]>(() =>
     buildShuffledDeck(
@@ -122,45 +147,35 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
           onClick={onBack}
           className="flex items-center gap-2 text-stone-400 hover:text-stone-100 transition-colors text-sm font-medium"
         >
-          ← Army List
+          {t('drawBack')}
         </button>
         <button
           onClick={handleReset}
           className="flex items-center gap-2 text-stone-400 hover:text-red-400 transition-colors text-sm font-medium"
         >
-          ↺ Reset
+          {t('drawReset')}
         </button>
       </div>
 
-      {ironGangCodeError && (
+      {ironGangErrorText && (
         <div className="rounded-2xl border border-red-500/40 bg-red-950/30 px-4 py-3 text-sm text-red-300">
-          {ironGangCodeError}
+          {ironGangErrorText}
         </div>
       )}
 
       {/* Merchants Guild — Reconnaissance tiles */}
       {army.id === MERCHANTS_GUILD_ARMY_ID && (
         <div className="rounded-2xl border border-stone-600 bg-stone-900/80 px-4 py-3 text-sm text-stone-400">
-          <span className="font-semibold text-stone-300">Merchants Guild (random mode):</span>{' '}
-          <strong className="text-stone-200">Reconnaissance 1</strong> and{' '}
-          <strong className="text-stone-200">Reconnaissance 2</strong> are not in the deck at start. After
-          the <strong className="text-stone-200">first</strong> Scout Leader is drawn, use{' '}
-          <strong className="text-stone-200">Shuffle Reconnaissance 1</strong>; after the{' '}
-          <strong className="text-stone-200">second</strong> Scout Leader, use{' '}
-          <strong className="text-stone-200">Shuffle Reconnaissance 2</strong>. Each inserts that tile at a
-          random position in the remaining deck (position is deterministic from the deck code).
+          {t('drawMgBanner')}
         </div>
       )}
 
       {/* Iron Gang — Hook deck rule */}
-      {army.id === IRON_GANG_ARMY_ID && !ironGangCodeError && ironGangHookMode != null && (
+      {army.id === IRON_GANG_ARMY_ID && !ironGangErrorText && ironGangHookMode != null && (
         <div className="rounded-2xl border border-stone-600 bg-stone-900/80 px-4 py-3 text-sm text-stone-400">
-          <span className="font-semibold text-stone-300">Iron Gang (this deck):</span>{' '}
-          {getIronGangHookBanner(ironGangHookMode)}{' '}
-          <span className="text-stone-500">
-            (7th character of the code encodes Hook: 2 = no Hook, 3 = Officer, 4 = Order, 5 =
-            Biker.)
-          </span>
+          <span className="font-semibold text-stone-300">{t('drawIgBannerPrefix')}</span>{' '}
+          {t(IG_HOOK_BANNER_KEY[ironGangHookMode])}{' '}
+          <span className="text-stone-500">{t('drawIgBannerSuffix')}</span>
         </div>
       )}
 
@@ -168,9 +183,7 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
       <div className="rounded-2xl border border-stone-700 bg-stone-900 px-5 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <p className="text-xs text-stone-500 uppercase tracking-wider font-semibold mb-1">
-            {army.id === IRON_GANG_ARMY_ID
-              ? 'Deck Code — first 6 characters = shuffle; 7th = Hook mode (2–5)'
-              : 'Deck Code — share this to draw in the same order'}
+            {army.id === IRON_GANG_ARMY_ID ? t('drawDeckCodeLabelIg') : t('drawDeckCodeLabelStd')}
           </p>
           <div className="flex gap-1.5 items-center flex-wrap">
             {deckCode.split('').map((char, i) => (
@@ -193,13 +206,13 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
             onClick={handleCopyCode}
             className="px-4 py-2 rounded-xl border border-stone-600 text-stone-300 hover:border-stone-400 hover:text-stone-100 transition-all text-sm font-medium"
           >
-            {copied ? '✓ Copied!' : '⧉ Copy'}
+            {copied ? t('drawCopied') : t('drawCopy')}
           </button>
           <button
             onClick={onBackToSetup}
             className="px-4 py-2 rounded-xl border border-stone-600 text-stone-300 hover:border-stone-400 hover:text-stone-100 transition-all text-sm font-medium"
           >
-            Change Code
+            {t('drawChangeCode')}
           </button>
         </div>
       </div>
@@ -211,11 +224,14 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
       >
         <div className="flex items-center justify-between mb-3">
           <h1 className="text-2xl font-bold" style={{ color: army.accentColor }}>
-            {army.name}
+            {getArmyDisplayName(army, locale)}
           </h1>
           <div className="text-right">
             <span className="text-2xl font-bold text-stone-100">{remaining.length}</span>
-            <span className="text-stone-500 text-sm"> / {totalTiles} left</span>
+            <span className="text-stone-500 text-sm">
+              {' '}
+              {t('drawLeft', { n: remaining.length, total: totalTiles })}
+            </span>
           </div>
         </div>
         <div className="w-full bg-stone-800 rounded-full h-3 overflow-hidden">
@@ -225,8 +241,8 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
           />
         </div>
         <div className="flex justify-between text-xs text-stone-500 mt-1.5">
-          <span>{drawIndex} drawn</span>
-          <span>{remaining.length} remaining</span>
+          <span>{t('drawProgressDrawn', { n: drawIndex })}</span>
+          <span>{t('drawProgressRemaining', { n: remaining.length })}</span>
         </div>
       </div>
 
@@ -241,7 +257,7 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
               onClick={() => handleShuffleReconnaissance(1)}
               className="flex-1 min-w-[200px] py-3 px-4 rounded-xl font-semibold text-sm border-2 border-orange-500/50 bg-orange-950/40 text-orange-200 hover:bg-orange-900/50 hover:border-orange-400 transition-all focus:outline-none focus:ring-2 focus:ring-orange-500/40"
             >
-              Shuffle Reconnaissance 1
+              {t('drawShuffleRecon1')}
             </button>
           )}
           {squadLeadersDrawn >= 2 && !mgRecon2Shuffled && (
@@ -250,7 +266,7 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
               onClick={() => handleShuffleReconnaissance(2)}
               className="flex-1 min-w-[200px] py-3 px-4 rounded-xl font-semibold text-sm border-2 border-orange-500/50 bg-orange-950/40 text-orange-200 hover:bg-orange-900/50 hover:border-orange-400 transition-all focus:outline-none focus:ring-2 focus:ring-orange-500/40"
             >
-              Shuffle Reconnaissance 2
+              {t('drawShuffleRecon2')}
             </button>
           )}
         </div>
@@ -260,21 +276,21 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
       {isDone ? (
         <div className="text-center py-8 space-y-4">
           <div className="text-6xl">🎲</div>
-          <p className="text-xl font-semibold text-stone-200">All tiles drawn!</p>
-          <p className="text-stone-500 text-sm">The deck is empty.</p>
+          <p className="text-xl font-semibold text-stone-200">{t('drawAllDrawn')}</p>
+          <p className="text-stone-500 text-sm">{t('drawDeckEmpty')}</p>
           <div className="flex gap-3 justify-center">
             <button
               onClick={handleReset}
               className="px-8 py-3 rounded-xl font-bold text-base transition-all duration-200 hover:brightness-110 active:scale-95"
               style={{ background: army.accentColor, color: '#fff' }}
             >
-              Draw Again (Same Order)
+              {t('drawAgain')}
             </button>
             <button
               onClick={onBackToSetup}
               className="px-8 py-3 rounded-xl font-bold text-base border border-stone-600 text-stone-300 hover:text-stone-100 hover:border-stone-400 transition-all duration-200 active:scale-95"
             >
-              New Deck
+              {t('drawNewDeck')}
             </button>
           </div>
         </div>
@@ -285,8 +301,8 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
           style={{ background: army.accentColor, color: '#fff' }}
         >
           {drawIndex === 0
-            ? 'Draw First Tile'
-            : `Draw Tile (${remaining.length} left)`}
+            ? t('drawFirstTile')
+            : t('drawTileLeft', { n: remaining.length })}
         </button>
       )}
 
@@ -294,7 +310,7 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
       {lastDrawn && (
         <div className="rounded-2xl border border-stone-600 bg-stone-800/60 p-6">
           <p className="text-xs text-stone-500 uppercase tracking-wider mb-3 font-semibold">
-            Last Drawn — tile {drawIndex} of {totalTiles}
+            {t('drawLastDrawn', { i: drawIndex, total: totalTiles })}
           </p>
           {/* Same grid as “Drawn” below so width matches a single tile column */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
@@ -312,7 +328,7 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
       {drawn.length > 0 && (
         <section>
           <h2 className="text-base font-semibold text-stone-400 mb-3">
-            Drawn ({drawn.length})
+            {t('drawDrawnSection', { n: drawn.length })}
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
             {[...drawn].reverse().map((instance, idx) => (
@@ -333,7 +349,9 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
         <details className="group">
           <summary className="cursor-pointer text-sm text-stone-500 hover:text-stone-300 transition-colors select-none list-none flex items-center gap-2">
             <span className="group-open:rotate-90 transition-transform inline-block">▶</span>
-            Show remaining {remaining.length} tile{remaining.length !== 1 ? 's' : ''} in deck
+            {remaining.length === 1
+              ? t('drawShowRemaining', { n: remaining.length })
+              : t('drawShowRemainingPlural', { n: remaining.length })}
           </summary>
           <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
             {[...remaining]

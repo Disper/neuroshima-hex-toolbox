@@ -1,14 +1,30 @@
 import { useState, useCallback, useRef } from 'react';
 import type { Army } from '../data/types';
+import { useLocale } from '../i18n/locale';
+import type { UiMessageKey } from '../i18n/ui';
 import {
   generateIronGangDeckCode,
   IRON_GANG_ARMY_ID,
   IRON_GANG_DECK_CODE_LEN,
   parseIronGangDeckCode,
+  type IronGangParseError,
 } from '../utils/ironGangDeck';
 import { generateCode, codeToSeed } from '../utils/rng';
 
 const STANDARD_CODE_LEN = 6;
+
+function ironGangErrorMessage(err: IronGangParseError, t: (k: UiMessageKey) => string): string {
+  switch (err.kind) {
+    case 'wrong-length':
+      return t('deckIgErrorWrongLength');
+    case 'invalid-seed':
+      return t('deckIgErrorInvalidSeed');
+    case 'invalid-suffix':
+      return t('deckIgErrorInvalidSuffix');
+    default:
+      return t('deckErrorInvalid');
+  }
+}
 
 interface DeckSetupProps {
   army: Army;
@@ -17,6 +33,7 @@ interface DeckSetupProps {
 }
 
 export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
+  const { t } = useLocale();
   const isIronGang = army.id === IRON_GANG_ARMY_ID;
   const codeLen = isIronGang ? IRON_GANG_DECK_CODE_LEN : STANDARD_CODE_LEN;
 
@@ -54,28 +71,28 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
       onStart(code);
     } else {
       if (inputValue.length !== codeLen) {
-        setError(`Code must be exactly ${codeLen} characters.`);
+        setError(t('deckErrorCodeLength', { len: codeLen }));
         inputRef.current?.focus();
         return;
       }
       if (isIronGang) {
         const { error: parseErr } = parseIronGangDeckCode(inputValue);
         if (parseErr) {
-          setError(parseErr);
+          setError(ironGangErrorMessage(parseErr, t));
           inputRef.current?.focus();
           return;
         }
       } else {
         const seed = codeToSeed(inputValue);
         if (seed === null) {
-          setError('Invalid code. Please check and try again.');
+          setError(t('deckErrorInvalid'));
           inputRef.current?.focus();
           return;
         }
       }
       onStart(inputValue);
     }
-  }, [mode, code, inputValue, codeLen, isIronGang, onStart]);
+  }, [mode, code, inputValue, codeLen, isIronGang, onStart, t]);
 
   return (
     <div className="max-w-xl mx-auto px-4 py-8 space-y-6">
@@ -84,29 +101,14 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
         onClick={onBack}
         className="flex items-center gap-2 text-stone-400 hover:text-stone-100 transition-colors text-sm font-medium"
       >
-        ← Back to Army
+        {t('deckBack')}
       </button>
 
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-stone-100">Set Up Deck</h1>
+        <h1 className="text-2xl font-bold text-stone-100">{t('deckTitle')}</h1>
         <p className="text-stone-400 text-sm mt-1">
-          {isIronGang ? (
-            <>
-              Iron Gang uses a <strong className="text-stone-300">7-character</strong> code: the
-              first 6 set the shuffle order; the <strong className="text-stone-300">7th</strong>{' '}
-              sets Hook mode (<span className="text-stone-300">2</span> = no Hook,{' '}
-              <span className="text-stone-300">3</span> = Officer,{' '}
-              <span className="text-stone-300">4</span> = Order,{' '}
-              <span className="text-stone-300">5</span> = Biker). Share the full code so
-              everyone uses the same deck.
-            </>
-          ) : (
-            <>
-              Every deck gets a shareable 6-character code. Anyone using the same code draws tiles
-              in the same order.
-            </>
-          )}
+          {isIronGang ? t('deckBlurbIronGang') : t('deckBlurbStandard')}
         </p>
       </div>
 
@@ -127,7 +129,7 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
             ].join(' ')}
             style={mode === m ? { background: army.accentColor } : undefined}
           >
-            {m === 'new' ? '🎲 New Random Deck' : '🔗 Enter a Code'}
+            {m === 'new' ? t('deckModeNew') : t('deckModeJoin')}
           </button>
         ))}
       </div>
@@ -137,7 +139,7 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
         <div className="rounded-2xl border border-stone-700 bg-stone-900 p-6 space-y-5">
           <div>
             <p className="text-xs text-stone-500 uppercase tracking-wider font-semibold mb-3">
-              Your Deck Code
+              {t('deckYourCode')}
             </p>
             <div className="flex items-center gap-3 flex-wrap">
               <div className="flex gap-1.5">
@@ -157,9 +159,7 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
               </div>
             </div>
             {isIronGang && (
-              <p className="text-xs text-stone-500 mt-3">
-                7th character (highlighted) is random — regenerate for a new Hook mode and shuffle.
-              </p>
+              <p className="text-xs text-stone-500 mt-3">{t('deckIronGang7thNote')}</p>
             )}
           </div>
 
@@ -168,19 +168,19 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
               onClick={handleRegenerate}
               className="flex-1 py-2.5 rounded-xl border border-stone-600 text-stone-300 hover:border-stone-400 hover:text-stone-100 transition-all text-sm font-medium"
             >
-              ↺ Regenerate
+              {t('deckRegenerate')}
             </button>
             <button
               onClick={handleCopy}
               className="flex-1 py-2.5 rounded-xl border border-stone-600 text-stone-300 hover:border-stone-400 hover:text-stone-100 transition-all text-sm font-medium"
             >
-              {copied ? '✓ Copied!' : '⧉ Copy Code'}
+              {copied ? t('deckCopied') : t('deckCopy')}
             </button>
           </div>
 
           <p className="text-xs text-stone-500 leading-relaxed">
-            Share this code with other players so everyone draws the same tile order
-            {isIronGang ? ' and Hook option' : ''}.
+            {t('deckShareBlurb')}
+            {isIronGang ? t('deckShareBlurbIgSuffix') : ''}.
           </p>
         </div>
       )}
@@ -193,7 +193,7 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
               htmlFor="code-input"
               className="text-xs text-stone-500 uppercase tracking-wider font-semibold block mb-3"
             >
-              Enter Deck Code
+              {t('deckEnterCode')}
             </label>
             <div className="flex gap-1.5 flex-wrap">
               {Array.from({ length: codeLen }).map((_, i) => (
@@ -217,7 +217,7 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
               type="text"
               value={inputValue}
               onChange={handleInputChange}
-              placeholder={isIronGang ? 'e.g. K7M3PX3' : 'e.g. K7M3PX'}
+              placeholder={isIronGang ? t('deckPlaceholderIg') : t('deckPlaceholderStd')}
               maxLength={codeLen}
               autoComplete="off"
               autoCapitalize="characters"
@@ -227,8 +227,8 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
             {error && <p className="text-red-400 text-xs mt-2">{error}</p>}
           </div>
           <p className="text-xs text-stone-500 leading-relaxed">
-            Paste the code shared by another player to draw tiles in the same order
-            {isIronGang ? ' (include all 7 characters).' : '.'}
+            {t('deckJoinBlurb')}
+            {isIronGang ? t('deckJoinBlurbIg') : '.'}
           </p>
         </div>
       )}
@@ -239,7 +239,7 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
         className="w-full py-4 rounded-xl font-bold text-lg tracking-wide transition-all duration-200 hover:brightness-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/30"
         style={{ background: army.accentColor, color: '#fff' }}
       >
-        Start Drawing
+        {t('deckStartDrawing')}
       </button>
     </div>
   );

@@ -1,10 +1,13 @@
 import { useState, useCallback, useMemo, useEffect, useId } from 'react';
 import type { Army, TileCategory, TileDefinition } from '../data/types';
+import { getArmyDisplayName } from '../i18n/display';
+import { useLocale } from '../i18n/locale';
+import type { UiMessageKey } from '../i18n/ui';
 import type { TileInstance } from '../utils/deck';
 import { buildDeck } from '../utils/deck';
 import {
-  WIREMEN_TECH_BONUS_LABELS,
   WIREMEN_TECH_BONUS_ORDER,
+  type WiremenTechBonusKey,
   wiremenTechBonusesFullDeck,
   wiremenTechBonusesRemaining,
 } from '../utils/wiremenTechBonuses';
@@ -51,12 +54,20 @@ const DECK_CATEGORIES: Exclude<TileCategory, 'hq'>[] = [
   'foundation',
 ];
 
-const CATEGORY_LABELS: Record<Exclude<TileCategory, 'hq'>, string> = {
-  instant: 'Instant',
-  soldier: 'Soldier',
-  implant: 'Implant',
-  foundation: 'Foundation',
-  module: 'Module',
+const CATEGORY_LABEL_KEY: Record<Exclude<TileCategory, 'hq'>, UiMessageKey> = {
+  instant: 'tileCatInstant',
+  soldier: 'tileCatSoldier',
+  implant: 'tileCatImplant',
+  foundation: 'tileCatFoundation',
+  module: 'tileCatModule',
+};
+
+const WIREMEN_BONUS_KEY: Record<WiremenTechBonusKey, UiMessageKey> = {
+  ini0: 'wiremenBonusIni0',
+  iniPlus1: 'wiremenBonusIniPlus1',
+  matka: 'wiremenBonusMatka',
+  meleePlus1: 'wiremenBonusMeleePlus1',
+  rangedPlus1: 'wiremenBonusRangedPlus1',
 };
 
 const CATEGORY_STYLES: Record<Exclude<TileCategory, 'hq'>, string> = {
@@ -101,7 +112,7 @@ function sortGroupsByCategory(
     const oa = CATEGORY_ORDER[a.tile.category];
     const ob = CATEGORY_ORDER[b.tile.category];
     if (oa !== ob) return oa - ob;
-    return a.tile.name.localeCompare(b.tile.name) || a.tile.id.localeCompare(b.tile.id);
+    return a.tile.id.localeCompare(b.tile.id);
   });
 }
 
@@ -140,6 +151,7 @@ function CounterArmySummary({
   remaining: TileInstance[];
   drawn: TileInstance[];
 }) {
+  const { locale, t } = useLocale();
   const totalTiles = remaining.length + drawn.length;
   const drawnCount = drawn.length;
   const remainingByCategory = countByCategory(remaining);
@@ -155,11 +167,14 @@ function CounterArmySummary({
     >
       <div className="flex items-center justify-between gap-2 flex-wrap">
         <h2 className="text-xl font-bold" style={{ color: army.accentColor }}>
-          {army.name}
+          {getArmyDisplayName(army, locale)}
         </h2>
         <div className="text-right shrink-0">
           <span className="text-2xl font-bold text-stone-100">{drawnCount}</span>
-          <span className="text-stone-500 text-sm"> / {totalTiles} drawn</span>
+          <span className="text-stone-500 text-sm">
+            {' '}
+            {t('counterDrawnOfTotal', { drawn: drawnCount, total: totalTiles })}
+          </span>
         </div>
       </div>
       <div className="flex flex-wrap gap-2 mt-4">
@@ -168,7 +183,10 @@ function CounterArmySummary({
             key={cat}
             className={`px-2.5 py-1 rounded border text-sm font-medium ${CATEGORY_STYLES[cat]}`}
           >
-            {CATEGORY_LABELS[cat]}: {remainingByCategory[cat]} remaining
+            {t('counterCategorySummary', {
+              cat: t(CATEGORY_LABEL_KEY[cat]),
+              n: remainingByCategory[cat],
+            })}
           </span>
         ))}
       </div>
@@ -185,10 +203,11 @@ function CounterDrawnColumn({
   stackIdentical: boolean;
   onDrawnClick: (instance: TileInstance) => void;
 }) {
+  const { t } = useLocale();
   if (drawn.length === 0) {
     return (
       <div className="min-h-[2.5rem] flex items-start text-stone-600 text-sm py-1">
-        <span className="opacity-70">No tiles drawn yet</span>
+        <span className="opacity-70">{t('counterNoTilesDrawn')}</span>
       </div>
     );
   }
@@ -224,6 +243,7 @@ function DrawnFoldable({
   stackIdentical: boolean;
   onDrawnClick: (instance: TileInstance) => void;
 }) {
+  const { t } = useLocale();
   const [open, setOpen] = useState(true);
   const panelId = useId();
   const triggerId = `${panelId}-drawn-trigger`;
@@ -239,13 +259,13 @@ function DrawnFoldable({
         className="group flex w-full items-center justify-between gap-2 rounded-lg text-left py-1 -mx-1 px-1 focus:outline-none focus:ring-2 focus:ring-white/20"
       >
         <span className="text-base font-semibold text-stone-400 group-hover:text-stone-200">
-          Drawn ({drawn.length})
+          {t('counterDrawn', { n: drawn.length })}
         </span>
         <span
           className="text-stone-500 text-xs font-normal shrink-0 group-hover:text-stone-400"
           aria-hidden
         >
-          {open ? '▼' : '▶'}
+          {open ? t('counterFoldOpen') : t('counterFoldClosed')}
         </span>
       </button>
       <div id={panelId} role="region" aria-labelledby={triggerId} hidden={!open}>
@@ -274,6 +294,7 @@ function CategoryRemainingBlock({
   stackIdentical: boolean;
   onRemainingClick: (instance: TileInstance) => void;
 }) {
+  const { t } = useLocale();
   const deckTotals = useMemo(() => deckTotalsByCategory(army), [army]);
   const wiremenTechRemaining = useMemo(
     () => (army.id === 'wiremen' ? wiremenTechBonusesRemaining(remaining) : null),
@@ -288,7 +309,9 @@ function CategoryRemainingBlock({
     return (
       <div className="min-w-0 text-stone-600 text-sm py-2 border border-transparent rounded-lg min-h-[3rem] flex items-center">
         <span className="text-stone-600">—</span>
-        <span className="sr-only">This army has no {CATEGORY_LABELS[category]} tiles in the deck</span>
+        <span className="sr-only">
+          {t('counterSrNoCategoryTiles', { cat: t(CATEGORY_LABEL_KEY[category]) })}
+        </span>
       </div>
     );
   }
@@ -300,17 +323,17 @@ function CategoryRemainingBlock({
       <h4
         className={`text-sm font-semibold mb-2 inline-flex items-center gap-2 px-2.5 py-1 rounded border ${CATEGORY_STYLES[category]}`}
       >
-        {CATEGORY_LABELS[category]} — {tiles.length} remaining
+        {t('counterCatRemainHeading', {
+          cat: t(CATEGORY_LABEL_KEY[category]),
+          n: tiles.length,
+        })}
       </h4>
       {category === 'instant' && army.id === 'wiremen' && wiremenTechRemaining && wiremenTechFull && (
         <div className="mb-3 rounded-xl border border-teal-500/25 bg-teal-950/20 px-4 py-3">
           <p className="text-teal-300/90 text-xs font-semibold uppercase tracking-wider mb-2">
-            Technology — remaining bonuses
+            {t('counterWiremenTechTitle')}
           </p>
-          <p className="text-stone-500 text-xs mb-3 leading-relaxed">
-            Total bonus pool from Technology (instant) tiles still in Remaining. Moving a tile to Drawn
-            reduces the bonuses it contributed.
-          </p>
+          <p className="text-stone-500 text-xs mb-3 leading-relaxed">{t('counterWiremenTechBlurb')}</p>
           <div className="flex flex-wrap gap-2">
             {WIREMEN_TECH_BONUS_ORDER.map((key) => {
               const cur = wiremenTechRemaining[key];
@@ -321,7 +344,7 @@ function CategoryRemainingBlock({
                   key={key}
                   className="inline-flex items-baseline gap-1 rounded-lg border border-teal-600/35 bg-stone-900/60 px-2.5 py-1.5 text-sm"
                 >
-                  <span className="text-stone-300">{WIREMEN_TECH_BONUS_LABELS[key]}</span>
+                  <span className="text-stone-300">{t(WIREMEN_BONUS_KEY[key])}</span>
                   <span className="font-bold tabular-nums text-teal-200">{cur}</span>
                   <span className="text-stone-600 text-xs">/ {max}</span>
                 </span>
@@ -368,9 +391,10 @@ function CounterArmyFullPanel({
   onRemainingClick: (instance: TileInstance) => void;
   onDrawnClick: (instance: TileInstance) => void;
 }) {
+  const { t } = useLocale();
   const categories = useMemo(() => {
-    const t = deckTotalsByCategory(army);
-    return DECK_CATEGORIES.filter((cat) => t[cat] > 0);
+    const totals = deckTotalsByCategory(army);
+    return DECK_CATEGORIES.filter((cat) => totals[cat] > 0);
   }, [army]);
 
   return (
@@ -382,7 +406,9 @@ function CounterArmyFullPanel({
         onDrawnClick={onDrawnClick}
       />
       <div className="space-y-6">
-        <h3 className="text-base font-semibold text-stone-400">Remaining ({remaining.length})</h3>
+        <h3 className="text-base font-semibold text-stone-400">
+          {t('counterRemaining', { n: remaining.length })}
+        </h3>
         <div className="space-y-8">
           {categories.map((cat) => (
             <div
@@ -410,6 +436,7 @@ interface CounterModeProps {
 }
 
 export function CounterMode({ armies, onBack }: CounterModeProps) {
+  const { t } = useLocale();
   const [army0, army1] = armies;
 
   const [remaining0, setRemaining0] = useState<TileInstance[]>(() => buildDeck(army0));
@@ -463,13 +490,13 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
           onClick={onBack}
           className="flex items-center gap-2 text-stone-400 hover:text-stone-100 transition-colors text-sm font-medium"
         >
-          ← Army List
+          {t('counterBackArmies')}
         </button>
         <button
           onClick={handleReset}
           className="flex items-center gap-2 text-stone-400 hover:text-red-400 transition-colors text-sm font-medium"
         >
-          ↺ Reset both
+          {t('counterResetBoth')}
         </button>
       </div>
 
@@ -477,10 +504,8 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
         className="rounded-2xl border border-stone-700 overflow-hidden p-4 sm:p-6"
         style={{ background: 'linear-gradient(135deg, #1c1917 0%, #292524 100%)' }}
       >
-        <h1 className="text-2xl font-bold text-stone-100">Tile Counter</h1>
-        <p className="text-stone-500 text-sm mt-2">
-          Click tiles to move them between Remaining and Drawn for each army.
-        </p>
+        <h1 className="text-2xl font-bold text-stone-100">{t('counterTitle')}</h1>
+        <p className="text-stone-500 text-sm mt-2">{t('counterInstruction')}</p>
         <label className="mt-4 flex items-center gap-2.5 cursor-pointer select-none text-sm text-stone-300 hover:text-stone-100">
           <input
             type="checkbox"
@@ -488,7 +513,7 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
             checked={stackIdentical}
             onChange={(e) => setStackIdentical(e.target.checked)}
           />
-          <span>Stack identical tiles</span>
+          <span>{t('counterStackIdentical')}</span>
         </label>
       </div>
 
@@ -524,10 +549,10 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
         <div>
           <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-start mb-6">
             <h3 className="text-base font-semibold text-stone-400">
-              Remaining ({remaining0.length})
+              {t('counterRemaining', { n: remaining0.length })}
             </h3>
             <h3 className={`text-base font-semibold text-stone-400 ${colClass}`}>
-              Remaining ({remaining1.length})
+              {t('counterRemaining', { n: remaining1.length })}
             </h3>
           </div>
 

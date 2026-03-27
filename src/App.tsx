@@ -9,6 +9,10 @@ import {
 import { armies } from './data/armies';
 import type { Army, TileCategory } from './data/types';
 import { APP_VERSION_FULL } from './version';
+import { armySearchHaystack, getArmyDisplayName } from './i18n/display';
+import { useLocale } from './i18n/locale';
+import { LanguageSwitcher } from './i18n/LanguageSwitcher';
+import type { UiMessageKey } from './i18n/ui';
 import { ArmyView } from './components/ArmyView';
 import { CounterMode } from './components/CounterMode';
 import { DeckSetup } from './components/DeckSetup';
@@ -64,6 +68,12 @@ function findArmy(id: string | null): Army | null {
 }
 
 export default function App() {
+  const { t, locale } = useLocale();
+
+  useEffect(() => {
+    document.title = t('appHtmlTitle');
+  }, [t]);
+
   const [screen, setScreen] = useState<Screen>('home');
   const [selectedArmy, setSelectedArmy] = useState<Army | null>(null);
   const [deckCode, setDeckCode] = useState<string>('');
@@ -184,76 +194,83 @@ export default function App() {
     <div className="min-h-screen bg-stone-950 flex flex-col">
       {/* Nav bar */}
       <header className="sticky top-0 z-20 border-b border-stone-800 bg-stone-950/90 backdrop-blur-sm">
-        <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between gap-3">
           <button
             onClick={goHome}
-            className="flex items-center gap-2 font-bold text-stone-100 hover:text-white transition-colors"
+            className="flex items-center gap-2 font-bold text-stone-100 hover:text-white transition-colors min-w-0"
           >
-            <span className="text-lg">🎲</span>
-            <span className="hidden sm:inline">Neuroshima Hex Toolbox</span>
-            <span className="sm:hidden">NH Toolbox</span>
+            <span className="text-lg shrink-0">🎲</span>
+            <span className="hidden sm:inline truncate">{t('brandFull')}</span>
+            <span className="sm:hidden truncate">{t('brandShort')}</span>
           </button>
 
-          {(selectedArmy ||
-            (screen === 'counter' && counterArmies[0] && counterArmies[1])) && (
-            <nav className="flex items-center gap-2 text-sm text-stone-500 flex-wrap justify-end">
-              <button onClick={goHome} className="hover:text-stone-300 transition-colors">
-                Armies
-              </button>
-              {screen === 'counter' && counterArmies[0] && counterArmies[1] ? (
-                <>
-                  <span>/</span>
-                  <span style={{ color: counterArmies[0].accentColor }}>{counterArmies[0].name}</span>
-                  <span className="text-stone-600">vs</span>
-                  <span style={{ color: counterArmies[1].accentColor }}>{counterArmies[1].name}</span>
-                  <span>/</span>
-                  <span className="text-stone-400">Tile Counter</span>
-                </>
-              ) : (
-                selectedArmy && (
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 justify-end">
+            <LanguageSwitcher />
+            {(selectedArmy ||
+              (screen === 'counter' && counterArmies[0] && counterArmies[1])) && (
+              <nav className="flex items-center gap-2 text-sm text-stone-500 flex-wrap justify-end">
+                <button onClick={goHome} className="hover:text-stone-300 transition-colors">
+                  {t('navArmies')}
+                </button>
+                {screen === 'counter' && counterArmies[0] && counterArmies[1] ? (
                   <>
                     <span>/</span>
-                    <button
-                      onClick={() => setScreen(featureMode === 'counter' ? 'counter' : 'army')}
-                      className="hover:text-stone-300 transition-colors"
-                      style={
-                        screen === 'army' || screen === 'counter'
-                          ? { color: selectedArmy.accentColor }
-                          : undefined
-                      }
-                    >
-                      {selectedArmy.name}
-                    </button>
-                    {(screen === 'setup' || screen === 'draw') && (
-                      <>
-                        <span>/</span>
-                        {screen === 'draw' ? (
-                          <>
-                            <button
-                              onClick={() => setScreen('setup')}
-                              className="hover:text-stone-300 transition-colors"
-                            >
-                              Setup
-                            </button>
-                            <span>/</span>
-                            <span style={{ color: selectedArmy.accentColor }}>Draw</span>
-                          </>
-                        ) : (
-                          <span style={{ color: selectedArmy.accentColor }}>Setup</span>
-                        )}
-                      </>
-                    )}
-                    {screen === 'counter' && (
-                      <>
-                        <span>/</span>
-                        <span style={{ color: selectedArmy.accentColor }}>Tile Counter</span>
-                      </>
-                    )}
+                    <span style={{ color: counterArmies[0].accentColor }}>
+                      {getArmyDisplayName(counterArmies[0], locale)}
+                    </span>
+                    <span className="text-stone-600">{t('navVs')}</span>
+                    <span style={{ color: counterArmies[1].accentColor }}>
+                      {getArmyDisplayName(counterArmies[1], locale)}
+                    </span>
+                    <span>/</span>
+                    <span className="text-stone-400">{t('navTileCounter')}</span>
                   </>
-                )
-              )}
-            </nav>
-          )}
+                ) : (
+                  selectedArmy && (
+                    <>
+                      <span>/</span>
+                      <button
+                        onClick={() => setScreen(featureMode === 'counter' ? 'counter' : 'army')}
+                        className="hover:text-stone-300 transition-colors"
+                        style={
+                          screen === 'army' || screen === 'counter'
+                            ? { color: selectedArmy.accentColor }
+                            : undefined
+                        }
+                      >
+                        {getArmyDisplayName(selectedArmy, locale)}
+                      </button>
+                      {(screen === 'setup' || screen === 'draw') && (
+                        <>
+                          <span>/</span>
+                          {screen === 'draw' ? (
+                            <>
+                              <button
+                                onClick={() => setScreen('setup')}
+                                className="hover:text-stone-300 transition-colors"
+                              >
+                                {t('navSetup')}
+                              </button>
+                              <span>/</span>
+                              <span style={{ color: selectedArmy.accentColor }}>{t('navDraw')}</span>
+                            </>
+                          ) : (
+                            <span style={{ color: selectedArmy.accentColor }}>{t('navSetup')}</span>
+                          )}
+                        </>
+                      )}
+                      {screen === 'counter' && (
+                        <>
+                          <span>/</span>
+                          <span style={{ color: selectedArmy.accentColor }}>{t('navTileCounter')}</span>
+                        </>
+                      )}
+                    </>
+                  )
+                )}
+              </nav>
+            )}
+          </div>
         </div>
       </header>
 
@@ -303,9 +320,9 @@ export default function App() {
 
       <footer className="mt-auto border-t border-stone-800 py-4">
         <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-sm text-stone-500">
-          <span>App made by Disper</span>
+          <span>{t('footerAuthor')}</span>
           <span className="hidden sm:inline">·</span>
-          <span>v{APP_VERSION_FULL}</span>
+          <span>{t('footerVersion', { version: APP_VERSION_FULL })}</span>
         </div>
       </footer>
     </div>
@@ -325,21 +342,22 @@ function HomeScreen({
   onFeatureModeChange: (m: FeatureMode) => void;
   onSelectArmy: (a: Army) => void;
 }) {
+  const { t } = useLocale();
   const [armySearch, setArmySearch] = useState('');
   const filteredArmies = useMemo(() => {
     const q = armySearch.trim().toLowerCase();
     if (!q) return armies;
-    return armies.filter((a) => a.name.toLowerCase().includes(q));
+    return armies.filter((a) => armySearchHaystack(a).includes(q));
   }, [armies, armySearch]);
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-10">
       <div className="text-center space-y-3">
         <h1 className="text-4xl sm:text-5xl font-extrabold text-stone-100 tracking-tight">
-          Neuroshima Hex
+          {t('homeHeroTitle')}
         </h1>
         <p className="text-stone-500 text-base sm:text-lg max-w-md mx-auto leading-relaxed">
-          Browse army tile lists and track or draw tiles.
+          {t('homeHeroSubtitle')}
         </p>
       </div>
 
@@ -354,7 +372,7 @@ function HomeScreen({
               : 'border-stone-700 text-stone-500 hover:border-stone-600 hover:text-stone-300',
           ].join(' ')}
         >
-          🎲 Tile Randomizer
+          {t('homeFeatureRandomizer')}
         </button>
         <button
           onClick={() => onFeatureModeChange('counter')}
@@ -365,7 +383,7 @@ function HomeScreen({
               : 'border-stone-700 text-stone-500 hover:border-stone-600 hover:text-stone-300',
           ].join(' ')}
         >
-          📋 Tile Counter
+          {t('homeFeatureCounter')}
         </button>
         <button
           onClick={() => onFeatureModeChange('tileflip')}
@@ -376,7 +394,7 @@ function HomeScreen({
               : 'border-stone-700 text-stone-500 hover:border-stone-600 hover:text-stone-300',
           ].join(' ')}
         >
-          🪙 Tile flip
+          {t('homeFeatureTileflip')}
         </button>
       </div>
 
@@ -386,14 +404,14 @@ function HomeScreen({
         <>
           <div className="max-w-md mx-auto w-full">
             <label htmlFor="army-search" className="sr-only">
-              Filter armies by name
+              {t('homeFilterLabel')}
             </label>
             <input
               id="army-search"
               type="search"
               value={armySearch}
               onChange={(e) => setArmySearch(e.target.value)}
-              placeholder="Search armies…"
+              placeholder={t('homeSearchPlaceholder')}
               autoComplete="off"
               spellCheck={false}
               className="w-full rounded-lg border border-stone-600 bg-stone-900/80 px-3 py-2 text-sm text-stone-100 placeholder:text-stone-500 shadow-inner focus:border-amber-600/60 focus:outline-none focus:ring-2 focus:ring-amber-500/25"
@@ -403,18 +421,19 @@ function HomeScreen({
           <div className="space-y-2">
             <p className="text-stone-500 text-sm text-center">
               {featureMode === 'randomizer'
-                ? 'Draw tiles one by one using a shareable deck code — so all players draw in the same order.'
+                ? t('homeBlurbRandomizer')
                 : featureMode === 'counter'
-                  ? 'Select two different armies (first, then second). Then track remaining tiles for both side by side.'
+                  ? t('homeBlurbCounter')
                   : ''}
             </p>
             {featureMode === 'counter' && (
               <p className="text-stone-400 text-sm text-center">
-                {!counterArmies[0] && 'Step 1: choose the first army.'}
+                {!counterArmies[0] && t('homeCounterStep1')}
                 {counterArmies[0] && !counterArmies[1] && (
                   <>
-                    Step 2: choose a <strong className="text-stone-300">different</strong> army (the
-                    first is already selected).
+                    {t('homeCounterStep2Prefix')}
+                    <strong className="text-stone-300">{t('homeCounterStep2Emphasis')}</strong>
+                    {t('homeCounterStep2Suffix')}
                   </>
                 )}
               </p>
@@ -424,7 +443,7 @@ function HomeScreen({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {filteredArmies.length === 0 ? (
               <p className="col-span-full text-center text-stone-500 text-sm py-6">
-                No armies match “{armySearch.trim()}”.
+                {t('homeNoMatch', { query: armySearch.trim() })}
               </p>
             ) : (
               filteredArmies.map((army) => {
@@ -453,9 +472,7 @@ function HomeScreen({
               rel="noopener noreferrer"
               className="rounded-2xl border border-dashed border-stone-600 p-6 flex flex-col items-center justify-center text-center text-stone-400 hover:border-stone-500 hover:text-stone-300 transition-all duration-200 group"
             >
-              <span className="text-sm font-medium group-hover:underline">
-                Enjoying the app? Join Partisants today
-              </span>
+              <span className="text-sm font-medium group-hover:underline">{t('homeDonation')}</span>
             </a>
           </div>
         </>
@@ -470,6 +487,17 @@ function deckTileCount(army: Army, category: TileCategory): number {
     .reduce((s, t) => s + t.count, 0);
 }
 
+const HOME_DECK_LABEL_KEY: Record<
+  'instant' | 'soldier' | 'implant' | 'module' | 'foundation',
+  UiMessageKey
+> = {
+  instant: 'homeArmyDeckInstant',
+  soldier: 'homeArmyDeckSoldier',
+  implant: 'homeArmyDeckImplant',
+  module: 'homeArmyDeckModule',
+  foundation: 'homeArmyDeckFoundation',
+};
+
 function ArmyCard({
   army,
   onClick,
@@ -481,30 +509,27 @@ function ArmyCard({
   disabled?: boolean;
   selectedRing?: boolean;
 }) {
+  const { t, locale } = useLocale();
+  const displayName = getArmyDisplayName(army, locale);
   const categoryBadges = [
     {
       category: 'instant' as const,
-      label: 'instant',
       className: 'px-2 py-0.5 rounded bg-red-950/60 border border-red-500/30 text-red-400',
     },
     {
       category: 'soldier' as const,
-      label: 'soldiers',
       className: 'px-2 py-0.5 rounded bg-blue-950/60 border border-blue-500/30 text-blue-400',
     },
     {
       category: 'implant' as const,
-      label: 'implants',
       className: 'px-2 py-0.5 rounded bg-violet-950/60 border border-violet-500/30 text-violet-400',
     },
     {
       category: 'module' as const,
-      label: 'modules',
       className: 'px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/30 text-emerald-400',
     },
     {
       category: 'foundation' as const,
-      label: 'foundations',
       className: 'px-2 py-0.5 rounded bg-slate-950/60 border border-slate-500/30 text-slate-400',
     },
   ]
@@ -535,7 +560,7 @@ function ArmyCard({
               className="text-xl font-bold tracking-tight group-hover:brightness-110 transition-all"
               style={{ color: army.accentColor }}
             >
-              {army.name}
+              {displayName}
             </h2>
             <p className="text-stone-400 text-sm mt-1 leading-relaxed line-clamp-3">
               {army.description}
@@ -544,7 +569,7 @@ function ArmyCard({
           {army.hqImageUrl && (
             <img
               src={army.hqImageUrl}
-              alt={`${army.name} HQ`}
+              alt={`${displayName} HQ`}
               className="shrink-0 w-20 h-20 object-contain"
             />
           )}
@@ -552,9 +577,9 @@ function ArmyCard({
 
         {categoryBadges.length > 0 && (
           <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-stone-500">
-            {categoryBadges.map(({ category, label, className, count }) => (
+            {categoryBadges.map(({ category, className, count }) => (
               <span key={category} className={className}>
-                {count} {label}
+                {t(HOME_DECK_LABEL_KEY[category], { n: count })}
               </span>
             ))}
           </div>

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { useLocale } from '../i18n/locale';
 import imgVulture from '../assets/beasts/bestie-sep.png';
 import imgTails from '../assets/beasts/bestie-sztab.png';
 
@@ -15,6 +16,7 @@ const SHAKE_PX = 6;
 const SHAKE_ROT = 2.5;
 
 export function TileFlipMode() {
+  const { t } = useLocale();
   const [phase, setPhase] = useState<FlipPhase>('idle');
   const [winner, setWinner] = useState<Winner | null>(null);
   const [transformVulture, setTransformVulture] = useState('scale(1)');
@@ -73,12 +75,8 @@ export function TileFlipMode() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10 space-y-8">
       <div className="text-center space-y-2">
-        <h2 className="text-2xl sm:text-3xl font-bold text-stone-100">Tile flip</h2>
-        <p className="text-stone-500 text-sm max-w-md mx-auto leading-relaxed">
-          Like flipping a coin: random pick between <strong className="text-stone-400">Vulture</strong> and{' '}
-          <strong className="text-stone-400">Tails</strong>. Press the button and watch the tiles shake — after a few
-          seconds the larger one is the result.
-        </p>
+        <h2 className="text-2xl sm:text-3xl font-bold text-stone-100">{t('flipTitle')}</h2>
+        <p className="text-stone-500 text-sm max-w-md mx-auto leading-relaxed">{t('flipSubtitle')}</p>
       </div>
 
       <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
@@ -102,13 +100,13 @@ export function TileFlipMode() {
             <div className="rounded-xl border border-lime-600/40 bg-stone-900/80 p-2 shadow-lg">
               <img
                 src={imgVulture}
-                alt="Vulture"
+                alt={t('flipVulture')}
                 className="w-full h-36 sm:h-40 object-contain"
                 draggable={false}
               />
             </div>
           </div>
-          <span className="text-sm font-semibold text-lime-200/90">Vulture</span>
+          <span className="text-sm font-semibold text-lime-200/90">{t('flipVulture')}</span>
         </div>
 
         <div className="hidden sm:flex text-stone-600 text-2xl font-light select-none" aria-hidden>
@@ -135,13 +133,13 @@ export function TileFlipMode() {
             <div className="rounded-xl border border-lime-600/40 bg-stone-900/80 p-2 shadow-lg">
               <img
                 src={imgTails}
-                alt="Tails"
+                alt={t('flipTails')}
                 className="w-full h-36 sm:h-40 object-contain"
                 draggable={false}
               />
             </div>
           </div>
-          <span className="text-sm font-semibold text-lime-200/90">Tails</span>
+          <span className="text-sm font-semibold text-lime-200/90">{t('flipTails')}</span>
         </div>
       </div>
 
@@ -158,14 +156,14 @@ export function TileFlipMode() {
               : 'bg-gradient-to-r from-amber-700 to-lime-700 text-white hover:brightness-110 active:scale-[0.98]',
           ].join(' ')}
         >
-          {phase === 'animating' ? 'Flipping…' : phase === 'done' ? 'Flip again' : 'Flip'}
+          {phase === 'animating' ? t('flipAnimating') : phase === 'done' ? t('flipAgain') : t('flipButton')}
         </button>
 
         {phase === 'done' && winner && (
           <p className="text-center text-stone-300 text-base">
-            Result:{' '}
+            {t('flipResult')}{' '}
             <strong className={winner === 'vulture' ? 'text-lime-400' : 'text-emerald-400'}>
-              {winner === 'vulture' ? 'Vulture' : 'Tails'}
+              {winner === 'vulture' ? t('flipVulture') : t('flipTails')}
             </strong>
           </p>
         )}
