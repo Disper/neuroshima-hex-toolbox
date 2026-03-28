@@ -1,5 +1,10 @@
 import type { Army, TileCategory } from '../data/types';
-import { getArmyDisplayName, getTileDisplayName } from '../i18n/display';
+import {
+  getArmyDescription,
+  getArmyDisplayName,
+  getArmyHqAbility,
+  getTileDisplayName,
+} from '../i18n/display';
 import { useLocale } from '../i18n/locale';
 import type { UiMessageKey } from '../i18n/ui';
 import { TileCard } from './TileCard';
@@ -30,13 +35,15 @@ const SECTION_ORDER: TileCategory[] = [
 export function ArmyView({ army, onStartDraw }: ArmyViewProps) {
   const { locale, t } = useLocale();
   const armyTitle = getArmyDisplayName(army, locale);
+  const armyDescription = getArmyDescription(army, locale);
+  const armyHqAbility = getArmyHqAbility(army, locale);
 
   const hqTile = {
     id: `${army.id}-hq`,
     name: 'HQ',
     category: 'hq' as TileCategory,
     count: 1,
-    description: army.hqAbility,
+    description: armyHqAbility,
     imageUrl: army.hqImageUrl,
   };
 
@@ -63,7 +70,7 @@ export function ArmyView({ army, onStartDraw }: ArmyViewProps) {
                 {armyTitle}
               </h1>
               <p className="mt-2 text-stone-400 text-sm sm:text-base max-w-xl leading-relaxed">
-                {army.description}
+                {armyDescription}
               </p>
             </div>
           </div>
@@ -73,7 +80,7 @@ export function ArmyView({ army, onStartDraw }: ArmyViewProps) {
             <span className="text-amber-400 text-xs font-semibold uppercase tracking-wider">
               {t('armyHqSpecial')}
             </span>
-            <p className="text-stone-300 text-sm mt-1">{army.hqAbility}</p>
+            <p className="text-stone-300 text-sm mt-1">{armyHqAbility}</p>
           </div>
         </div>
       </div>

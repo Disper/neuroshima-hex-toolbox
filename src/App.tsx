@@ -9,7 +9,7 @@ import {
 import { armies } from './data/armies';
 import type { Army, TileCategory } from './data/types';
 import { APP_VERSION_FULL } from './version';
-import { armySearchHaystack, getArmyDisplayName } from './i18n/display';
+import { armySearchHaystack, getArmyDescription, getArmyDisplayName } from './i18n/display';
 import { useLocale } from './i18n/locale';
 import { LanguageSwitcher } from './i18n/LanguageSwitcher';
 import type { UiMessageKey } from './i18n/ui';
@@ -402,22 +402,6 @@ function HomeScreen({
         <TileFlipMode />
       ) : (
         <>
-          <div className="max-w-md mx-auto w-full">
-            <label htmlFor="army-search" className="sr-only">
-              {t('homeFilterLabel')}
-            </label>
-            <input
-              id="army-search"
-              type="search"
-              value={armySearch}
-              onChange={(e) => setArmySearch(e.target.value)}
-              placeholder={t('homeSearchPlaceholder')}
-              autoComplete="off"
-              spellCheck={false}
-              className="w-full rounded-lg border border-stone-600 bg-stone-900/80 px-3 py-2 text-sm text-stone-100 placeholder:text-stone-500 shadow-inner focus:border-amber-600/60 focus:outline-none focus:ring-2 focus:ring-amber-500/25"
-            />
-          </div>
-
           <div className="space-y-2">
             <p className="text-stone-500 text-sm text-center">
               {featureMode === 'randomizer'
@@ -438,6 +422,22 @@ function HomeScreen({
                 )}
               </p>
             )}
+          </div>
+
+          <div className="max-w-md mx-auto w-full">
+            <label htmlFor="army-search" className="sr-only">
+              {t('homeFilterLabel')}
+            </label>
+            <input
+              id="army-search"
+              type="search"
+              value={armySearch}
+              onChange={(e) => setArmySearch(e.target.value)}
+              placeholder={t('homeSearchPlaceholder')}
+              autoComplete="off"
+              spellCheck={false}
+              className="w-full rounded-lg border border-stone-600 bg-stone-900/80 px-3 py-2 text-sm text-stone-100 placeholder:text-stone-500 shadow-inner focus:border-amber-600/60 focus:outline-none focus:ring-2 focus:ring-amber-500/25"
+            />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -511,6 +511,7 @@ function ArmyCard({
 }) {
   const { t, locale } = useLocale();
   const displayName = getArmyDisplayName(army, locale);
+  const description = getArmyDescription(army, locale);
   const categoryBadges = [
     {
       category: 'instant' as const,
@@ -563,7 +564,7 @@ function ArmyCard({
               {displayName}
             </h2>
             <p className="text-stone-400 text-sm mt-1 leading-relaxed line-clamp-3">
-              {army.description}
+              {description}
             </p>
           </div>
           {army.hqImageUrl && (

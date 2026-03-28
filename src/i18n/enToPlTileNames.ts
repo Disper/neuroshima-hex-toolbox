@@ -67,7 +67,7 @@ export const EN_TO_PL_TILE_NAME: Record<string, string> = {
   "Doom Net Fighter": "Sieciarz Zagłady",
   "Doubled Move": "Podwójny ruch",
   "Drill": "Wiertło",
-  "Dust Arrow": "Strzał pyłowy",
+  "Dust Arrow": "Łucznik",
   "Explosive": "Ładunek wybuchowy",
   "Fanatic": "Fanatyk",
   "Field Medic Lu": "Medyk polowy Lu",

@@ -13,7 +13,7 @@ export const UI_STRINGS = {
     footerVersion: 'v{version}',
 
     homeHeroTitle: 'Neuroshima Hex',
-    homeHeroSubtitle: 'Browse army tile lists and track or draw tiles.',
+    homeHeroSubtitle: 'Your personal Neuroshima Hex Toolbox',
     homeSearchPlaceholder: 'Search armies…',
     homeNoMatch: 'No armies match “{query}”.',
     homeFeatureRandomizer: '🎲 Tile Randomizer',
@@ -168,7 +168,7 @@ export const UI_STRINGS = {
     footerVersion: 'wersja {version}',
 
     homeHeroTitle: 'Neuroshima Hex',
-    homeHeroSubtitle: 'Przeglądaj listy żetonów armii i śledź lub dobieraj żetony.',
+    homeHeroSubtitle: 'Twój podręczny zestaw narzędzi do Neuroshimy Hex',
     homeSearchPlaceholder: 'Szukaj armii…',
     homeNoMatch: 'Brak armii pasujących do „{query}”.',
     homeFeatureRandomizer: '🎲 Losowanie żetonów',
@@ -192,7 +192,7 @@ export const UI_STRINGS = {
 
     langSwitcherAria: 'Język',
 
-    armyHqSpecial: 'Zdolność specjalna SZ',
+    armyHqSpecial: 'Zdolność specjalna Sztabu',
     armyStartDraw: 'Rozpocznij dobieranie żetonów',
     armySectionHq: 'Sztab',
     armySectionHqObjects: 'Sztab (obiekty)',
@@ -204,7 +204,7 @@ export const UI_STRINGS = {
     armyTileCount: '{n} żeton',
     armyTileCountPlural: '{n} żetonów',
 
-    tileCatHq: 'SZ',
+    tileCatHq: 'Sztab',
     tileCatInstant: 'Natychmiastowy',
     tileCatSoldier: 'Żołnierz',
     tileCatImplant: 'Implant',
