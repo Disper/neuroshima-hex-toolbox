@@ -4,35 +4,87 @@ import { codeToSeed, seedToCode } from './rng';
 export const IRON_GANG_ARMY_ID = 'iron-gang';
 
 /** How Hook interacts with the random deck (Iron Gang random mode only). */
-export type IronGangHookMode =
-  | 'no-hook'
-  | 'replace-officer'
-  | 'replace-order'
-  | 'replace-motorcyclist';
+const TILE_HOOK = 'ig-hook';
+const TILE_DOUBLE_MOVE = 'ig-double-move';
+const TILE_ORDER = 'ig-order';
+const TILE_FANATIC = 'ig-fanatic';
+const TILE_RANGED_NETTER = 'ig-ranged-netter';
+const TILE_LUMBERJACK = 'ig-lumberjack';
+const TILE_MOUNTAIN = 'ig-mountain';
+const TILE_MOTORCYCLIST = 'ig-motorcyclist';
+const TILE_OFFICER = 'ig-officer';
+const TILE_BOSS = 'ig-boss';
+
+const HOOK_REPLACEMENT_SPECS = [
+  { suffix: '1', replacedTileId: TILE_MOUNTAIN, label: 'Mountain', weight: 1 },
+  { suffix: '2', replacedTileId: TILE_BOSS, label: 'Boss', weight: 1 },
+  { suffix: '3', replacedTileId: TILE_OFFICER, label: 'Officer', weight: 2 },
+  { suffix: '4', replacedTileId: TILE_ORDER, label: 'Order', weight: 2 },
+  { suffix: '5', replacedTileId: TILE_MOTORCYCLIST, label: 'Biker', weight: 2 },
+  { suffix: '6', replacedTileId: TILE_DOUBLE_MOVE, label: 'Doubled Move', weight: 1 },
+  { suffix: '7', replacedTileId: TILE_FANATIC, label: 'Fanatic', weight: 1 },
+  { suffix: '8', replacedTileId: TILE_RANGED_NETTER, label: 'Ranged Net Fighter', weight: 1 },
+  { suffix: '9', replacedTileId: TILE_LUMBERJACK, label: 'Lumberjack', weight: 1 },
+] as const;
+
+type IronGangHookReplacementTileId = (typeof HOOK_REPLACEMENT_SPECS)[number]['replacedTileId'];
+type IronGangHookReplacementMode = `replace:${IronGangHookReplacementTileId}`;
+export type IronGangHookMode = 'no-hook' | IronGangHookReplacementMode;
+
+function modeFromReplacementTileId(tileId: IronGangHookReplacementTileId): IronGangHookReplacementMode {
+  return `replace:${tileId}`;
+}
+
+function replacementTileIdFromMode(mode: IronGangHookMode): IronGangHookReplacementTileId | null {
+  if (mode === 'no-hook') return null;
+  return mode.slice('replace:'.length) as IronGangHookReplacementTileId;
+}
+
+function getReplacementSpecFromMode(mode: IronGangHookMode) {
+  const replacedTileId = replacementTileIdFromMode(mode);
+  return replacedTileId
+    ? HOOK_REPLACEMENT_SPECS.find((spec) => spec.replacedTileId === replacedTileId) ?? null
+    : null;
+}
 
 /** 7th character of an Iron Gang deck code (after the 6-char shuffle seed). */
-const HOOK_SUFFIX_TO_MODE: Record<string, IronGangHookMode> = {
-  '2': 'no-hook',
-  '3': 'replace-officer',
-  '4': 'replace-order',
-  '5': 'replace-motorcyclist',
-};
+const HOOK_SUFFIX_TO_MODE: Record<string, IronGangHookMode> = (() => {
+  const map: Record<string, IronGangHookMode> = { '0': 'no-hook' };
+  for (const { suffix, replacedTileId } of HOOK_REPLACEMENT_SPECS) {
+    map[suffix] = modeFromReplacementTileId(replacedTileId);
+  }
+  return map;
+})();
 
-export const HOOK_MODE_TO_SUFFIX: Record<IronGangHookMode, string> = {
-  'no-hook': '2',
-  'replace-officer': '3',
-  'replace-order': '4',
-  'replace-motorcyclist': '5',
-};
+export const HOOK_MODE_TO_SUFFIX: Record<IronGangHookMode, string> = (() => {
+  const map = { 'no-hook': '0' } as Record<IronGangHookMode, string>;
+  for (const { suffix, replacedTileId } of HOOK_REPLACEMENT_SPECS) {
+    map[modeFromReplacementTileId(replacedTileId)] = suffix;
+  }
+  return map;
+})();
 
 /** Iron Gang deck codes are 6 chars (seed) + 1 char (Hook mode). */
 export const IRON_GANG_DECK_CODE_LEN = 7;
 
 export function generateIronGangDeckCode(): string {
   const seed = (Math.random() * 0xffffffff) >>> 0;
-  const suffixes = Object.keys(HOOK_SUFFIX_TO_MODE);
-  const suffix = suffixes[Math.floor(Math.random() * suffixes.length)]!;
+  const suffix = pickRandomHookSuffix();
   return seedToCode(seed) + suffix;
+}
+
+function pickRandomHookSuffix(): string {
+  const weightedSuffixes = [
+    { suffix: '0', weight: 1 },
+    ...HOOK_REPLACEMENT_SPECS.map(({ suffix, weight }) => ({ suffix, weight })),
+  ];
+  const totalWeight = weightedSuffixes.reduce((sum, entry) => sum + entry.weight, 0);
+  let roll = Math.random() * totalWeight;
+  for (const entry of weightedSuffixes) {
+    roll -= entry.weight;
+    if (roll < 0) return entry.suffix;
+  }
+  return weightedSuffixes[weightedSuffixes.length - 1]!.suffix;
 }
 
 /** Structured parse failure for i18n (see ui keys deck.igError.*). */
@@ -67,10 +119,9 @@ export function getIronGangHookModeFromDeckCode(deckCode: string): IronGangHookM
   return parseIronGangDeckCode(deckCode).mode;
 }
 
-const TILE_HOOK = 'ig-hook';
-const TILE_OFFICER = 'ig-officer';
-const TILE_ORDER = 'ig-order';
-const TILE_MOTORCYCLIST = 'ig-motorcyclist';
+export function getIronGangHookReplacementTileId(mode: IronGangHookMode): string | null {
+  return replacementTileIdFromMode(mode);
+}
 
 function removeFirstInstance(deck: TileInstance[], tileId: string): TileInstance[] {
   const idx = deck.findIndex((t) => t.tile.id === tileId);
@@ -85,34 +136,22 @@ export function applyIronGangHookMode(
   deck: TileInstance[],
   mode: IronGangHookMode
 ): TileInstance[] {
-  switch (mode) {
-    case 'no-hook':
-      return deck.filter((t) => t.tile.id !== TILE_HOOK);
-    case 'replace-officer':
-      return removeFirstInstance(deck, TILE_OFFICER);
-    case 'replace-order':
-      return removeFirstInstance(deck, TILE_ORDER);
-    case 'replace-motorcyclist':
-      return removeFirstInstance(deck, TILE_MOTORCYCLIST);
-    default:
-      return deck;
+  if (mode === 'no-hook') {
+    return deck.filter((t) => t.tile.id !== TILE_HOOK);
   }
+  const replacedTileId = replacementTileIdFromMode(mode);
+  return replacedTileId ? removeFirstInstance(deck, replacedTileId) : deck;
 }
 
 /** Short explanation shown on the draw screen. */
 export function getIronGangHookBanner(mode: IronGangHookMode): string {
-  switch (mode) {
-    case 'no-hook':
-      return 'This deck does not contain Hook.';
-    case 'replace-officer':
-      return 'This deck contains Hook. One Officer was removed so Hook can be shuffled instead.';
-    case 'replace-order':
-      return 'This deck contains Hook. One Order was removed so Hook can be shuffled instead.';
-    case 'replace-motorcyclist':
-      return 'This deck contains Hook. One Biker was removed so Hook can be shuffled instead.';
-    default:
-      return '';
+  if (mode === 'no-hook') {
+    return 'This deck does not contain Hook.';
   }
+  const replacement = getReplacementSpecFromMode(mode);
+  return replacement
+    ? `This deck contains Hook. One ${replacement.label} was removed so Hook can be shuffled instead.`
+    : '';
 }
 
 export const IRON_GANG_HOOK_OPTIONS: {
@@ -125,19 +164,9 @@ export const IRON_GANG_HOOK_OPTIONS: {
     label: 'Deck without Hook',
     description: 'Hook is not included in the random deck.',
   },
-  {
-    mode: 'replace-officer',
-    label: 'Hook instead of an Officer',
-    description: 'One Officer is removed; Hook is shuffled in its place.',
-  },
-  {
-    mode: 'replace-order',
-    label: 'Hook instead of an Order',
-    description: 'One Order is removed; Hook is shuffled in its place.',
-  },
-  {
-    mode: 'replace-motorcyclist',
-    label: 'Hook instead of a Biker',
-    description: 'One Biker is removed; Hook is shuffled in its place.',
-  },
+  ...HOOK_REPLACEMENT_SPECS.map(({ replacedTileId, label }) => ({
+    mode: modeFromReplacementTileId(replacedTileId),
+    label: `Hook instead of ${label}`,
+    description: `One ${label} tile is removed; Hook is shuffled in its place.`,
+  })),
 ];

@@ -59,11 +59,14 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const val = e.target.value.toUpperCase().replace(/[^23456789ABCDEFGHJKMNPQRSTUVWXYZ_]/g, '');
+      const allowedChars = isIronGang
+        ? /[^0123456789ABCDEFGHJKMNPQRSTUVWXYZ_]/g
+        : /[^23456789ABCDEFGHJKMNPQRSTUVWXYZ_]/g;
+      const val = e.target.value.toUpperCase().replace(allowedChars, '');
       setInputValue(val.slice(0, codeLen));
       setError('');
     },
-    [codeLen]
+    [codeLen, isIronGang]
   );
 
   const handleStart = useCallback(() => {

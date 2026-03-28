@@ -1,12 +1,12 @@
 import { useState, useCallback, useMemo } from 'react';
 import type { Army, TileCategory } from '../data/types';
-import { getArmyDisplayName } from '../i18n/display';
+import { getArmyDisplayName, getTileDisplayName } from '../i18n/display';
 import { useLocale } from '../i18n/locale';
-import type { UiMessageKey } from '../i18n/ui';
 import type { TileInstance } from '../utils/deck';
 import { buildDeck } from '../utils/deck';
 import {
   applyIronGangHookMode,
+  getIronGangHookReplacementTileId,
   IRON_GANG_ARMY_ID,
   parseIronGangDeckCode,
   type IronGangHookMode,
@@ -26,13 +26,6 @@ const CATEGORY_ORDER: Record<TileCategory, number> = {
   implant: 3,
   foundation: 4,
   module: 5,
-};
-
-const IG_HOOK_BANNER_KEY: Record<IronGangHookMode, UiMessageKey> = {
-  'no-hook': 'drawIgHookNoHook',
-  'replace-officer': 'drawIgHookOfficer',
-  'replace-order': 'drawIgHookOrder',
-  'replace-motorcyclist': 'drawIgHookBiker',
 };
 
 interface DrawModeProps {
@@ -79,6 +72,17 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
         return t('deckErrorInvalid');
     }
   }, [igParsed?.error, t]);
+
+  const ironGangBannerText = useMemo(() => {
+    if (army.id !== IRON_GANG_ARMY_ID || ironGangHookMode == null) return null;
+    const replacedTileId = getIronGangHookReplacementTileId(ironGangHookMode);
+    if (!replacedTileId) return t('drawIgHookNoHook');
+    const replacedTile = army.tiles.find((tile) => tile.id === replacedTileId);
+    const replacedTileName = replacedTile?.name
+      ? getTileDisplayName(replacedTile, locale)
+      : replacedTileId;
+    return t('drawIgHookReplace', { tile: replacedTileName });
+  }, [army.id, army.tiles, ironGangHookMode, locale, t]);
 
   const [deck, setDeck] = useState<TileInstance[]>(() =>
     buildShuffledDeck(
@@ -171,10 +175,10 @@ export function DrawMode({ army, deckCode, onBack, onBackToSetup }: DrawModeProp
       )}
 
       {/* Iron Gang — Hook deck rule */}
-      {army.id === IRON_GANG_ARMY_ID && !ironGangErrorText && ironGangHookMode != null && (
+      {army.id === IRON_GANG_ARMY_ID && !ironGangErrorText && ironGangBannerText && (
         <div className="rounded-2xl border border-stone-600 bg-stone-900/80 px-4 py-3 text-sm text-stone-400">
           <span className="font-semibold text-stone-300">{t('drawIgBannerPrefix')}</span>{' '}
-          {t(IG_HOOK_BANNER_KEY[ironGangHookMode])}{' '}
+          {ironGangBannerText}{' '}
           <span className="text-stone-500">{t('drawIgBannerSuffix')}</span>
         </div>
       )}

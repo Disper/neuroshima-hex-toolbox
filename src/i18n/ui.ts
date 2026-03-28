@@ -84,7 +84,7 @@ export const UI_STRINGS = {
     deckBlurbStandard:
       'Every deck gets a shareable 6-character code. Anyone using the same code draws tiles in the same order.',
     deckBlurbIronGang:
-      'Iron Gang uses a 7-character code: the first 6 set the shuffle order; the 7th sets Hook mode (2 = no Hook, 3 = Officer, 4 = Order, 5 = Biker). Share the full code so everyone uses the same deck.',
+      'Iron Gang uses a 7-character code: the first 6 set the shuffle order; the 7th sets Hook mode. Mapping: 0 = no Hook, 1 = Mountain, 2 = Boss, 3 = Officer, 4 = Order, 5 = Biker, 6 = Doubled Move, 7 = Fanatic, 8 = Ranged Net Fighter, 9 = Lumberjack. Share the full code so everyone uses the same deck.',
     deckModeNew: '🎲 New Random Deck',
     deckModeJoin: '🔗 Enter a Code',
     deckYourCode: 'Your Deck Code',
@@ -106,18 +106,16 @@ export const UI_STRINGS = {
     deckIgErrorWrongLength:
       'Iron Gang deck code must be exactly 7 characters (6 for shuffle + 1 for Hook mode).',
     deckIgErrorInvalidSeed: 'Invalid characters in the first 6 positions (shuffle seed).',
-    deckIgErrorInvalidSuffix:
-      'Invalid 7th character (Hook mode). Use 2 = no Hook, 3 = Officer, 4 = Order, 5 = Biker.',
+    deckIgErrorInvalidSuffix: 'Invalid 7th character (Hook mode).',
 
     drawBack: '← Army List',
     drawReset: '↺ Reset',
     drawMgBanner:
       'Merchants Guild (random mode): Reconnaissance 1 and Reconnaissance 2 are not in the deck at start. After the first Scout Leader is drawn, use Shuffle Reconnaissance 1; after the second Scout Leader, use Shuffle Reconnaissance 2. Each inserts that tile at a random position in the remaining deck (position is deterministic from the deck code).',
-    drawIgBannerSuffix:
-      '(7th character of the code encodes Hook: 2 = no Hook, 3 = Officer, 4 = Order, 5 = Biker.)',
+    drawIgBannerSuffix: '(7th character of the code encodes Hook mode.)',
     drawIgBannerPrefix: 'Iron Gang (this deck):',
     drawDeckCodeLabelStd: 'Deck Code — share this to draw in the same order',
-    drawDeckCodeLabelIg: 'Deck Code — first 6 characters = shuffle; 7th = Hook mode (2–5)',
+    drawDeckCodeLabelIg: 'Deck Code — first 6 characters = shuffle; 7th = Hook mode',
     drawCopy: '⧉ Copy',
     drawCopied: '✓ Copied!',
     drawChangeCode: 'Change Code',
@@ -138,12 +136,8 @@ export const UI_STRINGS = {
     drawShowRemainingPlural: 'Show remaining {n} tiles in deck',
 
     drawIgHookNoHook: 'This deck does not contain Hook.',
-    drawIgHookOfficer:
-      'This deck contains Hook. One Officer was removed so Hook can be shuffled instead.',
-    drawIgHookOrder:
-      'This deck contains Hook. One Order was removed so Hook can be shuffled instead.',
-    drawIgHookBiker:
-      'This deck contains Hook. One Biker was removed so Hook can be shuffled instead.',
+    drawIgHookReplace:
+      'This deck contains Hook. One {tile} was removed so Hook can be shuffled instead.',
 
     flipTitle: 'Tile flip',
     flipSubtitle:
@@ -240,7 +234,7 @@ export const UI_STRINGS = {
     deckBlurbStandard:
       'Każda talia ma 6-znakowy kod do udostępnienia. Ten sam kod daje tę samą kolejność dobierania.',
     deckBlurbIronGang:
-      'Iron Gang używa 7-znakowego kodu: pierwsze 6 ustawiają tasowanie; 7. ustawia Hak (2 = bez Haka, 3 = Oficer, 4 = Rozkaz, 5 = Motocyklista). Udostępnij pełny kod, aby wszyscy grali tą samą talią.',
+      'Iron Gang używa 7-znakowego kodu: pierwsze 6 ustawiają tasowanie; 7. ustawia tryb Haka. Oznaczenia: 0 = bez Haka, 1 = Góra, 2 = Szef, 3 = Oficer, 4 = Rozkaz, 5 = Motocyklista, 6 = Podwójny Ruch, 7 = Fanatyk, 8 = Sieciarz dystansowy, 9 = Drwal. Udostępnij pełny kod, aby wszyscy grali tą samą talią.',
     deckModeNew: '🎲 Nowa losowa talia',
     deckModeJoin: '🔗 Wpisz kod',
     deckYourCode: 'Twój kod talii',
@@ -262,18 +256,16 @@ export const UI_STRINGS = {
     deckIgErrorWrongLength:
       'Kod talii Iron Gang musi mieć dokładnie 7 znaków (6 na tasowanie + 1 na tryb Haka).',
     deckIgErrorInvalidSeed: 'Niedozwolone znaki w pierwszych 6 pozycjach (ziarno tasowania).',
-    deckIgErrorInvalidSuffix:
-      'Nieprawidłowy 7. znak (tryb Haka). Użyj 2 = bez Haka, 3 = Oficer, 4 = Rozkaz, 5 = Motocyklista.',
+    deckIgErrorInvalidSuffix: 'Nieprawidłowy 7. znak (tryb Haka).',
 
     drawBack: '← Lista armii',
     drawReset: '↺ Reset',
     drawMgBanner:
       'Gildia Kupców (tryb losowy): Rozpoznanie 1 i Rozpoznanie 2 nie są w talii na początku. Po dobraniu pierwszego Lidera zwiadu użyj „Przetasuj Rozpoznanie 1”; po drugim — „Przetasuj Rozpoznanie 2”. Każde wstawia żeton w losowej pozycji w pozostałej talii (pozycja wynika z kodu talii).',
-    drawIgBannerSuffix:
-      '(7. znak kodu określa Hak: 2 = bez Haka, 3 = Oficer, 4 = Rozkaz, 5 = Motocyklista.)',
+    drawIgBannerSuffix: '(7. znak kodu określa tryb Haka.)',
     drawIgBannerPrefix: 'Iron Gang (ta talia):',
     drawDeckCodeLabelStd: 'Kod talii — udostępnij, aby dobieranie było w tej samej kolejności',
-    drawDeckCodeLabelIg: 'Kod talii — pierwsze 6 znaków = tasowanie; 7. = tryb Haka (2–5)',
+    drawDeckCodeLabelIg: 'Kod talii — pierwsze 6 znaków = tasowanie; 7. = tryb Haka',
     drawCopy: '⧉ Kopiuj',
     drawCopied: '✓ Skopiowano!',
     drawChangeCode: 'Zmień kod',
@@ -294,12 +286,8 @@ export const UI_STRINGS = {
     drawShowRemainingPlural: 'Pokaż {n} pozostałych żetonów w talii',
 
     drawIgHookNoHook: 'Ta talia nie zawiera Haka.',
-    drawIgHookOfficer:
-      'Ta talia zawiera Hak. Jeden Oficer został usunięty, aby Hak mógł być przetasowany zamiast niego.',
-    drawIgHookOrder:
-      'Ta talia zawiera Hak. Jeden Rozkaz został usunięty, aby Hak mógł być przetasowany zamiast niego.',
-    drawIgHookBiker:
-      'Ta talia zawiera Hak. Jeden Motocyklista został usunięty, aby Hak mógł być przetasowany zamiast niego.',
+    drawIgHookReplace:
+      'Ta talia zawiera Hak. Jeden żeton typu {tile} został usunięty, aby Hak mógł być przetasowany zamiast niego.',
 
     flipTitle: 'Rzut żetonem',
     flipSubtitle:
