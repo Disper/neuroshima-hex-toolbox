@@ -5,15 +5,15 @@ Agitator
 Atak powietrzny
 Alfa
 Strzelec Alfa
-Anihilator
+Likwidator
 Anomalia
 Arachnoid
 Łucznik
-Opancerzony wartownik
-Opancerzony łowca
+Opancerzony Wartownik
+Opancerzony Łowca
 Zabójca
 Asystentka doktora
-Wieżyczka automatyczna
+Wieżyczka z Fotokomórką
 Lawina
 Bitwa
 Bitwa (walka wręcz + inicjatywa)
@@ -25,20 +25,20 @@ Niedźwiedź
 Bestia
 Motocyklista
 Biodroid
-Czarna skrzynka
-Czarny rynek
+Czarna Skrzynka
+Czarny Rynek
 Bloker
-Obiekt niebieski
+Obiekt Niebieski
 Ochroniarz
 Bojler
 Wybuchowy Chris
 Szef
 Bosman
-Brutal
+Siłacz
 Łapówkarz
 Robal
 Zarządca bunkra
-Skanibalizowanie wroga
+Skanibalizowanie Wroga
 Karawana
 Roszada
 Roszada (inicjatywa)
@@ -50,7 +50,7 @@ Szpon
 Szpony
 Komander
 Komandos
-Glina
+Gliniarz
 Truposz
 Kojot
 Krokodyl
@@ -58,19 +58,19 @@ Miażdżyciel
 Cyborg
 Cyborg Charlie
 Ryzykant
-Łowczyni głów
-Dron strażnik
+Łowczyni Głów
+Dron Strażnik
 Strzelec Delta
 Pożeracz
 Sieciarz Zagłady
-Podwójny ruch
-Wiertło
+Podwójny Ruch
+Świder
 Strzał pyłowy
 Ładunek wybuchowy
 Fanatyk
-Medyk polowy Lu
-Medyk polowy Santa
-Stanowisko ogniowe
+Medyk Polowy Lu
+Medyk Polowy Santa
+Stanowisko Ogniowe
 Wędkarz
 Grotnik
 Mróz
@@ -90,7 +90,7 @@ Kafar
 Harpun
 Sternik
 Kryjówka
-Pirat drogowy
+Pirat Drogowy
 Skrytobójca
 Rój
 Dziura
@@ -100,7 +100,7 @@ Polowanie
 Hybryda
 Lodowa małpa
 Sopel
-Mroźna matrona
+Mroźna Matrona
 Inkubator
 Zarażony
 Kły
@@ -108,21 +108,21 @@ Juggernaut
 Dzieciaki
 Śmietnisko
 Kolec lewy
-Kończyny
+Odnóża
 Drwal
 Golem MK3
 Szalony Sid
 Wojownik klanu Czerwia
-Główny procesor bojowy
+Główny Procesor Bojowy
 Medyk
 Najemnik
 Mina
 Miraż
-Pancerz mobilny
+Pancerz Wspomagany
 Monstrum
 Moździerz
 Matka
-Moduł matka
+Matka
 Motorówka
 Góra
 Ruch
@@ -134,16 +134,16 @@ Mutant
 Mutacja
 Paszcza
 Sieciarz
-Supersieciarz
+Super-Sieciarz
 Truciciel
 Tropiciel
 Oficer
 Oficer I
 Oficer II
 Strzelec Omega
-Optymista
+Amok
 Rozkaz
-Płatny snajper
+Płatny Snajper
 Paraliż
 Plaga
 Truciciel
@@ -157,26 +157,26 @@ Odepchnięcie (strzał)
 Pchacz
 Kwatermistrz
 Ruchome piaski
-Sieciarz na dystans
+Sieciarz Dystansowy
 Łowca
 Szczury
 Grzechotnik
 Powrót
-Centrum rozpoznania
-Obiekt czerwony
+Centrum Rozpoznania
+Obiekt Czerwony
 Kolec prawy
 Rozpruwacz
-Wyrzutnia rakietowa
+Wyrzutnia Rakietowa
 Korzenie
 Obrót
 Biegacz
 Dywersant
 Burza piaskowa
 Skalpel
-Celownik
+Skoper
 Zwiadowca
-Lider zwiadu
-Zwiadowca weteran
+Lider Zwiadu
+Zwiadowca Weteran
 Szarpak
 Sekator
 Sierżant
@@ -188,17 +188,17 @@ Strzelba
 Uśpiony agent
 Rozkrajacz
 Mała bomba
-Zasłona dymna
+Zasłona Dymna
 Szmugler
 Snajper
-Szpieg sprzątacz
-Szpieg strzelec
-Sterydomat
+Szpieg-Czyściciel
+Szpieg-Strzelec
+Stalowy Bokser
 Szturmowiec
 Strateg
-Supermutant
-Superoficer
-Klebowisko
+Super-Mutant
+Super-Oficer
+Kłębowisko
 Symbiont Alfa
 Symbiont Beta
 Symbiont Gamma
@@ -213,8 +213,8 @@ Mózg
 Klaun
 Taran
 Bydlak
-Utwardzacz
-Bomba toksyczna
+Wzmacniacz
+Toksyczna Bomba
 Transmiter
 Transport
 Transporter
@@ -225,16 +225,48 @@ Roztrajacz
 Tundra
 Twister
 Podziemia
-Uniwersalny żołnierz
+Uniwersalny Żołnierz
 Jeżowiec
 Pnącza
 Sęp
 Ściana drzew
-Działko wodne
+Działko Wodne
 Fala
 Kowalski
 Wycofanie
-Obiekt żółty
-Młodzi wojownicy
+Obiekt Żółty
+Młodzi Wojownicy
 Zombiak
 Strefa
+Cerber
+Predator
+Sędzia
+Pacyfikator
+Funkcjonariusz
+Egzekutor
+Brytan
+Wardog
+Wyrzutnia Stalowej Sieci
+Sterydomat
+Elektrosieciarz
+Mechanik
+Inferno
+Buldożer
+Hammerhead
+Wyburzacz
+Generator Przyspieszający
+Generator Bojowy
+Podwajacz
+Transformator Gaussa
+Odpady
+Promień
+Sentinel
+Zabójca Maszyn
+Psychocyborg
+Skorpion
+Tetra
+Osa
+Płaczka
+Żołnierz UMO
+Error
+Druciarz
