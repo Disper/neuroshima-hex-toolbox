@@ -1,0 +1,3139 @@
+[
+  {
+    "id": "outpost",
+    "name": "Outpost",
+    "color": "#0d1a10",
+    "accentColor": "#63982a",
+    "description": "A disciplined human military unit holding the line against all threats. Outpost has the most Move tokens in the game, letting it reposition constantly, and fields highly versatile Commandos that excel in any situation.",
+    "hqAbility": "Adjacent units may repeat their action in an Initiative segment 1 later. Units that acted in Initiative 0 cannot repeat.",
+    "hqImageUrl": "src/assets/outpost/posterunek-sztab.png",
+    "tiles": [
+      {
+        "id": "outpost-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 6,
+        "imageUrl": "src/assets/outpost/posterunek-bitwa.png"
+      },
+      {
+        "id": "outpost-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 7,
+        "imageUrl": "src/assets/outpost/posterunek-ruch.png"
+      },
+      {
+        "id": "outpost-sniper",
+        "name": "Sniper",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/outpost/posterunek-snajper.png"
+      },
+      {
+        "id": "outpost-runner",
+        "name": "Runner",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/outpost/posterunek-biegacz.png"
+      },
+      {
+        "id": "outpost-hmg",
+        "name": "HMG",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/outpost/posterunek-ckm.png"
+      },
+      {
+        "id": "outpost-commando",
+        "name": "Commando",
+        "category": "soldier",
+        "count": 5,
+        "imageUrl": "src/assets/outpost/posterunek-komandos.png"
+      },
+      {
+        "id": "outpost-liquidator",
+        "name": "Annihilator",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/outpost/posterunek-likwidator.png"
+      },
+      {
+        "id": "outpost-powered-armour",
+        "name": "Mobile Armor",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/outpost/posterunek-pancerzwspomagany.png"
+      },
+      {
+        "id": "outpost-strongman",
+        "name": "Brawler",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/outpost/posterunek-silacz.png"
+      },
+      {
+        "id": "outpost-recon-centre",
+        "name": "Recon Centre",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/outpost/posterunek-centrumrozpoznania.png"
+      },
+      {
+        "id": "outpost-saboteur",
+        "name": "Saboteur",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/outpost/posterunek-dywersant.png"
+      },
+      {
+        "id": "outpost-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/outpost/posterunek-medyk.png"
+      },
+      {
+        "id": "outpost-officer",
+        "name": "Officer",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/outpost/posterunek-oficer.png"
+      },
+      {
+        "id": "outpost-scoper",
+        "name": "Scoper",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/outpost/posterunek-skoper.png"
+      },
+      {
+        "id": "outpost-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/outpost/posterunek-zwiadowca.png"
+      }
+    ]
+  },
+  {
+    "id": "borgo",
+    "name": "Borgo",
+    "color": "#1a0a0f",
+    "accentColor": "#4a657f",
+    "description": "A savage mutant gang led by the towering Super-mutant. Borgo floods the board with cheap, aggressive fighters and overwhelms enemies through sheer numbers, backed by the highest Battle token count in the game.",
+    "hqAbility": "All friendly adjacent units gain +1 to Initiative.",
+    "hqImageUrl": "src/assets/borgo/borgo-sztab.png",
+    "tiles": [
+      {
+        "id": "borgo-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 6,
+        "imageUrl": "src/assets/borgo/borgo-bitwa.png"
+      },
+      {
+        "id": "borgo-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 4,
+        "imageUrl": "src/assets/borgo/borgo-ruch.png"
+      },
+      {
+        "id": "borgo-grenade",
+        "name": "Grenade",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/borgo/borgo-granat.png"
+      },
+      {
+        "id": "borgo-mutek",
+        "name": "Mutant",
+        "category": "soldier",
+        "count": 6,
+        "imageUrl": "src/assets/borgo/borgo-mutek.png"
+      },
+      {
+        "id": "borgo-knifer",
+        "name": "Claws",
+        "category": "soldier",
+        "count": 4,
+        "imageUrl": "src/assets/borgo/borgo-nozownik.png"
+      },
+      {
+        "id": "borgo-netter",
+        "name": "Net Fighter",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/borgo/borgo-sieciarz.png"
+      },
+      {
+        "id": "borgo-super-mutant",
+        "name": "Super-mutant",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/borgo/borgo-supermutant.png"
+      },
+      {
+        "id": "borgo-strongman",
+        "name": "Brawler",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/borgo/borgo-silacz.png"
+      },
+      {
+        "id": "borgo-assassin",
+        "name": "Assassin",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/borgo/borgo-zabojca.png"
+      },
+      {
+        "id": "borgo-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/borgo/borgo-medyk.png"
+      },
+      {
+        "id": "borgo-officer",
+        "name": "Officer",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/borgo/borgo-oficer.png"
+      },
+      {
+        "id": "borgo-super-officer",
+        "name": "Super-officer",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/borgo/borgo-superoficer.png"
+      },
+      {
+        "id": "borgo-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/borgo/borgo-zwiadowca.png"
+      }
+    ]
+  },
+  {
+    "id": "hegemony",
+    "name": "Hegemony",
+    "color": "#1a1005",
+    "accentColor": "#9d882c",
+    "description": "A ruthless criminal empire that controls the wasteland through fear and firepower. Hegemony combines cheap, abundant Gangers with elite specialists and powerful support modules to dominate the mid-game.",
+    "hqAbility": "All friendly adjacent units gain +1 melee attack strength.",
+    "hqImageUrl": "src/assets/hegemony/hegemonia-sztab.png",
+    "tiles": [
+      {
+        "id": "heg-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 5,
+        "imageUrl": "src/assets/hegemony/hegemonia-bitwa.png"
+      },
+      {
+        "id": "heg-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/hegemony/hegemonia-ruch.png"
+      },
+      {
+        "id": "heg-push",
+        "name": "Push Back",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/hegemony/hegemonia-odepchniecie.png"
+      },
+      {
+        "id": "heg-sniper",
+        "name": "Sniper",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/hegemony/hegemonia-snajper.png"
+      },
+      {
+        "id": "heg-runner",
+        "name": "Runner",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/hegemony/hegemonia-biegacz.png"
+      },
+      {
+        "id": "heg-brute",
+        "name": "Thug",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/hegemony/hegemonia-bydlak.png"
+      },
+      {
+        "id": "heg-ganger",
+        "name": "Ganger",
+        "category": "soldier",
+        "count": 4,
+        "imageUrl": "src/assets/hegemony/hegemonia-ganger.png"
+      },
+      {
+        "id": "heg-gladiator",
+        "name": "Gladiator",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/hegemony/hegemonia-gladiator.png"
+      },
+      {
+        "id": "heg-netter",
+        "name": "Net Fighter",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/hegemony/hegemonia-sieciarz.png"
+      },
+      {
+        "id": "heg-guardian",
+        "name": "Guard",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/hegemony/hegemonia-straznik.png"
+      },
+      {
+        "id": "heg-super-netter",
+        "name": "Net Master",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/hegemony/hegemonia-supersieciarz.png"
+      },
+      {
+        "id": "heg-universal-soldier",
+        "name": "Universal Soldier",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/hegemony/hegemonia-uniwersalnyzolnierz.png"
+      },
+      {
+        "id": "heg-boss",
+        "name": "The Boss",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/hegemony/hegemonia-boss.png"
+      },
+      {
+        "id": "heg-quartermaster",
+        "name": "Quartermaster",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/hegemony/hegemonia-kwatermistrz.png"
+      },
+      {
+        "id": "heg-officer-1",
+        "name": "Officer I",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/hegemony/hegemonia-oficer1.png"
+      },
+      {
+        "id": "heg-officer-2",
+        "name": "Officer II",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/hegemony/hegemonia-oficer2.png"
+      },
+      {
+        "id": "heg-transport",
+        "name": "Transport",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/hegemony/hegemonia-transport.png"
+      },
+      {
+        "id": "heg-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/hegemony/hegemonia-zwiadowca.png"
+      }
+    ]
+  },
+  {
+    "id": "moloch",
+    "name": "Moloch",
+    "color": "#1e293b",
+    "accentColor": "#a93e29",
+    "description": "A mechano-electronic entity spanning several states. After 30 years it is larger and more powerful than ever, sending machine armies across the wasteland. Strong and durable, but slow and with few Battle tokens.",
+    "hqAbility": "+1 to ranged attack strength for all adjacent friendly units.",
+    "hqImageUrl": "src/assets/moloch/moloch-sztab.png",
+    "tiles": [
+      {
+        "id": "moloch-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 4,
+        "imageUrl": "src/assets/moloch/moloch-bitwa.png"
+      },
+      {
+        "id": "moloch-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-ruch.png"
+      },
+      {
+        "id": "moloch-push",
+        "name": "Push Back",
+        "category": "instant",
+        "count": 5,
+        "imageUrl": "src/assets/moloch/moloch-odepchniecie.png"
+      },
+      {
+        "id": "moloch-bomb",
+        "name": "Air Strike",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-bomba.png"
+      },
+      {
+        "id": "moloch-blocker",
+        "name": "Blocker",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/moloch/moloch-bloker.png"
+      },
+      {
+        "id": "moloch-cyborg",
+        "name": "Hybrid",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/moloch/moloch-cyborg.png"
+      },
+      {
+        "id": "moloch-gauss-cannon",
+        "name": "Gauss Cannon",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-dzialkogaussa.png"
+      },
+      {
+        "id": "moloch-juggernaut",
+        "name": "Juggernaut",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-juggernaut.png"
+      },
+      {
+        "id": "moloch-clown",
+        "name": "The Clown",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-klaun.png"
+      },
+      {
+        "id": "moloch-hunter",
+        "name": "Hunter Killer",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/moloch/moloch-lowca.png"
+      },
+      {
+        "id": "moloch-defender",
+        "name": "Protector",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-obronca.png"
+      },
+      {
+        "id": "moloch-armored-hunter",
+        "name": "Armored Hunter",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/moloch/moloch-opancerzonylowca.png"
+      },
+      {
+        "id": "moloch-armored-sentry",
+        "name": "Guard",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-opancerzonywartownik.png"
+      },
+      {
+        "id": "moloch-ripper",
+        "name": "Ripper",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-rozpruwacz.png"
+      },
+      {
+        "id": "moloch-netter",
+        "name": "Net Fighter",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-sieciarz.png"
+      },
+      {
+        "id": "moloch-assault",
+        "name": "Stormtrooper",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-szturmowiec.png"
+      },
+      {
+        "id": "moloch-sentry",
+        "name": "Armored Guard",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-wartownik.png"
+      },
+      {
+        "id": "moloch-brain",
+        "name": "The Brain",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-mozg.png"
+      },
+      {
+        "id": "moloch-officer",
+        "name": "Officer",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-oficer.png"
+      },
+      {
+        "id": "moloch-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-zwiadowca.png"
+      },
+      {
+        "id": "moloch-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/moloch/moloch-medyk.png"
+      },
+      {
+        "id": "moloch-mother",
+        "name": "Mother Module",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/moloch/moloch-matka.png"
+      }
+    ]
+  },
+  {
+    "id": "steel-police",
+    "name": "Steel Police",
+    "color": "#0f172a",
+    "accentColor": "#7b4767",
+    "description": "The brutal law enforcement arm of a crumbling empire. Heavily armed with riot control units, judges, and wardogs, Steel Police excels at aggressive close-quarters combat backed by a deep module bench.",
+    "hqAbility": "May spend 1 durability to place Steel Net on any enemy unit (except HQ). Acts like Net. Returns when target is removed.",
+    "hqImageUrl": "src/assets/steelpolice/stalowapolicja-sztab.png",
+    "tiles": [
+      {
+        "id": "sp-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 5,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-bitwa.png"
+      },
+      {
+        "id": "sp-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-ruch.png"
+      },
+      {
+        "id": "sp-push",
+        "name": "Push Back",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-odepchniecie.png"
+      },
+      {
+        "id": "sp-terror",
+        "name": "Terror",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-terror.png"
+      },
+      {
+        "id": "sp-executor",
+        "name": "Executioner",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-egzekutor.png"
+      },
+      {
+        "id": "sp-pacifier",
+        "name": "Pacifier",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-pacyfikator.png"
+      },
+      {
+        "id": "sp-predator",
+        "name": "Predator",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-predator.png"
+      },
+      {
+        "id": "sp-brytan",
+        "name": "Bandog",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-brytan.png"
+      },
+      {
+        "id": "sp-functionary",
+        "name": "Riot Policeman",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-funkcjonariusz.png"
+      },
+      {
+        "id": "sp-judge",
+        "name": "Judge",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-sedzia.png"
+      },
+      {
+        "id": "sp-wardog",
+        "name": "Wardog",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-wardog.png"
+      },
+      {
+        "id": "sp-steel-net-launcher",
+        "name": "Net of Steel Launcher",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-wyrzutniastalowejsieci.png"
+      },
+      {
+        "id": "sp-officer",
+        "name": "Officer",
+        "category": "module",
+        "count": 3,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-oficer.png"
+      },
+      {
+        "id": "sp-sergeant",
+        "name": "Sergeant",
+        "category": "module",
+        "count": 3,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-sierzant.png"
+      },
+      {
+        "id": "sp-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-medyk.png"
+      },
+      {
+        "id": "sp-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-zwiadowca.png"
+      },
+      {
+        "id": "sp-saboteur",
+        "name": "Saboteur",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-dywersant.png"
+      },
+      {
+        "id": "sp-sterydomat",
+        "name": "Steroid Dispenser",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/steelpolice/stalowapolicja-sterydomat.png"
+      }
+    ]
+  },
+  {
+    "id": "dancer",
+    "name": "Dancer",
+    "color": "#0a0a1a",
+    "accentColor": "#7d6d60",
+    "description": "Three board Objects (Blue, Red, Yellow) replace a normal HQ. The army has the highest instant count in the game — huge stacks of Action, Battle, Push Back, and Move. Strengths: durable units and Healing; Objects can hurt the enemy outside Battle. Weakness: only three units — you lose when any Object is destroyed (see NeuroshimaHex.pl / Dancer).",
+    "hqAbility": "Dancer uses three Object HQs. Yellow Object — Healing: may restore durability to itself or to an Object adjacent along its healing edge. All Objects: each has module-style edges that increase initiative or melee or ranged attack strength.",
+    "hqImageUrl": "src/assets/dancer/dancer-obiektniebieski.png",
+    "multiHeadquarters": true,
+    "tiles": [
+      {
+        "id": "dancer-action",
+        "name": "Action",
+        "category": "instant",
+        "count": 7,
+        "imageUrl": "src/assets/dancer/dancer-akcja.png"
+      },
+      {
+        "id": "dancer-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 8,
+        "imageUrl": "src/assets/dancer/dancer-bitwa.png"
+      },
+      {
+        "id": "dancer-push",
+        "name": "Push Back",
+        "category": "instant",
+        "count": 7,
+        "imageUrl": "src/assets/dancer/dancer-odepchniecie.png"
+      },
+      {
+        "id": "dancer-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 10,
+        "imageUrl": "src/assets/dancer/dancer-ruch.png"
+      },
+      {
+        "id": "dancer-blue-object",
+        "name": "Blue Object",
+        "category": "hq",
+        "count": 1,
+        "imageUrl": "src/assets/dancer/dancer-obiektniebieski.png",
+        "excludeFromDeck": true
+      },
+      {
+        "id": "dancer-red-object",
+        "name": "Red Object",
+        "category": "hq",
+        "count": 1,
+        "imageUrl": "src/assets/dancer/dancer-obiektczerwony.png",
+        "excludeFromDeck": true
+      },
+      {
+        "id": "dancer-yellow-object",
+        "name": "Yellow Object",
+        "category": "hq",
+        "count": 1,
+        "imageUrl": "src/assets/dancer/dancer-obiektzolty.png",
+        "excludeFromDeck": true
+      }
+    ]
+  },
+  {
+    "id": "new-york",
+    "name": "New York",
+    "color": "#0f1419",
+    "accentColor": "#56647d",
+    "description": "A hardened urban militia defending the ruins of the Big Apple. New York fields a mix of cops, snipers, and street fighters — strong ranged firepower backed by versatile modules and Mine tokens for area control.",
+    "hqAbility": "Adjacent friendly units gain +1 durability (one extra wound before death). Lost when unit leaves adjacency or HQ is netted.",
+    "hqImageUrl": "src/assets/newyork/nowyjork-sztab.png",
+    "tiles": [
+      {
+        "id": "ny-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 5,
+        "imageUrl": "src/assets/newyork/nowyjork-bitwa.png"
+      },
+      {
+        "id": "ny-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/newyork/nowyjork-ruch.png"
+      },
+      {
+        "id": "ny-push",
+        "name": "Push Back",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/newyork/nowyjork-odepchniecie.png"
+      },
+      {
+        "id": "ny-sniper",
+        "name": "Sniper",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/newyork/nowyjork-snajper.png"
+      },
+      {
+        "id": "ny-shooter",
+        "name": "Shooter",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/newyork/nowyjork-strzelec.png"
+      },
+      {
+        "id": "ny-marksman",
+        "name": "Sharpshooter",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/newyork/nowyjork-strzelecwyborowy.png"
+      },
+      {
+        "id": "ny-shotgun",
+        "name": "Shotgun",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/newyork/nowyjork-shotgun.png"
+      },
+      {
+        "id": "ny-spy-shooter",
+        "name": "Spy Shooter",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/newyork/nowyjork-szpiegstrzelec.png"
+      },
+      {
+        "id": "ny-rocket-launcher",
+        "name": "Rocket Launcher",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/newyork/nowyjork-wyrzutniarakiet.png"
+      },
+      {
+        "id": "ny-cop",
+        "name": "Cop",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/newyork/nowyjork-gliniarz.png"
+      },
+      {
+        "id": "ny-steel-boxer",
+        "name": "Steel Boxer",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/newyork/nowyjork-stalowybokser.png"
+      },
+      {
+        "id": "ny-hammer",
+        "name": "Hammer",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/newyork/nowyjork-mlot.png"
+      },
+      {
+        "id": "ny-pusher",
+        "name": "Pusher",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/newyork/nowyjork-odpychacz.png"
+      },
+      {
+        "id": "ny-spy-cleaner",
+        "name": "Spy Cleaner",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/newyork/nowyjork-szpiegczysciciel.png"
+      },
+      {
+        "id": "ny-netter",
+        "name": "Net Fighter",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/newyork/nowyjork-sieciarz.png"
+      },
+      {
+        "id": "ny-mine",
+        "name": "Mine",
+        "category": "foundation",
+        "count": 2,
+        "imageUrl": "src/assets/newyork/nowyjork-mina.png"
+      },
+      {
+        "id": "ny-sergeant",
+        "name": "Sergeant",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/newyork/nowyjork-sierzant.png"
+      },
+      {
+        "id": "ny-officer-1",
+        "name": "Officer I",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/newyork/nowyjork-oficer1.png"
+      },
+      {
+        "id": "ny-officer-2",
+        "name": "Officer II",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/newyork/nowyjork-oficer2.png"
+      },
+      {
+        "id": "ny-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/newyork/nowyjork-zwiadowca.png"
+      }
+    ]
+  },
+  {
+    "id": "neojungle",
+    "name": "Neojungle",
+    "color": "#0d1a0d",
+    "accentColor": "#437232",
+    "description": "A mutated jungle that has reclaimed the wasteland. Neojungle fights with monstrous creatures, poison, and living terrain — Rippers, Poisoners, and Tree Walls control the board while Symbionts and Roots provide support.",
+    "hqAbility": "Matrix — adjacent units form a Matrix. Units adjacent to the Matrix join it. Modules on Matrix units apply to all Matrix units.",
+    "hqImageUrl": "src/assets/neojungle/neodzungla-sztab.png",
+    "tiles": [
+      {
+        "id": "nj-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 4,
+        "imageUrl": "src/assets/neojungle/neodzungla-bitwa.png"
+      },
+      {
+        "id": "nj-castling",
+        "name": "Castling",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/neojungle/neodzungla-roszada.png"
+      },
+      {
+        "id": "nj-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/neojungle/neodzungla-ruch.png"
+      },
+      {
+        "id": "nj-small-bomb",
+        "name": "Small Bomb",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/neojungle/neodzungla-malabomba.png"
+      },
+      {
+        "id": "nj-monster",
+        "name": "Monster",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/neojungle/neodzungla-monstrum.png"
+      },
+      {
+        "id": "nj-ripper",
+        "name": "Slicer",
+        "category": "soldier",
+        "count": 4,
+        "imageUrl": "src/assets/neojungle/neodzungla-rozkrajacz.png"
+      },
+      {
+        "id": "nj-poisoner",
+        "name": "Nightshade",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/neojungle/neodzungla-truciciel.png"
+      },
+      {
+        "id": "nj-crusher",
+        "name": "Crusher",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/neojungle/neodzungla-miazdzyciel.png"
+      },
+      {
+        "id": "nj-tree-wall",
+        "name": "Wall of Trees",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/neojungle/neodzungla-scianadrzew.png"
+      },
+      {
+        "id": "nj-netter",
+        "name": "Net Fighter",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/neojungle/neodzungla-sieciarz.png"
+      },
+      {
+        "id": "nj-tangle",
+        "name": "Swarm",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/neojungle/neodzungla-klebowisko.png"
+      },
+      {
+        "id": "nj-vine",
+        "name": "Vines",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/neojungle/neodzungla-pnacza.png"
+      },
+      {
+        "id": "nj-root",
+        "name": "Roots",
+        "category": "foundation",
+        "count": 2,
+        "imageUrl": "src/assets/neojungle/neodzungla-korzen.png"
+      },
+      {
+        "id": "nj-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 3,
+        "imageUrl": "src/assets/neojungle/neodzungla-medyk.png"
+      },
+      {
+        "id": "nj-symbiont-alpha",
+        "name": "Symbiont Alpha",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/neojungle/neodzungla-symbiontalfa.png"
+      },
+      {
+        "id": "nj-symbiont-beta",
+        "name": "Symbiont Beta",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/neojungle/neodzungla-symbiontbeta.png"
+      },
+      {
+        "id": "nj-symbiont-gamma",
+        "name": "Symbiont Gamma",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/neojungle/neodzungla-symbiontgamma.png"
+      }
+    ]
+  },
+  {
+    "id": "sharrash",
+    "name": "Sharrash",
+    "color": "#14100a",
+    "accentColor": "#497762",
+    "description": "A chaotic underground faction of mutants, rats, and beasts. Sharrash floods the board with cheap units and explosives — Mortars, Demolition Charges, and Plague tokens create havoc while Mutants and Rats swarm the enemy.",
+    "hqAbility": "Underground Castling — once per turn, swap HQ with an adjacent Underground unit.",
+    "hqImageUrl": "src/assets/sharrash/sharrash-sztab.png",
+    "tiles": [
+      {
+        "id": "sharrash-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 5,
+        "imageUrl": "src/assets/sharrash/sharrash-bitwa.png"
+      },
+      {
+        "id": "sharrash-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/sharrash/sharrash-ruch.png"
+      },
+      {
+        "id": "sharrash-paralysis",
+        "name": "Paralysis",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/sharrash/sharrash-paraliz.png"
+      },
+      {
+        "id": "sharrash-plague",
+        "name": "Plague",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/sharrash/sharrash-plaga.png"
+      },
+      {
+        "id": "sharrash-beast",
+        "name": "Beast",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/sharrash/sharrash-bestia.png"
+      },
+      {
+        "id": "sharrash-mutant",
+        "name": "Mutant",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/sharrash/sharrash-mutant.png"
+      },
+      {
+        "id": "sharrash-rats",
+        "name": "Rats",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/sharrash/sharrash-szczury.png"
+      },
+      {
+        "id": "sharrash-mortar",
+        "name": "Mortar",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/sharrash/sharrash-mozdzierz.png"
+      },
+      {
+        "id": "sharrash-demolition-charge",
+        "name": "Explosive",
+        "category": "soldier",
+        "count": 4,
+        "imageUrl": "src/assets/sharrash/sharrash-ladunekwybuchowy.png"
+      },
+      {
+        "id": "sharrash-underground",
+        "name": "Underworlds",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/sharrash/sharrash-podziemia.png"
+      },
+      {
+        "id": "sharrash-dump",
+        "name": "Landfill",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/sharrash/sharrash-smietnisko.png"
+      },
+      {
+        "id": "sharrash-hole",
+        "name": "Hole",
+        "category": "foundation",
+        "count": 1,
+        "imageUrl": "src/assets/sharrash/sharrash-dziura.png"
+      },
+      {
+        "id": "sharrash-mother",
+        "name": "Mother",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/sharrash/sharrash-matka.png"
+      },
+      {
+        "id": "sharrash-transport",
+        "name": "Transport",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/sharrash/sharrash-transport.png"
+      },
+      {
+        "id": "sharrash-officer",
+        "name": "Officer",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/sharrash/sharrash-oficer.png"
+      },
+      {
+        "id": "sharrash-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/sharrash/sharrash-medyk.png"
+      },
+      {
+        "id": "sharrash-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/sharrash/sharrash-zwiadowca.png"
+      }
+    ]
+  },
+  {
+    "id": "mephisto",
+    "name": "Mephisto",
+    "color": "#1a0505",
+    "accentColor": "#854d38",
+    "description": "A colossal bio-mechanical demon assembled from interchangeable body parts. Mephisto's tiles are its own limbs and organs — each one a combat piece that snaps onto the growing creature on the board.",
+    "hqAbility": "Once per turn, one Mephisto unit (including HQ) may rotate in any direction.",
+    "hqImageUrl": "src/assets/mephisto/mephisto-sztab.png",
+    "tiles": [
+      {
+        "id": "mephisto-castling",
+        "name": "Castling",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/mephisto/mephisto-roszada.png"
+      },
+      {
+        "id": "mephisto-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/mephisto/mephisto-bitwa.png"
+      },
+      {
+        "id": "mephisto-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/mephisto/mephisto-ruch.png"
+      },
+      {
+        "id": "mephisto-incubator",
+        "name": "Incubator",
+        "category": "implant",
+        "count": 3,
+        "imageUrl": "src/assets/mephisto/mephisto-inkubator.png"
+      },
+      {
+        "id": "mephisto-transmitter",
+        "name": "Transmitter",
+        "category": "implant",
+        "count": 1,
+        "imageUrl": "src/assets/mephisto/mephisto-transmiter.png"
+      },
+      {
+        "id": "mephisto-jaws",
+        "name": "Jaws",
+        "category": "implant",
+        "count": 2,
+        "imageUrl": "src/assets/mephisto/mephisto-szczeki.png"
+      },
+      {
+        "id": "mephisto-tail",
+        "name": "Tail",
+        "category": "implant",
+        "count": 2,
+        "imageUrl": "src/assets/mephisto/mephisto-ogon.png"
+      },
+      {
+        "id": "mephisto-left-spike",
+        "name": "Left Quill",
+        "category": "implant",
+        "count": 1,
+        "imageUrl": "src/assets/mephisto/mephisto-koleclewy.png"
+      },
+      {
+        "id": "mephisto-right-spike",
+        "name": "Right Quill",
+        "category": "implant",
+        "count": 1,
+        "imageUrl": "src/assets/mephisto/mephisto-kolecprawy.png"
+      },
+      {
+        "id": "mephisto-tentacles",
+        "name": "Tentacles",
+        "category": "implant",
+        "count": 2,
+        "imageUrl": "src/assets/mephisto/mephisto-macki.png"
+      },
+      {
+        "id": "mephisto-appendages",
+        "name": "Limbs",
+        "category": "implant",
+        "count": 2,
+        "imageUrl": "src/assets/mephisto/mephisto-odnoza.png"
+      },
+      {
+        "id": "mephisto-drill",
+        "name": "Drill",
+        "category": "implant",
+        "count": 1,
+        "imageUrl": "src/assets/mephisto/mephisto-swider.png"
+      },
+      {
+        "id": "mephisto-amplifier",
+        "name": "Toughener",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/mephisto/mephisto-wzmacniacz.png"
+      },
+      {
+        "id": "mephisto-probe",
+        "name": "Probe",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/mephisto/mephisto-sonda.png"
+      },
+      {
+        "id": "mephisto-maw",
+        "name": "Muzzle",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/mephisto/mephisto-paszcza.png"
+      },
+      {
+        "id": "mephisto-claw",
+        "name": "Claw",
+        "category": "module",
+        "count": 4,
+        "imageUrl": "src/assets/mephisto/mephisto-szpon.png"
+      },
+      {
+        "id": "mephisto-accelerator",
+        "name": "Accelerator",
+        "category": "module",
+        "count": 3,
+        "imageUrl": "src/assets/mephisto/mephisto-akcelerator.png"
+      }
+    ]
+  },
+  {
+    "id": "doomsday-machine",
+    "name": "Doomsday Machine",
+    "color": "#0a0a0f",
+    "accentColor": "#5a645f",
+    "description": "An autonomous war machine that deploys Shooter units — Alpha, Gamma, Delta, Omega — and Gauss Cannons. Doomsday Machine has five Medics, the most in the game, and relies on Fire Positions and Traps for area control.",
+    "hqAbility": "Once per turn, one friendly unit may rotate.",
+    "hqImageUrl": "src/assets/doomsdaymachine/doomsdaymachine-sztab.png",
+    "tiles": [
+      {
+        "id": "ddm-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 4,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-bitwa.png"
+      },
+      {
+        "id": "ddm-push",
+        "name": "Push Back",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-odepchniecie.png"
+      },
+      {
+        "id": "ddm-small-bomb",
+        "name": "Small Bomb",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-malabomba.png"
+      },
+      {
+        "id": "ddm-shooter-alpha",
+        "name": "Alpha Shooter",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-strzelecalfa.png"
+      },
+      {
+        "id": "ddm-gauss-cannon",
+        "name": "Gauss Cannon",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-dzialkogaussa.png"
+      },
+      {
+        "id": "ddm-shooter-gamma",
+        "name": "Gamma Shooter",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-strzelecgamma.png"
+      },
+      {
+        "id": "ddm-disintegrator",
+        "name": "Tripler",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-roztrajacz.png"
+      },
+      {
+        "id": "ddm-shooter-delta",
+        "name": "Delta Shooter",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-strzelecdelta.png"
+      },
+      {
+        "id": "ddm-shooter-omega",
+        "name": "Omega Shooter",
+        "category": "soldier",
+        "count": 4,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-strzelecomega.png"
+      },
+      {
+        "id": "ddm-doom-netter",
+        "name": "Doom Net Fighter",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-sieciarzzaglady.png"
+      },
+      {
+        "id": "ddm-fire-position",
+        "name": "Fireblast",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-stanowiskoogniowe.png"
+      },
+      {
+        "id": "ddm-trap",
+        "name": "Trap",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-pulapka.png"
+      },
+      {
+        "id": "ddm-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 5,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-medyk.png"
+      },
+      {
+        "id": "ddm-officer",
+        "name": "Officer",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-oficer.png"
+      },
+      {
+        "id": "ddm-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-zwiadowca.png"
+      },
+      {
+        "id": "ddm-main-processor",
+        "name": "Main War Processor",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/doomsdaymachine/doomsdaymachine-glownyprocesorbojowy.png"
+      }
+    ]
+  },
+  {
+    "id": "mississippi",
+    "name": "Mississippi",
+    "color": "#0f1a14",
+    "accentColor": "#706a41",
+    "description": "A toxic wasteland faction that thrives in polluted swamps and poisoned waters. Mississippi relies on stealth, poison, and area denial — Shadows, Poisoners, and Boilers control the board while Mutants and Guardians hold the line.",
+    "hqAbility": "Once per turn, HQ may Push one adjacent enemy unit.",
+    "hqImageUrl": "src/assets/mississippi/missisipi-sztab.png",
+    "tiles": [
+      {
+        "id": "ms-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 4,
+        "imageUrl": "src/assets/mississippi/missisipi-bitwa.png"
+      },
+      {
+        "id": "ms-smoke-screen",
+        "name": "Smoke Screen",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/mississippi/missisipi-zaslonadymna.png"
+      },
+      {
+        "id": "ms-swap",
+        "name": "Transposition",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/mississippi/missisipi-podmiana.png"
+      },
+      {
+        "id": "ms-push",
+        "name": "Push Back",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/mississippi/missisipi-odepchniecie.png"
+      },
+      {
+        "id": "ms-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/mississippi/missisipi-ruch.png"
+      },
+      {
+        "id": "ms-shadow",
+        "name": "Shadow",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/mississippi/missisipi-cien.png"
+      },
+      {
+        "id": "ms-mutant",
+        "name": "Mutant",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/mississippi/missisipi-mutant.png"
+      },
+      {
+        "id": "ms-poisoner",
+        "name": "Poisoner",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/mississippi/missisipi-truciciel.png"
+      },
+      {
+        "id": "ms-guardian",
+        "name": "Guard",
+        "category": "soldier",
+        "count": 4,
+        "imageUrl": "src/assets/mississippi/missisipi-straznik.png"
+      },
+      {
+        "id": "ms-assassin",
+        "name": "Hitman",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/mississippi/missisipi-skrytobojca.png"
+      },
+      {
+        "id": "ms-netter",
+        "name": "Net Fighter",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/mississippi/missisipi-sieciarz.png"
+      },
+      {
+        "id": "ms-paralysis",
+        "name": "Paralysis",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/mississippi/missisipi-paraliz.png"
+      },
+      {
+        "id": "ms-toxic-bomb",
+        "name": "Toxic Bomb",
+        "category": "foundation",
+        "count": 1,
+        "imageUrl": "src/assets/mississippi/missisipi-toksycznabomba.png"
+      },
+      {
+        "id": "ms-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/mississippi/missisipi-medyk.png"
+      },
+      {
+        "id": "ms-mutation",
+        "name": "Mutation",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/mississippi/missisipi-mutacja.png"
+      },
+      {
+        "id": "ms-zone",
+        "name": "Zone",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/mississippi/missisipi-strefa.png"
+      },
+      {
+        "id": "ms-boiler",
+        "name": "Boiler",
+        "category": "module",
+        "count": 3,
+        "imageUrl": "src/assets/mississippi/missisipi-bojler.png"
+      }
+    ]
+  },
+  {
+    "id": "vegas",
+    "name": "Vegas",
+    "color": "#1a0f0a",
+    "accentColor": "#935d3f",
+    "description": "A casino-run city-state where mercenaries and bodyguards enforce the house rules. Vegas excels at repositioning — Rotation, Castling, and Push tokens let it shuffle the board, while Agitators and Shooters apply pressure.",
+    "hqAbility": "Control Seizure — enemy units connected to HQ (in its direction) are taken over and count as yours.",
+    "hqImageUrl": "src/assets/vegas/vegas-sztab.png",
+    "tiles": [
+      {
+        "id": "vegas-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 5,
+        "imageUrl": "src/assets/vegas/vegas-bitwa.png"
+      },
+      {
+        "id": "vegas-rotation",
+        "name": "Rotation",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/vegas/vegas-obrot.png"
+      },
+      {
+        "id": "vegas-push",
+        "name": "Push Back",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/vegas/vegas-odepchniecie.png"
+      },
+      {
+        "id": "vegas-castling",
+        "name": "Castling",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/vegas/vegas-roszada.png"
+      },
+      {
+        "id": "vegas-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/vegas/vegas-ruch.png"
+      },
+      {
+        "id": "vegas-sniper",
+        "name": "Sniper",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/vegas/vegas-snajper.png"
+      },
+      {
+        "id": "vegas-mercenary",
+        "name": "Mercenary",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/vegas/vegas-najemnik.png"
+      },
+      {
+        "id": "vegas-bodyguard",
+        "name": "Bodyguard",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/vegas/vegas-ochroniarz.png"
+      },
+      {
+        "id": "vegas-guardian",
+        "name": "Guardian",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/vegas/vegas-straznik.png"
+      },
+      {
+        "id": "vegas-shooter",
+        "name": "Shooter",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/vegas/vegas-strzelec.png"
+      },
+      {
+        "id": "vegas-mine",
+        "name": "Mine",
+        "category": "foundation",
+        "count": 2,
+        "imageUrl": "src/assets/vegas/vegas-mina.png"
+      },
+      {
+        "id": "vegas-agitator",
+        "name": "Agitator",
+        "category": "module",
+        "count": 3,
+        "imageUrl": "src/assets/vegas/vegas-agitator.png"
+      },
+      {
+        "id": "vegas-saboteur",
+        "name": "Saboteur",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/vegas/vegas-dywersant.png"
+      },
+      {
+        "id": "vegas-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/vegas/vegas-medyk.png"
+      },
+      {
+        "id": "vegas-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/vegas/vegas-zwiadowca.png"
+      }
+    ]
+  },
+  {
+    "id": "smart",
+    "name": "Smart",
+    "color": "#0a0f14",
+    "accentColor": "#575b5d",
+    "description": "An AI-controlled army of robots, cyborgs, and bio-droids. Smart combines heavy firepower — Gauss Cannons, MK3 Golems, Rippers — with Terror tokens and strong module support. Few instants, but devastating when they strike.",
+    "hqAbility": "Adjacent units may perform an extra move and/or rotate, as if they had Mobility.",
+    "hqImageUrl": "src/assets/smart/smart-sztab.png",
+    "tiles": [
+      {
+        "id": "smart-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 4,
+        "imageUrl": "src/assets/smart/smart-bitwa.png"
+      },
+      {
+        "id": "smart-push",
+        "name": "Push Back",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/smart/smart-odepchniecie.png"
+      },
+      {
+        "id": "smart-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/smart/smart-ruch.png"
+      },
+      {
+        "id": "smart-sniper",
+        "name": "Sniper",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/smart/smart-snajper.png"
+      },
+      {
+        "id": "smart-terror",
+        "name": "Terror",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/smart/smart-terror.png"
+      },
+      {
+        "id": "smart-ripper",
+        "name": "Ripper",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/smart/smart-rozpruwacz.png"
+      },
+      {
+        "id": "smart-twister",
+        "name": "Twister",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/smart/smart-twister.png"
+      },
+      {
+        "id": "smart-netter",
+        "name": "Net Fighter",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/smart/smart-sieciarz.png"
+      },
+      {
+        "id": "smart-gauss-cannon",
+        "name": "Gauss Cannon",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/smart/smart-dzialkogaussa.png"
+      },
+      {
+        "id": "smart-golem-mk3",
+        "name": "MK3 Golem",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/smart/smart-golemmk3.png"
+      },
+      {
+        "id": "smart-cyborg",
+        "name": "Cyborg",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/smart/smart-cyborg.png"
+      },
+      {
+        "id": "smart-bio-droid",
+        "name": "Bio-droid",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/smart/smart-biodroid.png"
+      },
+      {
+        "id": "smart-transporter",
+        "name": "Transporter",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/smart/smart-transporter.png"
+      },
+      {
+        "id": "smart-officer",
+        "name": "Officer",
+        "category": "module",
+        "count": 4,
+        "imageUrl": "src/assets/smart/smart-oficer.png"
+      },
+      {
+        "id": "smart-mother",
+        "name": "Mother Module",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/smart/smart-matka.png"
+      },
+      {
+        "id": "smart-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/smart/smart-zwiadowca.png"
+      }
+    ]
+  },
+  {
+    "id": "uranopolis",
+    "name": "Uranopolis",
+    "color": "#1a0f2e",
+    "accentColor": "#596155",
+    "description": "A technologically advanced city-state whose citizens wield powerful generators and cutting-edge weaponry. Uranopolis units are fragile but pack devastating firepower, supported by a powerful array of modules.",
+    "hqAbility": "Provides Power to each adjacent friendly unit.",
+    "hqImageUrl": "src/assets/uranopolis/uranopolis-sztab.png",
+    "tiles": [
+      {
+        "id": "uranopolis-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-ruch.png"
+      },
+      {
+        "id": "uranopolis-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 4,
+        "imageUrl": "src/assets/uranopolis/uranopolis-bitwa.png"
+      },
+      {
+        "id": "uranopolis-push",
+        "name": "Push Back",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/uranopolis/uranopolis-odepchniecie.png"
+      },
+      {
+        "id": "uranopolis-ray",
+        "name": "Ray",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-promien.png"
+      },
+      {
+        "id": "uranopolis-electrowireman",
+        "name": "Electro Net Fighter",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/uranopolis/uranopolis-elektrosieciarz.png"
+      },
+      {
+        "id": "uranopolis-mechanic",
+        "name": "Mechanic",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/uranopolis/uranopolis-mechanik.png"
+      },
+      {
+        "id": "uranopolis-inferno",
+        "name": "Inferno",
+        "category": "soldier",
+        "count": 4,
+        "imageUrl": "src/assets/uranopolis/uranopolis-inferno.png"
+      },
+      {
+        "id": "uranopolis-bulldozer",
+        "name": "Bulldozer",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-buldozer.png"
+      },
+      {
+        "id": "uranopolis-guardian",
+        "name": "Guard",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/uranopolis/uranopolis-straznik.png"
+      },
+      {
+        "id": "uranopolis-drill",
+        "name": "Drill",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-swider.png"
+      },
+      {
+        "id": "uranopolis-hammerhead",
+        "name": "Hammerhead",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-hammerhead.png"
+      },
+      {
+        "id": "uranopolis-demolisher",
+        "name": "Ravager",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-wyburzacz.png"
+      },
+      {
+        "id": "uranopolis-mercenary",
+        "name": "Mercenary",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-najemnik.png"
+      },
+      {
+        "id": "uranopolis-speed-generator",
+        "name": "Acceleration Generator",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-generatorprzyspieszajacy.png"
+      },
+      {
+        "id": "uranopolis-combat-generator",
+        "name": "Combat Generator",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/uranopolis/uranopolis-generatorbojowy.png"
+      },
+      {
+        "id": "uranopolis-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-medyk.png"
+      },
+      {
+        "id": "uranopolis-doubler",
+        "name": "Doubler",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-podwajacz.png"
+      },
+      {
+        "id": "uranopolis-gauss-transformer",
+        "name": "Gauss Transformer",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-transformatorgaussa.png"
+      },
+      {
+        "id": "uranopolis-transport",
+        "name": "Transport",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/uranopolis/uranopolis-transport.png"
+      },
+      {
+        "id": "uranopolis-waste",
+        "name": "Wastes",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/uranopolis/uranopolis-odpady.png"
+      }
+    ]
+  },
+  {
+    "id": "death-breath",
+    "name": "Death Breath",
+    "color": "#0a0f14",
+    "accentColor": "#8d5131",
+    "description": "A zombie horde that spreads infection across the board. Death Breath fields Infected, Grippers, and Zombies, backed by Reappearance and Castling with the Opponent tokens to recycle units. Eight Battle tokens make it one of the most combat-heavy armies.",
+    "hqAbility": "Revival — when Death Breath kills an enemy, place units from Zombie Pool on the empty spaces after Battle.",
+    "hqImageUrl": "src/assets/deathbreath/deathbreath-sztab.png",
+    "tiles": [
+      {
+        "id": "db-castling",
+        "name": "Castling with the Opponent",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/deathbreath/deathbreath-roszada.png"
+      },
+      {
+        "id": "db-return",
+        "name": "Reappearance",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/deathbreath/deathbreath-powrot.png"
+      },
+      {
+        "id": "db-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/deathbreath/deathbreath-ruch.png"
+      },
+      {
+        "id": "db-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 8,
+        "imageUrl": "src/assets/deathbreath/deathbreath-bitwa.png"
+      },
+      {
+        "id": "db-infected",
+        "name": "Infected",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/deathbreath/deathbreath-zarazony.png"
+      },
+      {
+        "id": "db-grabber",
+        "name": "Gripper",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/deathbreath/deathbreath-chwytacz.png"
+      },
+      {
+        "id": "db-zombie",
+        "name": "Zombie",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/deathbreath/deathbreath-zombiak.png"
+      },
+      {
+        "id": "db-anomaly",
+        "name": "Anomaly",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/deathbreath/deathbreath-anomalia.png"
+      },
+      {
+        "id": "db-mutant",
+        "name": "Mutant",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/deathbreath/deathbreath-mutant.png"
+      },
+      {
+        "id": "db-corpse",
+        "name": "Corpse",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/deathbreath/deathbreath-truposz.png"
+      },
+      {
+        "id": "db-devourer",
+        "name": "Devourer",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/deathbreath/deathbreath-pozeracz.png"
+      },
+      {
+        "id": "db-beast",
+        "name": "Beast",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/deathbreath/deathbreath-bestia.png"
+      },
+      {
+        "id": "db-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/deathbreath/deathbreath-medyk.png"
+      },
+      {
+        "id": "db-officer",
+        "name": "Officer",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/deathbreath/deathbreath-oficer.png"
+      },
+      {
+        "id": "db-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 3,
+        "imageUrl": "src/assets/deathbreath/deathbreath-zwiadowca.png"
+      }
+    ]
+  },
+  {
+    "id": "iron-gang",
+    "name": "Iron Gang",
+    "color": "#141414",
+    "accentColor": "#959512",
+    "description": "A biker gang that rules the roads with brute force and mobility. Iron Gang fields Lumberjacks, Mountains, and Bikers, backed by the unique Order token — the most versatile instant in the game, with nine copies.",
+    "hqAbility": "Chain — the HQ has Chain: deal 1 wound to any enemy unit (including HQ) on a straight line between two Chain units.",
+    "hqImageUrl": "src/assets/irongang/irongang-sztab.png",
+    "tiles": [
+      {
+        "id": "ig-double-move",
+        "name": "Doubled Move",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/irongang/irongang-podwojnyruch.png"
+      },
+      {
+        "id": "ig-order",
+        "name": "Order",
+        "category": "instant",
+        "count": 9,
+        "imageUrl": "src/assets/irongang/irongang-rozkaz.png"
+      },
+      {
+        "id": "ig-fanatic",
+        "name": "Fanatic",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/irongang/irongang-fanatyk.png"
+      },
+      {
+        "id": "ig-ranged-netter",
+        "name": "Ranged Net Fighter",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/irongang/irongang-sieciarzdystansowy.png"
+      },
+      {
+        "id": "ig-lumberjack",
+        "name": "Lumberjack",
+        "category": "soldier",
+        "count": 5,
+        "imageUrl": "src/assets/irongang/irongang-drwal.png"
+      },
+      {
+        "id": "ig-mountain",
+        "name": "Mountain",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/irongang/irongang-gora.png"
+      },
+      {
+        "id": "ig-motorcyclist",
+        "name": "Biker",
+        "category": "soldier",
+        "count": 4,
+        "imageUrl": "src/assets/irongang/irongang-motocyklista.png"
+      },
+      {
+        "id": "ig-hook",
+        "name": "Hook",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/irongang/irongang-hak.jpg"
+      },
+      {
+        "id": "ig-officer",
+        "name": "Officer",
+        "category": "module",
+        "count": 4,
+        "imageUrl": "src/assets/irongang/irongang-oficer.png"
+      },
+      {
+        "id": "ig-boss",
+        "name": "Boss",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/irongang/irongang-szef.png"
+      }
+    ]
+  },
+  {
+    "id": "sand-runners",
+    "name": "Sand Runners",
+    "color": "#1a140a",
+    "accentColor": "#95501d",
+    "description": "A desert tribe surviving in the wasteland. Sand Runners rely on Sandstorm tokens for area control, Field Medics for healing, and a mix of veterans and specialists — Optymist, Vulture, and Secateur hold the line.",
+    "hqAbility": "Two-sided HQ — one side eliminates a slower target before it attacks; the other has different abilities.",
+    "hqImageUrl": "src/assets/sandrunners/sandrunners-sztab.png",
+    "tiles": [
+      {
+        "id": "sr-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/sandrunners/sandrunners-ruch.png"
+      },
+      {
+        "id": "sr-sandstorm",
+        "name": "Sandstorm",
+        "category": "instant",
+        "count": 5,
+        "imageUrl": "src/assets/sandrunners/sandrunners-burzapiaskowa.png"
+      },
+      {
+        "id": "sr-push",
+        "name": "Push Back",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/sandrunners/sandrunners-odepchniecie.png"
+      },
+      {
+        "id": "sr-trigger",
+        "name": "Trigger",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/sandrunners/sandrunners-cyngiel.png"
+      },
+      {
+        "id": "sr-amok",
+        "name": "Optymist",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/sandrunners/sandrunners-amok.png"
+      },
+      {
+        "id": "sr-old-guard",
+        "name": "Vulture",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/sandrunners/sandrunners-staragwardia.png"
+      },
+      {
+        "id": "sr-pile-driver",
+        "name": "Hammer",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/sandrunners/sandrunners-kafar.png"
+      },
+      {
+        "id": "sr-pruner",
+        "name": "Secateur",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/sandrunners/sandrunners-sekator.png"
+      },
+      {
+        "id": "sr-mirage",
+        "name": "Mirage",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/sandrunners/sandrunners-fatamorgana.png"
+      },
+      {
+        "id": "sr-field-medic-santa",
+        "name": "Field Medic Santa",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/sandrunners/sandrunners-medykpolowysanta.png"
+      },
+      {
+        "id": "sr-field-medic-lu",
+        "name": "Field Medic Lu",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/sandrunners/sandrunners-medykpolowylu.png"
+      },
+      {
+        "id": "sr-officer-1",
+        "name": "Officer I",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/sandrunners/sandrunners-oficer1.png"
+      },
+      {
+        "id": "sr-chief",
+        "name": "Chieftain",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/sandrunners/sandrunners-wodz.png"
+      },
+      {
+        "id": "sr-officer-2",
+        "name": "Officer II",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/sandrunners/sandrunners-oficer2.png"
+      },
+      {
+        "id": "sr-caravan",
+        "name": "Caravan",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/sandrunners/sandrunners-karawana.png"
+      },
+      {
+        "id": "sr-quicksand",
+        "name": "Quicksands",
+        "category": "foundation",
+        "count": 2,
+        "imageUrl": "src/assets/sandrunners/sandrunners-ruchomepiaski.png"
+      }
+    ]
+  },
+  {
+    "id": "troglodytes",
+    "name": "Troglodytes",
+    "color": "#0a1414",
+    "accentColor": "#597b8b",
+    "description": "Cave-dwelling mutants adapted to cold and darkness. Troglodytes field Bears, Archers, Ice Monkeys, and the unique Satiety system — markers placed when Cannibalizing that grow stronger as the battle progresses.",
+    "hqAbility": "Gourmand — adjacent units may place Greater Satiety when they Cannibalize.",
+    "hqImageUrl": "src/assets/troglodytes/troglodyci-sztab.png",
+    "tiles": [
+      {
+        "id": "trog-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 7,
+        "imageUrl": "src/assets/troglodytes/troglodyci-bitwa.png"
+      },
+      {
+        "id": "trog-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/troglodytes/troglodyci-ruch.png"
+      },
+      {
+        "id": "trog-avalanche",
+        "name": "Avalanche",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/troglodytes/troglodyci-lawina.png"
+      },
+      {
+        "id": "trog-cannibalize",
+        "name": "Cannibalize the Enemy",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/troglodytes/troglodyci-skanibalizowanie-wroga.png"
+      },
+      {
+        "id": "trog-frost",
+        "name": "Frost",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/troglodytes/troglodyci-frost.png"
+      },
+      {
+        "id": "trog-archer",
+        "name": "Archer",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/troglodytes/troglodyci-lucznik.png"
+      },
+      {
+        "id": "trog-tundra",
+        "name": "Tundra",
+        "category": "soldier",
+        "count": 4,
+        "imageUrl": "src/assets/troglodytes/troglodyci-tundra.png"
+      },
+      {
+        "id": "trog-icicle",
+        "name": "Icicle",
+        "category": "soldier",
+        "count": 5,
+        "imageUrl": "src/assets/troglodytes/troglodyci-sopel.png"
+      },
+      {
+        "id": "trog-bear",
+        "name": "Bear",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/troglodytes/troglodyci-niedzwiedz.png"
+      },
+      {
+        "id": "trog-frost-matron",
+        "name": "Icy Mistress",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/troglodytes/troglodyci-mrozna-matrona.png"
+      },
+      {
+        "id": "trog-ice-monkey",
+        "name": "Ice Monkey",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/troglodytes/troglodyci-lodowa-malpa.png"
+      },
+      {
+        "id": "trog-kids",
+        "name": "Kids",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/troglodytes/troglodyci-dzieciaki.png"
+      }
+    ]
+  },
+  {
+    "id": "beasts",
+    "name": "Beasts",
+    "color": "#14200f",
+    "accentColor": "#97672b",
+    "description": "Feral mutants and monstrous creatures that roam the wasteland. Beasts overwhelm enemies with raw numbers and relentless aggression — fast, hard-hitting Hive units backed by a surprisingly large Battle token pool.",
+    "hqAbility": "Lair — at game start, place Cerberus adjacent to HQ. Beasts HQ has Initiative 1.",
+    "hqImageUrl": "src/assets/beasts/bestie-sztab.png",
+    "tiles": [
+      {
+        "id": "beasts-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/beasts/bestie-ruch.png"
+      },
+      {
+        "id": "beasts-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 6,
+        "imageUrl": "src/assets/beasts/bestie-bitwa.png"
+      },
+      {
+        "id": "beasts-hunt",
+        "name": "Hunt",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/beasts/bestie-polowanie.png"
+      },
+      {
+        "id": "beasts-pull",
+        "name": "Grab",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/beasts/bestie-przyciagniecie.png"
+      },
+      {
+        "id": "beasts-cerberus",
+        "name": "Cerberus",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/beasts/bestie-cerber.png",
+        "excludeFromDeck": true,
+        "displayWithHq": true
+      },
+      {
+        "id": "beasts-alpha",
+        "name": "Alpha",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/beasts/bestie-alfa.png"
+      },
+      {
+        "id": "beasts-swarm",
+        "name": "Hive",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/beasts/bestie-roj.png"
+      },
+      {
+        "id": "beasts-ram",
+        "name": "The Ram",
+        "category": "soldier",
+        "count": 4,
+        "imageUrl": "src/assets/beasts/bestie-taran.png"
+      },
+      {
+        "id": "beasts-acid-spitter",
+        "name": "Acid-Spitt",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/beasts/bestie-kwasopluj.png"
+      },
+      {
+        "id": "beasts-bug",
+        "name": "Bug",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/beasts/bestie-robal.png"
+      },
+      {
+        "id": "beasts-urchin",
+        "name": "Urchin",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/beasts/bestie-jezowiec.png"
+      },
+      {
+        "id": "beasts-vulture",
+        "name": "Vulture",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/beasts/bestie-sep.png"
+      },
+      {
+        "id": "beasts-arachnoid",
+        "name": "Arachnid",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/beasts/bestie-arachnoid.png"
+      },
+      {
+        "id": "beasts-scout",
+        "name": "Ranger",
+        "category": "module",
+        "count": 3,
+        "imageUrl": "src/assets/beasts/bestie-zwiadowca.png"
+      },
+      {
+        "id": "beasts-officer",
+        "name": "Officer I",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/beasts/bestie-oficer1.png"
+      },
+      {
+        "id": "beasts-ripper",
+        "name": "Scrabbler",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/beasts/bestie-szarpak.png"
+      }
+    ]
+  },
+  {
+    "id": "pirates",
+    "name": "Pirates",
+    "color": "#0c1a2e",
+    "accentColor": "#177d88",
+    "description": "Ruthless river raiders who control the waterways of the wasteland. Pirates are a nimble, aggressive army with strong ranged firepower and tricks that move both their own units and enemy pieces across the board.",
+    "hqAbility": "Drift — HQ moves on Water Fields. Uses special water board setup.",
+    "hqImageUrl": "src/assets/pirates/piraci-sztab.jpg",
+    "tiles": [
+      {
+        "id": "pirates-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 5,
+        "imageUrl": "src/assets/pirates/piraci-bitwa.jpg"
+      },
+      {
+        "id": "pirates-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/pirates/piraci-ruch.jpg"
+      },
+      {
+        "id": "pirates-wave",
+        "name": "Wave",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/pirates/piraci-fala.jpg"
+      },
+      {
+        "id": "pirates-tavern",
+        "name": "Tavern",
+        "category": "implant",
+        "count": 1,
+        "imageUrl": "src/assets/pirates/piraci-tawerna.jpg"
+      },
+      {
+        "id": "pirates-motorboat",
+        "name": "Motorboat",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/pirates/piraci-motorowka.jpg"
+      },
+      {
+        "id": "pirates-fisherman",
+        "name": "Fisherman",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/pirates/piraci-wedkarz.jpg"
+      },
+      {
+        "id": "pirates-harpoon",
+        "name": "Harpoon",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/pirates/piraci-harpun.jpg"
+      },
+      {
+        "id": "pirates-crocodile",
+        "name": "Crocodile",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/pirates/piraci-krokodyl.jpg"
+      },
+      {
+        "id": "pirates-helmsman",
+        "name": "Helmsman",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/pirates/piraci-sternik.jpg"
+      },
+      {
+        "id": "pirates-smuggler",
+        "name": "Smuggler",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/pirates/piraci-szmugler.jpg"
+      },
+      {
+        "id": "pirates-boatswain",
+        "name": "Bossman",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/pirates/piraci-bosman.jpg"
+      },
+      {
+        "id": "pirates-water-cannon",
+        "name": "Water Gun",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/pirates/piraci-dzialko-wodne.jpg"
+      },
+      {
+        "id": "pirates-mother",
+        "name": "Mother",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/pirates/piraci-matka.jpg"
+      },
+      {
+        "id": "pirates-officer",
+        "name": "Officer I",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/pirates/piraci-oficer1.jpg"
+      },
+      {
+        "id": "pirates-saboteur",
+        "name": "Saboteur",
+        "category": "module",
+        "count": 3,
+        "imageUrl": "src/assets/pirates/piraci-dywersant.jpg"
+      },
+      {
+        "id": "pirates-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/pirates/piraci-medyk.jpg"
+      }
+    ]
+  },
+  {
+    "id": "merchants-guild",
+    "name": "Merchants Guild",
+    "color": "#1a1408",
+    "accentColor": "#9d8a2b",
+    "description": "A wealthy trading faction that buys victory. Merchants Guild fields Paid Snipers, Black Market, Bomber Chris, and Welders — backed by Commanders, Bosses, and the unique Gamble mechanic for high-risk, high-reward plays.",
+    "hqAbility": "Capital — gain Gamble when HQ destroys units in Battle. Start with 2 Gamble.",
+    "hqImageUrl": "src/assets/merchantsguild/gildiakupcow-sztab.jpg",
+    "tiles": [
+      {
+        "id": "mg-paid-sniper",
+        "name": "Paid Sniper",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-platny-snajper.jpg"
+      },
+      {
+        "id": "mg-black-market",
+        "name": "Black Market",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-czarny-rynek.jpg"
+      },
+      {
+        "id": "mg-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 5,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-ruch.jpg"
+      },
+      {
+        "id": "mg-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-bitwa.jpg"
+      },
+      {
+        "id": "mg-strategist",
+        "name": "Strategist",
+        "category": "implant",
+        "count": 1,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-strateg.jpg"
+      },
+      {
+        "id": "mg-briber",
+        "name": "Briber",
+        "category": "implant",
+        "count": 1,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-lapowkarz.jpg"
+      },
+      {
+        "id": "mg-explosive-chris",
+        "name": "Bomber Chris",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-wybuchowy-chris.jpg"
+      },
+      {
+        "id": "mg-kowalski",
+        "name": "Welder",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-kowalski.jpg"
+      },
+      {
+        "id": "mg-black-box",
+        "name": "Black Box",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-czarna-skrzynka.jpg"
+      },
+      {
+        "id": "mg-risk-taker",
+        "name": "Daredevil",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-ryzykant.jpg"
+      },
+      {
+        "id": "mg-squad-leader",
+        "name": "Scout Leader",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-lider-zwiadu.jpg"
+      },
+      {
+        "id": "mg-hacker",
+        "name": "Hacker",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-hakerka.jpg"
+      },
+      {
+        "id": "mg-tank",
+        "name": "Tank",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-czolg.jpg"
+      },
+      {
+        "id": "mg-road-pirate",
+        "name": "Highway Cruiser",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-pirat-drogowy.jpg"
+      },
+      {
+        "id": "mg-head-hunter",
+        "name": "Debt Hunter",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-lowczyni-glow.jpg"
+      },
+      {
+        "id": "mg-turret",
+        "name": "Automatic Turret",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-wiezyczka-z-fotokomorka.jpg"
+      },
+      {
+        "id": "mg-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-zwiadowca.jpg"
+      },
+      {
+        "id": "mg-commander",
+        "name": "Commander",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-komander.jpg"
+      },
+      {
+        "id": "mg-chief",
+        "name": "Boss",
+        "category": "module",
+        "count": 4,
+        "imageUrl": "src/assets/merchantsguild/gildiakupcow-naczelnik.jpg"
+      }
+    ]
+  },
+  {
+    "id": "partisans",
+    "name": "Partisans",
+    "color": "#14100a",
+    "accentColor": "#5a333d",
+    "description": "Resistance fighters who strike from the shadows. Partisans combine Tactics and Withdrawal tokens for flexibility, Cyborg Charlie and Provocateurs for board control, and a mix of specialists — Bunker Manager, Sleeper Agent, Dr. Assistant.",
+    "hqAbility": "Trap Launcher — once per turn, place a face-down Trap marker on any empty field in a straight line from the HQ.",
+    "hqImageUrl": "src/assets/partisans/partyzanci-sztab.jpg",
+    "tiles": [
+      {
+        "id": "part-withdrawal",
+        "name": "Withdrawal",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/partisans/partyzanci-wycofanie.jpg"
+      },
+      {
+        "id": "part-tactics",
+        "name": "Tactics",
+        "category": "instant",
+        "count": 4,
+        "imageUrl": "src/assets/partisans/partyzanci-taktyka.jpg"
+      },
+      {
+        "id": "part-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 3,
+        "imageUrl": "src/assets/partisans/partyzanci-ruch.jpg"
+      },
+      {
+        "id": "part-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 5,
+        "imageUrl": "src/assets/partisans/partyzanci-bitwa.jpg"
+      },
+      {
+        "id": "part-bunker-manager",
+        "name": "Bunker Manager",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/partisans/partyzanci-zarzadca-bunkra.jpg"
+      },
+      {
+        "id": "part-sleeper-agent",
+        "name": "Sleeper Agent",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/partisans/partyzanci-uspiony-agent.jpg"
+      },
+      {
+        "id": "part-doctor-assistant",
+        "name": "Assistant Doctor",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/partisans/partyzanci-asystentka-doktora.jpg"
+      },
+      {
+        "id": "part-guard-drone",
+        "name": "Defense Drone",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/partisans/partyzanci-dron-straznik.jpg"
+      },
+      {
+        "id": "part-cyborg-charlie",
+        "name": "Cyborg Charlie",
+        "category": "soldier",
+        "count": 4,
+        "imageUrl": "src/assets/partisans/partyzanci-cyborg-charlie.jpg"
+      },
+      {
+        "id": "part-provocateur",
+        "name": "Provocateur",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/partisans/partyzanci-prowokatorka.jpg"
+      },
+      {
+        "id": "part-gustav",
+        "name": "Gustav 2.0",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/partisans/partyzanci-gustav-2.jpg"
+      },
+      {
+        "id": "part-crazy-sid",
+        "name": "Mad Sid",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/partisans/partyzanci-szalony-sid.jpg"
+      },
+      {
+        "id": "part-veteran-scout",
+        "name": "Scout Veteran",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/partisans/partyzanci-zwiadowca-weteran.jpg"
+      },
+      {
+        "id": "part-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/partisans/partyzanci-zwiadowca.jpg"
+      },
+      {
+        "id": "part-medic",
+        "name": "Medic",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/partisans/partyzanci-medyk.jpg"
+      },
+      {
+        "id": "part-driver",
+        "name": "Chauffeur",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/partisans/partyzanci-szofer.jpg"
+      }
+    ]
+  },
+  {
+    "id": "desert-people",
+    "name": "Desert Tribes",
+    "color": "#1a1408",
+    "accentColor": "#76552e",
+    "description": "Tribal warriors of the wasteland who blend stealth, ranged combat, and shamanic support. Desert People field Coyotes, Archers, Young Warriors, and Shamans — a versatile mix of scouts and fighters backed by Mirage tokens.",
+    "hqAbility": "Self-defense — in its Initiative, destroys one adjacent enemy unit. Does not affect enemy HQs.",
+    "hqImageUrl": "src/assets/desertpeople/ludziepustyni-sztab.jpg",
+    "tiles": [
+      {
+        "id": "dp-battle",
+        "name": "Battle",
+        "category": "instant",
+        "count": 5,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-bitwa.jpg"
+      },
+      {
+        "id": "dp-move",
+        "name": "Move",
+        "category": "instant",
+        "count": 4,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-ruch.jpg"
+      },
+      {
+        "id": "dp-mirage",
+        "name": "Mirage",
+        "category": "instant",
+        "count": 2,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-miraz.jpg"
+      },
+      {
+        "id": "dp-scalpel",
+        "name": "Scalpel",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-skalpel.jpg"
+      },
+      {
+        "id": "dp-coyote",
+        "name": "Coyote",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-kojot.jpg"
+      },
+      {
+        "id": "dp-archer",
+        "name": "Dust Arrow",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-lucznik.jpg"
+      },
+      {
+        "id": "dp-young-warriors",
+        "name": "Younglings",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-mlodzi-wojownicy.jpg"
+      },
+      {
+        "id": "dp-tracker",
+        "name": "Nomad",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-tropiciel.jpg"
+      },
+      {
+        "id": "dp-rattlesnake",
+        "name": "Rattlesnake",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-grzechotnik.jpg"
+      },
+      {
+        "id": "dp-worm-clan-warrior",
+        "name": "Maggot Clan Warrior",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-wojownik-klanu-czerwia.jpg"
+      },
+      {
+        "id": "dp-shaman",
+        "name": "Shaman",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-szamanka.jpg"
+      },
+      {
+        "id": "dp-spearman",
+        "name": "Fletcher",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-grotnik.jpg"
+      },
+      {
+        "id": "dp-hideout",
+        "name": "Hideout",
+        "category": "module",
+        "count": 1,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-kryjowka.jpg"
+      },
+      {
+        "id": "dp-officer",
+        "name": "Officer",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-oficer.jpg"
+      },
+      {
+        "id": "dp-scout",
+        "name": "Scout",
+        "category": "module",
+        "count": 2,
+        "imageUrl": "src/assets/desertpeople/ludziepustyni-zwiadowca.jpg"
+      }
+    ]
+  },
+  {
+    "id": "wiremen",
+    "name": "Wiremen",
+    "color": "#0f2520",
+    "accentColor": "#8a526d",
+    "description": "A community of rebels living inside Moloch itself — rogue cyborgs, escaped mutants, researchers and survivors. They fight using stolen Machine resources and cutting-edge cybernetics, blurring the line between friend and foe.",
+    "hqAbility": "Inspirator — once per turn the Wiremen player may place an Inspiration marker on any Technology token.",
+    "hqImageUrl": "src/assets/wiremen/druciarze-sztab.jpg",
+    "tiles": [
+      {
+        "id": "wiremen-sniper",
+        "name": "Sniper",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_snajper.png"
+      },
+      {
+        "id": "wiremen-castling-ini",
+        "name": "Castling (Initiative)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_roszada_ini.png"
+      },
+      {
+        "id": "wiremen-castling-matka",
+        "name": "Castling (Mother)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_roszada_matka.png"
+      },
+      {
+        "id": "wiremen-push-cios",
+        "name": "Push Back (Melee)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_odepchniecie_cios.png"
+      },
+      {
+        "id": "wiremen-push-matka",
+        "name": "Push Back (Mother)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_odepchniecie_matka.png"
+      },
+      {
+        "id": "wiremen-push-strzal",
+        "name": "Push Back (Ranged)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_odepchniecie_strzal.png"
+      },
+      {
+        "id": "wiremen-move-cios",
+        "name": "Move (Melee)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_ruch_cios.png"
+      },
+      {
+        "id": "wiremen-move-ini",
+        "name": "Move (Initiative)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_ruch_ini.png"
+      },
+      {
+        "id": "wiremen-move-matka",
+        "name": "Move (Mother)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_ruch_matka.png"
+      },
+      {
+        "id": "wiremen-move-strzal",
+        "name": "Move (Ranged)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_ruch_strzal.png"
+      },
+      {
+        "id": "wiremen-battle-cios-ini",
+        "name": "Battle (Melee + Initiative)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_bitwa_cios_ini.png"
+      },
+      {
+        "id": "wiremen-battle-matka-cios",
+        "name": "Battle (Mother + Melee)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_bitwa_matka_cios.png"
+      },
+      {
+        "id": "wiremen-battle-matka-strzal",
+        "name": "Battle (Mother + Ranged)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_bitwa_matka_strzal.png"
+      },
+      {
+        "id": "wiremen-battle-strzal-ini",
+        "name": "Battle (Ranged + Initiative)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_bitwa_strzal_ini.png"
+      },
+      {
+        "id": "wiremen-battle-zero-ini",
+        "name": "Battle (Zero Initiative)",
+        "category": "instant",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/HEX_wiremen_TECH_bitwa_zero_ini.png"
+      },
+      {
+        "id": "wiremen-sentinel",
+        "name": "Sentinel",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/druciarze-sentinel.jpg"
+      },
+      {
+        "id": "wiremen-machine-killer",
+        "name": "Machine Slayer",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/wiremen/druciarze-zabojca-maszyn.jpg"
+      },
+      {
+        "id": "wiremen-psychocyborg",
+        "name": "Psychocyborg",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/wiremen/druciarze-psychocyborg.jpg"
+      },
+      {
+        "id": "wiremen-scorpion",
+        "name": "Scorpio",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/wiremen/druciarze-skorpion.jpg"
+      },
+      {
+        "id": "wiremen-tetra",
+        "name": "Tetra",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/wiremen/druciarze-tetra.jpg"
+      },
+      {
+        "id": "wiremen-wasp",
+        "name": "Wasp",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/wiremen/druciarze-osa.jpg"
+      },
+      {
+        "id": "wiremen-weeper",
+        "name": "Mourner",
+        "category": "soldier",
+        "count": 3,
+        "imageUrl": "src/assets/wiremen/druciarze-placzka.jpg"
+      },
+      {
+        "id": "wiremen-umo-soldier",
+        "name": "UMO Soldier",
+        "category": "soldier",
+        "count": 2,
+        "imageUrl": "src/assets/wiremen/druciarze-zolnierz-umo.jpg"
+      },
+      {
+        "id": "wiremen-error",
+        "name": "Error",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/druciarze-error.jpg"
+      },
+      {
+        "id": "wiremen-wireman",
+        "name": "Wireman",
+        "category": "soldier",
+        "count": 1,
+        "imageUrl": "src/assets/wiremen/druciarze-druciarz.jpg"
+      }
+    ]
+  }
+]

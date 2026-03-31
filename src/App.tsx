@@ -19,8 +19,8 @@ import { DeckSetup } from './components/DeckSetup';
 import { DrawMode } from './components/DrawMode';
 import { TileFlipMode } from './components/TileFlipMode';
 
-type Screen = 'home' | 'army' | 'setup' | 'draw' | 'counter';
-type FeatureMode = 'randomizer' | 'counter' | 'tileflip';
+type Screen = 'home' | 'army' | 'setup' | 'draw' | 'counter' | 'selection-ready';
+type FeatureMode = 'randomizer' | 'counter' | 'tileflip' | 'selection';
 
 /** Serialized app state for History API — lets mobile Back step inside the SPA instead of closing the tab. */
 type AppHistoryStateV1 = {
@@ -31,6 +31,8 @@ type AppHistoryStateV1 = {
   deckCode: string;
   counterAId: string | null;
   counterBId: string | null;
+  selectionAId: string | null;
+  selectionBId: string | null;
 };
 
 function parseAppHistoryState(raw: unknown): AppHistoryStateV1 | null {
@@ -44,11 +46,17 @@ function parseAppHistoryState(raw: unknown): AppHistoryStateV1 | null {
     screen !== 'army' &&
     screen !== 'setup' &&
     screen !== 'draw' &&
-    screen !== 'counter'
+    screen !== 'counter' &&
+    screen !== 'selection-ready'
   ) {
     return null;
   }
-  if (featureMode !== 'randomizer' && featureMode !== 'counter' && featureMode !== 'tileflip') {
+  if (
+    featureMode !== 'randomizer' &&
+    featureMode !== 'counter' &&
+    featureMode !== 'tileflip' &&
+    featureMode !== 'selection'
+  ) {
     return null;
   }
   return {
@@ -59,6 +67,8 @@ function parseAppHistoryState(raw: unknown): AppHistoryStateV1 | null {
     deckCode: typeof o.deckCode === 'string' ? o.deckCode : '',
     counterAId: typeof o.counterAId === 'string' ? o.counterAId : null,
     counterBId: typeof o.counterBId === 'string' ? o.counterBId : null,
+    selectionAId: typeof o.selectionAId === 'string' ? o.selectionAId : null,
+    selectionBId: typeof o.selectionBId === 'string' ? o.selectionBId : null,
   };
 }
 
@@ -79,6 +89,7 @@ export default function App() {
   const [deckCode, setDeckCode] = useState<string>('');
   const [featureMode, setFeatureMode] = useState<FeatureMode>('randomizer');
   const [counterArmies, setCounterArmies] = useState<[Army | null, Army | null]>([null, null]);
+  const [selectionArmies, setSelectionArmies] = useState<[Army | null, Army | null]>([null, null]);
 
   const applyingPopStateRef = useRef(false);
 
@@ -87,6 +98,7 @@ export default function App() {
     setSelectedArmy(null);
     setDeckCode('');
     setCounterArmies([null, null]);
+    setSelectionArmies([null, null]);
   }, []);
 
   const applyHistorySnapshot = useCallback((s: AppHistoryStateV1) => {
@@ -94,11 +106,14 @@ export default function App() {
     const sel = findArmy(s.selectedArmyId);
     const ca = findArmy(s.counterAId);
     const cb = findArmy(s.counterBId);
+    const sa = findArmy(s.selectionAId);
+    const sb = findArmy(s.selectionBId);
     if (nextScreen === 'army' || nextScreen === 'setup' || nextScreen === 'draw') {
       if (!sel) nextScreen = 'home';
     }
     if (nextScreen === 'draw' && !s.deckCode) nextScreen = 'setup';
     if (nextScreen === 'counter' && (!ca || !cb)) nextScreen = 'home';
+    if (nextScreen === 'selection-ready' && (!sa || !sb)) nextScreen = 'home';
 
     setFeatureMode(s.featureMode);
     setDeckCode(s.deckCode);
@@ -111,6 +126,13 @@ export default function App() {
     } else {
       setCounterArmies([null, null]);
     }
+    if (nextScreen === 'home' && s.featureMode !== 'selection') {
+      setSelectionArmies([null, null]);
+    } else if (nextScreen === 'selection-ready' || s.featureMode === 'selection') {
+      setSelectionArmies([sa, sb]);
+    } else {
+      setSelectionArmies([null, null]);
+    }
   }, []);
 
   const selectArmy = (army: Army) => {
@@ -118,6 +140,16 @@ export default function App() {
       setCounterArmies(([a, b]) => {
         if (!a) return [army, null];
         if (!b && army.id !== a.id) return [a, army];
+        return [a, b];
+      });
+      return;
+    }
+    if (featureMode === 'selection') {
+      setSelectionArmies(([a, b]) => {
+        if (a?.id === army.id) return [b, null];
+        if (b?.id === army.id) return [a, null];
+        if (!a) return [army, null];
+        if (!b) return [a, army];
         return [a, b];
       });
       return;
@@ -152,6 +184,8 @@ export default function App() {
   const selectedArmyId = selectedArmy?.id ?? null;
   const counterAId = counterArmies[0]?.id ?? null;
   const counterBId = counterArmies[1]?.id ?? null;
+  const selectionAId = selectionArmies[0]?.id ?? null;
+  const selectionBId = selectionArmies[1]?.id ?? null;
 
   useEffect(() => {
     if (applyingPopStateRef.current) {
@@ -166,6 +200,8 @@ export default function App() {
       deckCode,
       counterAId,
       counterBId,
+      selectionAId,
+      selectionBId,
     };
     const next = JSON.stringify(snapshot);
     const cur = window.history.state;
@@ -176,7 +212,7 @@ export default function App() {
       return;
     }
     window.history.pushState(snapshot, '');
-  }, [screen, featureMode, selectedArmyId, deckCode, counterAId, counterBId]);
+  }, [screen, featureMode, selectedArmyId, deckCode, counterAId, counterBId, selectionAId, selectionBId]);
 
   /** Reset scroll when switching home feature tabs or navigating between screens (same document scroll). */
   useLayoutEffect(() => {
@@ -280,11 +316,14 @@ export default function App() {
             armies={armies}
             featureMode={featureMode}
             counterArmies={counterArmies}
+            selectionArmies={selectionArmies}
             onFeatureModeChange={(m) => {
               setFeatureMode(m);
               if (m !== 'counter') setCounterArmies([null, null]);
+              if (m !== 'selection') setSelectionArmies([null, null]);
             }}
             onSelectArmy={selectArmy}
+            onSelectionReady={() => setScreen('selection-ready')}
           />
         )}
         {screen === 'army' && selectedArmy && (
@@ -316,6 +355,9 @@ export default function App() {
             }}
           />
         )}
+        {screen === 'selection-ready' && selectionArmies[0] && selectionArmies[1] && (
+          <ArmySelectionReadyView armies={[selectionArmies[0], selectionArmies[1]]} />
+        )}
       </main>
 
       <footer className="mt-auto border-t border-stone-800 py-4">
@@ -333,14 +375,18 @@ function HomeScreen({
   armies,
   featureMode,
   counterArmies,
+  selectionArmies,
   onFeatureModeChange,
   onSelectArmy,
+  onSelectionReady,
 }: {
   armies: Army[];
   featureMode: FeatureMode;
   counterArmies: [Army | null, Army | null];
+  selectionArmies: [Army | null, Army | null];
   onFeatureModeChange: (m: FeatureMode) => void;
   onSelectArmy: (a: Army) => void;
+  onSelectionReady: () => void;
 }) {
   const { t } = useLocale();
   const [armySearch, setArmySearch] = useState('');
@@ -396,6 +442,17 @@ function HomeScreen({
         >
           {t('homeFeatureTileflip')}
         </button>
+        <button
+          onClick={() => onFeatureModeChange('selection')}
+          className={[
+            'px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 border',
+            featureMode === 'selection'
+              ? 'bg-stone-700 border-stone-500 text-stone-100'
+              : 'border-stone-700 text-stone-500 hover:border-stone-600 hover:text-stone-300',
+          ].join(' ')}
+        >
+          {t('homeFeatureSelection')}
+        </button>
       </div>
 
       {featureMode === 'tileflip' ? (
@@ -408,6 +465,8 @@ function HomeScreen({
                 ? t('homeBlurbRandomizer')
                 : featureMode === 'counter'
                   ? t('homeBlurbCounter')
+                  : featureMode === 'selection'
+                    ? t('homeBlurbSelection')
                   : ''}
             </p>
             {featureMode === 'counter' && (
@@ -421,6 +480,30 @@ function HomeScreen({
                   </>
                 )}
               </p>
+            )}
+            {featureMode === 'selection' && (
+              <div className="space-y-4">
+                <p className="text-stone-400 text-sm text-center">
+                  {!selectionArmies[0] && t('homeSelectionStep1')}
+                  {selectionArmies[0] && !selectionArmies[1] && t('homeSelectionStep2')}
+                  {selectionArmies[0] && selectionArmies[1] && t('homeSelectionComplete')}
+                </p>
+                <div className="flex justify-center">
+                  <button
+                    type="button"
+                    onClick={onSelectionReady}
+                    disabled={!selectionArmies[0] || !selectionArmies[1]}
+                    className={[
+                      'rounded-xl px-5 py-3 text-sm font-bold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/30',
+                      selectionArmies[0] && selectionArmies[1]
+                        ? 'bg-amber-600 text-white hover:brightness-110 active:scale-95'
+                        : 'cursor-not-allowed border border-stone-700 bg-stone-900 text-stone-500',
+                    ].join(' ')}
+                  >
+                    {t('homeSelectionReady')}
+                  </button>
+                </div>
+              </div>
             )}
           </div>
 
@@ -440,7 +523,13 @@ function HomeScreen({
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div
+            className={
+              featureMode === 'selection'
+                ? 'grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'
+                : 'grid grid-cols-1 sm:grid-cols-2 gap-4'
+            }
+          >
             {filteredArmies.length === 0 ? (
               <p className="col-span-full text-center text-stone-500 text-sm py-6">
                 {t('homeNoMatch', { query: armySearch.trim() })}
@@ -453,27 +542,45 @@ function HomeScreen({
                   Boolean(counterArmies[0]) &&
                   !counterArmies[1] &&
                   counterArmies[0]!.id === army.id;
+                const selectionIndex = selectionArmies[0]?.id === army.id ? 1 : selectionArmies[1]?.id === army.id ? 2 : null;
+                const selectionAtLimit =
+                  featureMode === 'selection' &&
+                  !selectionIndex &&
+                  Boolean(selectionArmies[0]) &&
+                  Boolean(selectionArmies[1]);
                 return (
-                  <ArmyCard
-                    key={army.id}
-                    army={army}
-                    disabled={counterBlockDuplicate}
-                    selectedRing={
-                      featureMode === 'counter' && counterPickFirst && Boolean(counterArmies[0])
-                    }
-                    onClick={() => onSelectArmy(army)}
-                  />
+                  featureMode === 'selection' ? (
+                    <ArmySelectionCard
+                      key={army.id}
+                      army={army}
+                      disabled={selectionAtLimit}
+                      selectedIndex={selectionIndex}
+                      onClick={() => onSelectArmy(army)}
+                    />
+                  ) : (
+                    <ArmyCard
+                      key={army.id}
+                      army={army}
+                      disabled={counterBlockDuplicate}
+                      selectedRing={
+                        featureMode === 'counter' && counterPickFirst && Boolean(counterArmies[0])
+                      }
+                      onClick={() => onSelectArmy(army)}
+                    />
+                  )
                 );
               })
             )}
-            <a
-              href="https://www.siepomaga.pl/na-pomoc-dla-julki"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-2xl border border-dashed border-stone-600 p-6 flex flex-col items-center justify-center text-center text-stone-400 hover:border-stone-500 hover:text-stone-300 transition-all duration-200 group"
-            >
-              <span className="text-sm font-medium group-hover:underline">{t('homeDonation')}</span>
-            </a>
+            {featureMode !== 'selection' && (
+              <a
+                href="https://www.siepomaga.pl/na-pomoc-dla-julki"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-2xl border border-dashed border-stone-600 p-6 flex flex-col items-center justify-center text-center text-stone-400 hover:border-stone-500 hover:text-stone-300 transition-all duration-200 group"
+              >
+                <span className="text-sm font-medium group-hover:underline">{t('homeDonation')}</span>
+              </a>
+            )}
           </div>
         </>
       )}
@@ -587,5 +694,141 @@ function ArmyCard({
         )}
       </div>
     </button>
+  );
+}
+
+function ArmySelectionCard({
+  army,
+  onClick,
+  disabled = false,
+  selectedIndex,
+}: {
+  army: Army;
+  onClick: () => void;
+  disabled?: boolean;
+  selectedIndex: 1 | 2 | null;
+}) {
+  const { locale } = useLocale();
+  const displayName = getArmyDisplayName(army, locale);
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        if (!disabled || selectedIndex) onClick();
+      }}
+      disabled={disabled && !selectedIndex}
+      className={[
+        'relative overflow-hidden rounded-2xl border border-stone-700 p-4 text-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20',
+        selectedIndex
+          ? 'scale-[1.02] border-amber-500/70 ring-2 ring-amber-500/70 ring-offset-2 ring-offset-stone-950'
+          : disabled
+            ? 'cursor-not-allowed opacity-40'
+            : 'hover:border-stone-500 hover:scale-[1.02] active:scale-95',
+      ].join(' ')}
+      style={{ background: 'linear-gradient(135deg, #1c1917 0%, #292524 100%)' }}
+    >
+      <div className="absolute inset-x-0 top-0 h-1.5" style={{ background: army.accentColor }} />
+      {selectedIndex && (
+        <div className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-amber-300/40 bg-amber-500 text-sm font-black text-amber-950 shadow-lg shadow-amber-900/30">
+          {selectedIndex}
+        </div>
+      )}
+      <div className="flex min-h-40 flex-col items-center justify-center gap-3 pt-2">
+        {army.hqImageUrl ? (
+          <img src={army.hqImageUrl} alt={`${displayName} HQ`} className="h-24 w-24 object-contain" />
+        ) : (
+          <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-amber-950/40 text-4xl">
+            🏛
+          </div>
+        )}
+        <span className="text-sm font-bold leading-tight text-stone-100">{displayName}</span>
+      </div>
+    </button>
+  );
+}
+
+function ArmySelectionReadyView({ armies }: { armies: [Army, Army] }) {
+  const { t, locale } = useLocale();
+  const [revealed, setRevealed] = useState(false);
+
+  return (
+    <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
+      <div
+        className="rounded-2xl border border-stone-700 overflow-hidden text-center"
+        style={{ background: 'linear-gradient(135deg, #1c1917 0%, #292524 100%)' }}
+      >
+        <div className="h-2 bg-amber-500" />
+        <div className="p-8 sm:p-10 space-y-5">
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-stone-100">
+            {t('selectionReadyTitle')}
+          </h1>
+          <p className="text-stone-400 max-w-2xl mx-auto leading-relaxed">
+            {t('selectionReadySubtitle')}
+          </p>
+          <button
+            type="button"
+            onClick={() => setRevealed((current) => !current)}
+            className="rounded-xl bg-amber-600 px-6 py-3 font-bold text-white transition-all duration-200 hover:brightness-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/30"
+          >
+            {t(revealed ? 'selectionHideButton' : 'selectionRevealButton')}
+          </button>
+        </div>
+      </div>
+
+      {revealed && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {armies.map((army, index) => (
+            (() => {
+              const markerClassName =
+                index === 0
+                  ? 'border-stone-100/70 bg-stone-50 text-stone-950 shadow-stone-100/10'
+                  : 'border-stone-500/60 bg-stone-700/40 text-stone-200 shadow-stone-950/40';
+
+              return (
+            <div
+              key={army.id}
+              className="rounded-2xl border border-stone-700 overflow-hidden"
+              style={{ background: 'linear-gradient(135deg, #1c1917 0%, #292524 100%)' }}
+            >
+              <div className="h-1.5" style={{ background: army.accentColor }} />
+              <div className="p-6 flex flex-col items-center text-center gap-5">
+                <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:items-stretch">
+                  <div
+                    className={[
+                      'flex h-32 w-32 shrink-0 items-center justify-center rounded-2xl border text-6xl font-black shadow-lg',
+                      markerClassName,
+                    ].join(' ')}
+                  >
+                    {index + 1}
+                  </div>
+                  {army.hqImageUrl ? (
+                    <img
+                      src={army.hqImageUrl}
+                      alt={`${getArmyDisplayName(army, locale)} HQ`}
+                      className="h-32 w-32 shrink-0 object-contain"
+                    />
+                  ) : (
+                    <div className="flex h-32 w-32 shrink-0 items-center justify-center rounded-2xl bg-amber-950/40 text-5xl">
+                      🏛
+                    </div>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <h2
+                    className="text-2xl font-bold tracking-tight"
+                    style={{ color: army.accentColor }}
+                  >
+                    {getArmyDisplayName(army, locale)}
+                  </h2>
+                </div>
+              </div>
+            </div>
+              );
+            })()
+          ))}
+        </div>
+      )}
+    </div>
   );
 }

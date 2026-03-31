@@ -1,0 +1,260 @@
+{
+  "generatedAt": "2026-03-29T16:51:42.319Z",
+  "seedFixtures": [
+    {
+      "seed": 0,
+      "code": "222222",
+      "roundTripSeed": 0
+    },
+    {
+      "seed": 1,
+      "code": "222223",
+      "roundTripSeed": 1
+    },
+    {
+      "seed": 42,
+      "code": "22223C",
+      "roundTripSeed": 42
+    },
+    {
+      "seed": 1024,
+      "code": "222322",
+      "roundTripSeed": 1024
+    },
+    {
+      "seed": 123456789,
+      "code": "5QSNAQ",
+      "roundTripSeed": 123456789
+    },
+    {
+      "seed": 4294967295,
+      "code": "______",
+      "roundTripSeed": 1073741823
+    }
+  ],
+  "standardDeckFixture": {
+    "armyId": "moloch",
+    "deckCode": "K7M3PX",
+    "firstTen": [
+      "moloch-battle",
+      "moloch-armored-sentry",
+      "moloch-push",
+      "moloch-mother",
+      "moloch-defender",
+      "moloch-scout",
+      "moloch-clown",
+      "moloch-push",
+      "moloch-push",
+      "moloch-medic"
+    ],
+    "total": 34
+  },
+  "ironGangFixtures": [
+    {
+      "deckCode": "K7M3PX0",
+      "mode": "no-hook",
+      "firstTen": [
+        "ig-double-move",
+        "ig-mountain",
+        "ig-order",
+        "ig-boss",
+        "ig-lumberjack",
+        "ig-officer",
+        "ig-lumberjack",
+        "ig-order",
+        "ig-order",
+        "ig-officer"
+      ],
+      "total": 34
+    },
+    {
+      "deckCode": "K7M3PX1",
+      "mode": "replace:ig-mountain",
+      "firstTen": [
+        "ig-double-move",
+        "ig-mountain",
+        "ig-order",
+        "ig-boss",
+        "ig-lumberjack",
+        "ig-officer",
+        "ig-lumberjack",
+        "ig-order",
+        "ig-order",
+        "ig-officer"
+      ],
+      "total": 34
+    },
+    {
+      "deckCode": "K7M3PX2",
+      "mode": "replace:ig-boss",
+      "firstTen": [
+        "ig-double-move",
+        "ig-mountain",
+        "ig-order",
+        "ig-officer",
+        "ig-lumberjack",
+        "ig-officer",
+        "ig-lumberjack",
+        "ig-order",
+        "ig-order",
+        "ig-officer"
+      ],
+      "total": 34
+    },
+    {
+      "deckCode": "K7M3PX3",
+      "mode": "replace:ig-officer",
+      "firstTen": [
+        "ig-double-move",
+        "ig-mountain",
+        "ig-order",
+        "ig-boss",
+        "ig-lumberjack",
+        "ig-officer",
+        "ig-lumberjack",
+        "ig-order",
+        "ig-order",
+        "ig-officer"
+      ],
+      "total": 34
+    },
+    {
+      "deckCode": "K7M3PX4",
+      "mode": "replace:ig-order",
+      "firstTen": [
+        "ig-double-move",
+        "ig-mountain",
+        "ig-order",
+        "ig-boss",
+        "ig-lumberjack",
+        "ig-officer",
+        "ig-lumberjack",
+        "ig-order",
+        "ig-order",
+        "ig-officer"
+      ],
+      "total": 34
+    },
+    {
+      "deckCode": "K7M3PX5",
+      "mode": "replace:ig-motorcyclist",
+      "firstTen": [
+        "ig-double-move",
+        "ig-mountain",
+        "ig-order",
+        "ig-boss",
+        "ig-lumberjack",
+        "ig-officer",
+        "ig-lumberjack",
+        "ig-order",
+        "ig-order",
+        "ig-officer"
+      ],
+      "total": 34
+    },
+    {
+      "deckCode": "K7M3PX6",
+      "mode": "replace:ig-double-move",
+      "firstTen": [
+        "ig-order",
+        "ig-mountain",
+        "ig-order",
+        "ig-boss",
+        "ig-lumberjack",
+        "ig-officer",
+        "ig-lumberjack",
+        "ig-order",
+        "ig-order",
+        "ig-officer"
+      ],
+      "total": 34
+    },
+    {
+      "deckCode": "K7M3PX7",
+      "mode": "replace:ig-fanatic",
+      "firstTen": [
+        "ig-double-move",
+        "ig-mountain",
+        "ig-order",
+        "ig-boss",
+        "ig-lumberjack",
+        "ig-officer",
+        "ig-lumberjack",
+        "ig-order",
+        "ig-order",
+        "ig-officer"
+      ],
+      "total": 34
+    },
+    {
+      "deckCode": "K7M3PX8",
+      "mode": "replace:ig-ranged-netter",
+      "firstTen": [
+        "ig-double-move",
+        "ig-mountain",
+        "ig-order",
+        "ig-boss",
+        "ig-lumberjack",
+        "ig-officer",
+        "ig-lumberjack",
+        "ig-order",
+        "ig-order",
+        "ig-officer"
+      ],
+      "total": 34
+    },
+    {
+      "deckCode": "K7M3PX9",
+      "mode": "replace:ig-lumberjack",
+      "firstTen": [
+        "ig-double-move",
+        "ig-mountain",
+        "ig-order",
+        "ig-boss",
+        "ig-lumberjack",
+        "ig-officer",
+        "ig-lumberjack",
+        "ig-order",
+        "ig-order",
+        "ig-officer"
+      ],
+      "total": 34
+    }
+  ],
+  "merchantsGuildFixture": {
+    "deckCode": "9Z7H2Q",
+    "insertedRecon1Index": 16,
+    "insertedRecon2Index": 28,
+    "firstTwelveAfterRecon2": [
+      "mg-chief",
+      "mg-black-box",
+      "mg-strategist",
+      "mg-battle",
+      "mg-chief",
+      "mg-hacker",
+      "mg-turret",
+      "mg-black-market",
+      "mg-move",
+      "mg-road-pirate",
+      "mg-squad-leader",
+      "mg-explosive-chris"
+    ],
+    "totalAfterRecon2": 36
+  },
+  "wiremenFixture": {
+    "fullDeck": {
+      "ini0": 2,
+      "iniPlus1": 5,
+      "matka": 5,
+      "meleePlus1": 4,
+      "rangedPlus1": 4
+    },
+    "remainingAfterSampleDraws": {
+      "ini0": 1,
+      "iniPlus1": 4,
+      "matka": 4,
+      "meleePlus1": 3,
+      "rangedPlus1": 4
+    }
+  }
+}

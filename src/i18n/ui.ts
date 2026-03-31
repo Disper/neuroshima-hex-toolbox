@@ -19,14 +19,21 @@ export const UI_STRINGS = {
     homeFeatureRandomizer: '🎲 Tile Randomizer',
     homeFeatureCounter: '📋 Tile Counter',
     homeFeatureTileflip: '🪙 Tile flip',
+    homeFeatureSelection: '🪖 Army Selection',
     homeBlurbRandomizer:
       'Draw tiles one by one using a shareable deck code — so all players draw in the same order.',
     homeBlurbCounter:
       'Select two different armies (first, then second). Then track remaining tiles for both side by side.',
+    homeBlurbSelection:
+      'Pick up to two armies on compact HQ cards, then move to a separate reveal screen once both slots are filled.',
     homeCounterStep1: 'Step 1: choose the first army.',
     homeCounterStep2Prefix: 'Step 2: choose a ',
     homeCounterStep2Emphasis: 'different',
     homeCounterStep2Suffix: ' army (the first is already selected).',
+    homeSelectionStep1: 'Step 1: choose the first army.',
+    homeSelectionStep2: 'Step 2: choose the second army.',
+    homeSelectionComplete: 'Both armies are selected. Continue when you are ready.',
+    homeSelectionReady: 'Selection ready',
     homeFilterLabel: 'Filter armies by name',
     homeArmyDeckInstant: '{n} instant',
     homeArmyDeckSoldier: '{n} soldiers',
@@ -148,6 +155,11 @@ export const UI_STRINGS = {
     flipAgain: 'Flip again',
     flipButton: 'Flip',
     flipResult: 'Result:',
+    selectionReadyTitle: 'Armies selection has been completed',
+    selectionReadySubtitle:
+      'The two armies are locked in. Press the button below to reveal the final selection.',
+    selectionRevealButton: 'Reveal selection',
+    selectionHideButton: 'Hide selection',
   },
   pl: {
     appHtmlTitle: 'Neuroshima Hex Toolbox',
@@ -168,14 +180,21 @@ export const UI_STRINGS = {
     homeFeatureRandomizer: '🎲 Losowanie żetonów',
     homeFeatureCounter: '📋 Licznik żetonów',
     homeFeatureTileflip: '🪙 Rzut żetonem',
+    homeFeatureSelection: '🪖 Wybór armii',
     homeBlurbRandomizer:
       'Dobieraj żetony po kolei według wspólnego kodu talii — tak aby wszyscy gracze losowali w tej samej kolejności.',
     homeBlurbCounter:
       'Wybierz dwie różne armie (najpierw pierwszą, potem drugą), a następnie śledź pozostałe żetony obu stron obok siebie.',
+    homeBlurbSelection:
+      'Wybierz maksymalnie dwie armie na kompaktowych kartach HQ, a potem przejdź do osobnego ekranu ujawnienia po zapełnieniu obu miejsc.',
     homeCounterStep1: 'Krok 1: wybierz pierwszą armię.',
     homeCounterStep2Prefix: 'Krok 2: wybierz ',
     homeCounterStep2Emphasis: 'inną',
     homeCounterStep2Suffix: ' armię (pierwsza jest już wybrana).',
+    homeSelectionStep1: 'Krok 1: wybierz pierwszą armię.',
+    homeSelectionStep2: 'Krok 2: wybierz drugą armię.',
+    homeSelectionComplete: 'Obie armie są wybrane. Kontynuuj, kiedy będziesz gotowy.',
+    homeSelectionReady: 'Wybór gotowy',
     homeFilterLabel: 'Filtruj armie po nazwie',
     homeArmyDeckInstant: '{n} natychmiastowych',
     homeArmyDeckSoldier: '{n} żołnierzy',
@@ -298,6 +317,11 @@ export const UI_STRINGS = {
     flipAgain: 'Rzuć ponownie',
     flipButton: 'Rzut',
     flipResult: 'Wynik:',
+    selectionReadyTitle: 'Wybór armii został zakończony',
+    selectionReadySubtitle:
+      'Obie armie są już zablokowane. Naciśnij przycisk poniżej, aby ujawnić końcowy wybór.',
+    selectionRevealButton: 'Ujawnij wybór',
+    selectionHideButton: 'Ukryj wybór',
   },
 } as const;
 

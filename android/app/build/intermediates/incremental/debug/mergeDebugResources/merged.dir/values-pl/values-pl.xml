@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="appHtmlTitle">Neuroshima Hex Toolbox</string>
+    <string name="armyHqSpecial">Zdolność specjalna Sztabu</string>
+    <string name="armySectionFoundations">Fundamenty</string>
+    <string name="armySectionHq">Sztab</string>
+    <string name="armySectionHqObjects">Sztab (obiekty)</string>
+    <string name="armySectionImplants">Implanty</string>
+    <string name="armySectionInstant">Żetony natychmiastowe</string>
+    <string name="armySectionModules">Moduły</string>
+    <string name="armySectionSoldiers">Żołnierze</string>
+    <string name="armyStartDraw">Rozpocznij dobieranie żetonów</string>
+    <string name="armyTileCount">{n} żeton</string>
+    <string name="armyTileCountPlural">{n} żetonów</string>
+    <string name="brandFull">Neuroshima Hex Toolbox</string>
+    <string name="brandShort">NH Toolbox</string>
+    <string msgid="881409763997275156" name="call_notification_answer_action">"Odbierz"</string>
+    <string msgid="8793775615905189152" name="call_notification_answer_video_action">"Wideo"</string>
+    <string msgid="3229508546291798546" name="call_notification_decline_action">"Odrzuć"</string>
+    <string msgid="2659457946726154263" name="call_notification_hang_up_action">"Rozłącz"</string>
+    <string msgid="6107532579223922871" name="call_notification_incoming_text">"Połączenie przychodzące"</string>
+    <string msgid="8623827134497363134" name="call_notification_ongoing_text">"Trwa połączenie"</string>
+    <string msgid="59049573811482460" name="call_notification_screening_text">"Filtruję połączenie przychodzące"</string>
+    <string msgid="406453423630273620" name="close_drawer">"Zamknij menu nawigacyjne"</string>
+    <string msgid="7573152094250666567" name="close_sheet">"Zamknij arkusz"</string>
+    <string name="counterBackArmies">← Lista armii</string>
+    <string name="counterCatRemainHeading">{cat} — {n} pozostałych</string>
+    <string name="counterCategorySummary">{cat}: {n} pozostałych</string>
+    <string name="counterDrawn">Dobrane ({n})</string>
+    <string name="counterDrawnOfTotal">{drawn} / {total} dobranych</string>
+    <string name="counterFoldClosed">▶</string>
+    <string name="counterFoldOpen">▼</string>
+    <string name="counterInstruction">Klikaj żetony, aby przenosić je między Pozostałymi a Dobranymi dla każdej armii.</string>
+    <string name="counterNoTilesDrawn">Jeszcze nie dobrano żetonów</string>
+    <string name="counterRemaining">Pozostałe ({n})</string>
+    <string name="counterResetBoth">↺ Resetuj obie</string>
+    <string name="counterSrNoCategoryTiles">Ta armia nie ma żetonów ({cat}) w talii.</string>
+    <string name="counterStackIdentical">Układaj identyczne żetony w stosy</string>
+    <string name="counterTitle">Licznik żetonów</string>
+    <string name="counterWiremenTechBlurb">Suma bonusów z żetonów Technologii (natychmiastowych) w Pozostałych. Przeniesienie żetonu do Dobranych zmniejsza wkład tego żetonu w bonusy.</string>
+    <string name="counterWiremenTechTitle">Technologia — pozostałe bonusy</string>
+    <string name="deckBack">← Powrót do armii</string>
+    <string name="deckBlurbIronGang">Iron Gang używa 7-znakowego kodu: pierwsze 6 ustawiają tasowanie; 7. ustawia tryb Haka. Oznaczenia: 0 = bez Haka, 1 = Góra, 2 = Szef, 3 = Oficer, 4 = Rozkaz, 5 = Motocyklista, 6 = Podwójny Ruch, 7 = Fanatyk, 8 = Sieciarz dystansowy, 9 = Drwal. Udostępnij pełny kod, aby wszyscy grali tą samą talią.</string>
+    <string name="deckBlurbStandard">Każda talia ma 6-znakowy kod do udostępnienia. Ten sam kod daje tę samą kolejność dobierania.</string>
+    <string name="deckCopied">✓ Skopiowano!</string>
+    <string name="deckCopy">⧉ Kopiuj kod</string>
+    <string name="deckEnterCode">Wpisz kod talii</string>
+    <string name="deckErrorCodeLength">Kod musi mieć dokładnie {len} znaków.</string>
+    <string name="deckErrorInvalid">Nieprawidłowy kod. Sprawdź i spróbuj ponownie.</string>
+    <string name="deckIgErrorInvalidSeed">Niedozwolone znaki w pierwszych 6 pozycjach (ziarno tasowania).</string>
+    <string name="deckIgErrorInvalidSuffix">Nieprawidłowy 7. znak (tryb Haka).</string>
+    <string name="deckIgErrorWrongLength">Kod talii Iron Gang musi mieć dokładnie 7 znaków (6 na tasowanie + 1 na tryb Haka).</string>
+    <string name="deckIronGang7thNote">7. znak (podświetlony) jest losowy — wygeneruj ponownie, aby zmienić tryb Haka i tasowanie.</string>
+    <string name="deckJoinBlurb">Wklej kod od innego gracza, aby dobieranie było w tej samej kolejności</string>
+    <string name="deckJoinBlurbIg"> (wszystkie 7 znaków).</string>
+    <string name="deckModeJoin">🔗 Wpisz kod</string>
+    <string name="deckModeNew">🎲 Nowa losowa talia</string>
+    <string name="deckPlaceholderIg">np. K7M3PX3</string>
+    <string name="deckPlaceholderStd">np. K7M3PX</string>
+    <string name="deckRegenerate">↺ Wygeneruj ponownie</string>
+    <string name="deckShareBlurb">Udostępnij ten kod innym graczom, aby wszyscy dobierali w tej samej kolejności</string>
+    <string name="deckShareBlurbIgSuffix"> i ten sam wariant Haka</string>
+    <string name="deckStartDrawing">Rozpocznij dobieranie</string>
+    <string name="deckTitle">Ustawienie talii</string>
+    <string name="deckYourCode">Twój kod talii</string>
+    <string msgid="8038256446254964252" name="default_error_message">"Nieprawidłowe dane wejściowe"</string>
+    <string msgid="6312721426453364202" name="default_popup_window_title">"Wyskakujące okienko"</string>
+    <string name="drawAgain">Dobierz ponownie (ta sama kolejność)</string>
+    <string name="drawAllDrawn">Wszystkie żetony dobrane!</string>
+    <string name="drawBack">← Lista armii</string>
+    <string name="drawChangeCode">Zmień kod</string>
+    <string name="drawCopied">✓ Skopiowano!</string>
+    <string name="drawCopy">⧉ Kopiuj</string>
+    <string name="drawDeckCodeLabelIg">Kod talii — pierwsze 6 znaków = tasowanie; 7. = tryb Haka</string>
+    <string name="drawDeckCodeLabelStd">Kod talii — udostępnij, aby dobieranie było w tej samej kolejności</string>
+    <string name="drawDeckEmpty">Talia jest pusta.</string>
+    <string name="drawDrawnSection">Dobrane ({n})</string>
+    <string name="drawFirstTile">Dobierz pierwszy żeton</string>
+    <string name="drawIgBannerPrefix">Iron Gang (ta talia):</string>
+    <string name="drawIgBannerSuffix">(7. znak kodu określa tryb Haka.)</string>
+    <string name="drawIgHookNoHook">Ta talia nie zawiera Haka.</string>
+    <string name="drawIgHookReplace">Ta talia zawiera Hak. Jeden żeton typu {tile} został usunięty, aby Hak mógł być przetasowany zamiast niego.</string>
+    <string name="drawLastDrawn">Ostatnio dobrany — żeton {i} z {total}</string>
+    <string name="drawLeft">{n} / {total} pozostało</string>
+    <string name="drawMgBanner">Gildia Kupców (tryb losowy): Rozpoznanie 1 i Rozpoznanie 2 nie są w talii na początku. Po dobraniu pierwszego Lidera zwiadu użyj „Przetasuj Rozpoznanie 1”; po drugim — „Przetasuj Rozpoznanie 2”. Każde wstawia żeton w losowej pozycji w pozostałej talii (pozycja wynika z kodu talii).</string>
+    <string name="drawNewDeck">Nowa talia</string>
+    <string name="drawProgressDrawn">{n} dobranych</string>
+    <string name="drawProgressRemaining">{n} pozostałych</string>
+    <string name="drawReset">↺ Reset</string>
+    <string name="drawShowRemaining">Pokaż {n} pozostały żeton w talii</string>
+    <string name="drawShowRemainingPlural">Pokaż {n} pozostałych żetonów w talii</string>
+    <string name="drawShuffleRecon1">Przetasuj Rozpoznanie 1</string>
+    <string name="drawShuffleRecon2">Przetasuj Rozpoznanie 2</string>
+    <string name="drawTileLeft">Dobierz żeton ({n} pozostało)</string>
+    <string msgid="1890207353314751437" name="dropdown_menu">"Menu"</string>
+    <string name="flipAgain">Rzuć ponownie</string>
+    <string name="flipAnimating">Losowanie…</string>
+    <string name="flipButton">Rzut</string>
+    <string name="flipResult">Wynik:</string>
+    <string name="flipSubtitle">Jak rzut monetą: losowo Sęp albo Sztab. Naciśnij przycisk i obserwuj wstrząs żetonów — po kilku sekundach większy wynik wygrywa.</string>
+    <string name="flipTails">Sztab</string>
+    <string name="flipTitle">Rzut żetonem</string>
+    <string name="flipVulture">Sęp</string>
+    <string name="footerAuthor">Aplikacja: Disper</string>
+    <string name="footerVersion">wersja {version}</string>
+    <string name="homeArmyDeckFoundation">{n} fundamentów</string>
+    <string name="homeArmyDeckImplant">{n} implantów</string>
+    <string name="homeArmyDeckInstant">{n} natychmiastowych</string>
+    <string name="homeArmyDeckModule">{n} modułów</string>
+    <string name="homeArmyDeckSoldier">{n} żołnierzy</string>
+    <string name="homeBlurbCounter">Wybierz dwie różne armie (najpierw pierwszą, potem drugą), a następnie śledź pozostałe żetony obu stron obok siebie.</string>
+    <string name="homeBlurbRandomizer">Dobieraj żetony po kolei według wspólnego kodu talii — tak aby wszyscy gracze losowali w tej samej kolejności.</string>
+    <string name="homeCounterStep1">Krok 1: wybierz pierwszą armię.</string>
+    <string name="homeCounterStep2Emphasis">inną</string>
+    <string name="homeCounterStep2Prefix">Krok 2: wybierz </string>
+    <string name="homeCounterStep2Suffix"> armię (pierwsza jest już wybrana).</string>
+    <string name="homeDonation">Podoba się aplikacja? Wesprzyj Partyzantów</string>
+    <string name="homeFeatureCounter">📋 Licznik żetonów</string>
+    <string name="homeFeatureRandomizer">🎲 Losowanie żetonów</string>
+    <string name="homeFeatureTileflip">🪙 Rzut żetonem</string>
+    <string name="homeFilterLabel">Filtruj armie po nazwie</string>
+    <string name="homeHeroSubtitle">Twój podręczny zestaw narzędzi do Neuroshimy Hex</string>
+    <string name="homeHeroTitle">Neuroshima Hex</string>
+    <string name="homeNoMatch">Brak armii pasujących do „{query}”.</string>
+    <string name="homeSearchPlaceholder">Szukaj armii…</string>
+    <string msgid="6827826412747255547" name="in_progress">"W toku"</string>
+    <string msgid="7933458017204019916" name="indeterminate">"Częściowo zaznaczone"</string>
+    <string name="langSwitcherAria">Język</string>
+    <string msgid="2988463736136100848" name="m3c_bottom_sheet_collapse_description">"Zwiń planszę dolną"</string>
+    <string msgid="1555567894577437024" name="m3c_bottom_sheet_dismiss_description">"Zamknij planszę dolną"</string>
+    <string msgid="8403354765404029791" name="m3c_bottom_sheet_drag_handle_description">"Uchwyt do przeciągania"</string>
+    <string msgid="6670819569745899763" name="m3c_bottom_sheet_expand_description">"Rozwiń planszę dolną"</string>
+    <string msgid="3010635850035863127" name="m3c_bottom_sheet_pane_title">"Plansza dolna"</string>
+    <string msgid="8166741421776570875" name="m3c_date_input_headline">"Wprowadzono datę"</string>
+    <string msgid="229313757840775812" name="m3c_date_input_headline_description">"Wprowadzono datę: %1$s"</string>
+    <string msgid="6116910750161463197" name="m3c_date_input_invalid_for_pattern">"Data nie pasuje do oczekiwanego wzorca: %1$s"</string>
+    <string msgid="2521768508935305279" name="m3c_date_input_invalid_not_allowed">"Data jest niedozwolona: %1$s"</string>
+    <string msgid="7052898923934555305" name="m3c_date_input_invalid_year_range">"Data jest poza oczekiwanym zakresem lat %1$s–%2$s"</string>
+    <string msgid="2895559812010326913" name="m3c_date_input_label">"Data"</string>
+    <string msgid="1237013946323089826" name="m3c_date_input_no_input_description">"Brak"</string>
+    <string msgid="7306227249789210568" name="m3c_date_input_title">"Wybierz datę"</string>
+    <string msgid="7605002211875882969" name="m3c_date_picker_headline">"Wybrana data"</string>
+    <string msgid="3664277305226978227" name="m3c_date_picker_headline_description">"Obecnie wybrane: %1$s"</string>
+    <string msgid="8436650776581492840" name="m3c_date_picker_navigate_to_year_description">"Przejdź do roku %1$s"</string>
+    <string msgid="5811000998184572395" name="m3c_date_picker_no_selection_description">"Brak"</string>
+    <string msgid="7813882352367152251" name="m3c_date_picker_scroll_to_earlier_years">"Przewiń, aby wyświetlić wcześniejsze lata"</string>
+    <string msgid="5727367015496556177" name="m3c_date_picker_scroll_to_later_years">"Przewiń, aby wyświetlić późniejsze lata"</string>
+    <string msgid="1804346892470238807" name="m3c_date_picker_switch_to_calendar_mode">"Włącz tryb wprowadzania danych kalendarzowych"</string>
+    <string msgid="395627960681594326" name="m3c_date_picker_switch_to_day_selection">"Przesuń, aby wybrać rok, lub kliknij, aby wrócić do wyboru dnia"</string>
+    <string msgid="2219746470065162704" name="m3c_date_picker_switch_to_input_mode">"Przełącz na tryb wprowadzania tekstu"</string>
+    <string msgid="7142101321095356500" name="m3c_date_picker_switch_to_next_month">"Zmień na następny miesiąc"</string>
+    <string msgid="228438865139394590" name="m3c_date_picker_switch_to_previous_month">"Zmień na poprzedni miesiąc"</string>
+    <string msgid="791651718641787594" name="m3c_date_picker_switch_to_year_selection">"Przełącz na wybór roku"</string>
+    <string msgid="7430790972741451689" name="m3c_date_picker_title">"Wybierz datę"</string>
+    <string msgid="3199387177749801575" name="m3c_date_picker_today_description">"Dzisiaj"</string>
+    <string msgid="2068382232816991922" name="m3c_date_picker_year_picker_pane_title">"Widoczny selektor roku"</string>
+    <string msgid="3190049423327661366" name="m3c_date_range_input_invalid_range_input">"Nieprawidłowy zakres dat"</string>
+    <string msgid="3148384720560189467" name="m3c_date_range_input_title">"Wprowadź daty"</string>
+    <string msgid="2138321128465719402" name="m3c_date_range_picker_day_in_range">"W zakresie"</string>
+    <string msgid="4947636797751277713" name="m3c_date_range_picker_end_headline">"Data końcowa"</string>
+    <string msgid="602077859540990149" name="m3c_date_range_picker_scroll_to_next_month">"Przewiń, aby wyświetlić następny miesiąc"</string>
+    <string msgid="4592174524846109496" name="m3c_date_range_picker_scroll_to_previous_month">"Przewiń, aby wyświetlić poprzedni miesiąc"</string>
+    <string msgid="4665981448952749820" name="m3c_date_range_picker_start_headline">"Data początkowa"</string>
+    <string msgid="3134165431120340385" name="m3c_date_range_picker_title">"Wybierz daty"</string>
+    <string msgid="7617233117134790350" name="m3c_dialog">"Okno"</string>
+    <string msgid="3177828188723359358" name="m3c_dropdown_menu_collapsed">"Zwinięte"</string>
+    <string msgid="2360841780724299882" name="m3c_dropdown_menu_expanded">"Rozwinięte"</string>
+    <string msgid="8687821690726149911" name="m3c_dropdown_menu_toggle">"Pokaż lub ukryj menu"</string>
+    <string msgid="6152806324422087846" name="m3c_search_bar_search">"Szukaj"</string>
+    <string msgid="6152755701819882931" name="m3c_snackbar_dismiss">"Zamknij"</string>
+    <string msgid="7655536806087401899" name="m3c_suggestions_available">"Sugestie znajdziesz poniżej"</string>
+    <string msgid="2786685010796619560" name="m3c_time_picker_am">"AM"</string>
+    <string msgid="2349193472625211372" name="m3c_time_picker_hour">"Godzina"</string>
+    <string msgid="9179527532316922345" name="m3c_time_picker_hour_24h_suffix">"%1$d"</string>
+    <string msgid="8876759303332837035" name="m3c_time_picker_hour_selection">"Wybierz godzinę"</string>
+    <string msgid="3458167507790628988" name="m3c_time_picker_hour_suffix">"%1$d"</string>
+    <string msgid="6973808109666874069" name="m3c_time_picker_hour_text_field">"aby wpisać godzinę"</string>
+    <string msgid="4313071914266462005" name="m3c_time_picker_minute">"Minuta"</string>
+    <string msgid="4699133535056739733" name="m3c_time_picker_minute_selection">"Wybierz minuty"</string>
+    <string msgid="5064177921781937179" name="m3c_time_picker_minute_suffix">"Minuty: %1$d"</string>
+    <string msgid="7661234488295443182" name="m3c_time_picker_minute_text_field">"aby wpisać minuty"</string>
+    <string msgid="5865171949528594571" name="m3c_time_picker_period_toggle_description">"Wybierz AM lub PM"</string>
+    <string msgid="6616362054113087709" name="m3c_time_picker_pm">"PM"</string>
+    <string msgid="1805687647081129904" name="m3c_tooltip_long_press_label">"Pokaż etykietkę"</string>
+    <string msgid="5460405025248574620" name="m3c_tooltip_pane_description">"Etykietka"</string>
+    <string name="navArmies">Armie</string>
+    <string name="navDraw">Dobieranie</string>
+    <string name="navSetup">Ustawienia talii</string>
+    <string name="navTileCounter">Licznik żetonów</string>
+    <string name="navVs">vs</string>
+    <string msgid="542007171693138492" name="navigation_menu">"Menu nawigacyjne"</string>
+    <string msgid="6610465462668679431" name="not_selected">"Nie wybrano"</string>
+    <string msgid="5941395253238309765" name="range_end">"Koniec zakresu"</string>
+    <string msgid="7097486360902471446" name="range_start">"Początek zakresu"</string>
+    <string msgid="6043586758067023" name="selected">"Wybrano"</string>
+    <string msgid="4139871816613051306" name="state_empty">"Puste"</string>
+    <string msgid="5834637030682409883" name="state_off">"Wyłączono"</string>
+    <string msgid="1490883874751719580" name="state_on">"Włączono"</string>
+    <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="2561197295334830845" name="switch_role">"Przełącznik"</string>
+    <string msgid="1672349317127674378" name="tab">"Karta"</string>
+    <string msgid="5946805113151406391" name="template_percent">"<ns1:g id="PERCENTAGE">%1$d</ns1:g> procent."</string>
+    <string name="tileCatFoundation">Fundament</string>
+    <string name="tileCatHq">Sztab</string>
+    <string name="tileCatImplant">Implant</string>
+    <string name="tileCatInstant">Natychmiastowy</string>
+    <string name="tileCatModule">Moduł</string>
+    <string name="tileCatSoldier">Żołnierz</string>
+    <string msgid="3765533235322692011" name="tooltip_description">"etykietka"</string>
+    <string msgid="3124740595719787496" name="tooltip_label">"pokaż etykietkę"</string>
+    <string name="wiremenBonusIni0">Inicjatywa 0</string>
+    <string name="wiremenBonusIniPlus1">Inicjatywa +1</string>
+    <string name="wiremenBonusMatka">Matka</string>
+    <string name="wiremenBonusMeleePlus1">Atak wręcz +1</string>
+    <string name="wiremenBonusRangedPlus1">Atak dystansowy +1</string>
+</resources>

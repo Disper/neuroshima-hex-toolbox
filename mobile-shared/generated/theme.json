@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-03-29T17:37:19Z",
+  "tileCategories": {
+    "hq": {
+      "cardBorder": "rgba(245, 158, 11, 0.5)",
+      "cardChipBackground": "rgba(69, 26, 3, 0.6)",
+      "cardChipBorder": "rgba(245, 158, 11, 0.3)",
+      "cardChipText": "#fbbf24",
+      "badgeBackground": "#f59e0b",
+      "badgeText": "#451a03",
+      "fallbackBackground": "rgba(69, 26, 3, 0.6)"
+    },
+    "instant": {
+      "cardBorder": "rgba(239, 68, 68, 0.4)",
+      "cardChipBackground": "rgba(69, 10, 10, 0.6)",
+      "cardChipBorder": "rgba(239, 68, 68, 0.3)",
+      "cardChipText": "#f87171",
+      "badgeBackground": "#ef4444",
+      "badgeText": "#450a0a",
+      "fallbackBackground": "rgba(69, 10, 10, 0.5)"
+    },
+    "soldier": {
+      "cardBorder": "rgba(59, 130, 246, 0.4)",
+      "cardChipBackground": "rgba(23, 37, 84, 0.6)",
+      "cardChipBorder": "rgba(59, 130, 246, 0.3)",
+      "cardChipText": "#60a5fa",
+      "badgeBackground": "#3b82f6",
+      "badgeText": "#172554",
+      "fallbackBackground": "rgba(23, 37, 84, 0.5)"
+    },
+    "implant": {
+      "cardBorder": "rgba(139, 92, 246, 0.4)",
+      "cardChipBackground": "rgba(46, 16, 101, 0.6)",
+      "cardChipBorder": "rgba(139, 92, 246, 0.3)",
+      "cardChipText": "#a78bfa",
+      "badgeBackground": "#8b5cf6",
+      "badgeText": "#2e1065",
+      "fallbackBackground": "rgba(46, 16, 101, 0.5)"
+    },
+    "foundation": {
+      "cardBorder": "rgba(100, 116, 139, 0.4)",
+      "cardChipBackground": "rgba(2, 6, 23, 0.6)",
+      "cardChipBorder": "rgba(100, 116, 139, 0.3)",
+      "cardChipText": "#94a3b8",
+      "badgeBackground": "#64748b",
+      "badgeText": "#020617",
+      "fallbackBackground": "rgba(2, 6, 23, 0.5)"
+    },
+    "module": {
+      "cardBorder": "rgba(16, 185, 129, 0.4)",
+      "cardChipBackground": "rgba(2, 44, 34, 0.6)",
+      "cardChipBorder": "rgba(16, 185, 129, 0.3)",
+      "cardChipText": "#34d399",
+      "badgeBackground": "#10b981",
+      "badgeText": "#022c22",
+      "fallbackBackground": "rgba(2, 44, 34, 0.5)"
+    }
+  }
+}
