@@ -9,7 +9,7 @@ export const UI_STRINGS = {
     navTileCounter: 'Tile Counter',
     navSetup: 'Setup',
     navDraw: 'Draw',
-    footerAuthor: 'App made by Disper',
+    footerAuthor: 'App made by {author}',
     footerVersion: 'v{version}',
     footerOfflineBadge: 'Available offline',
 
@@ -171,7 +171,7 @@ export const UI_STRINGS = {
     navTileCounter: 'Licznik żetonów',
     navSetup: 'Ustawienia talii',
     navDraw: 'Dobieranie',
-    footerAuthor: 'Aplikacja: Disper',
+    footerAuthor: 'Apka od {author}',
     footerVersion: 'wersja {version}',
     footerOfflineBadge: 'Dostępne offline',
 

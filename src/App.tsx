@@ -387,7 +387,25 @@ export default function App() {
 
       <footer className="mt-auto border-t border-stone-800 py-4">
         <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 sm:gap-x-2 sm:gap-y-1 text-sm text-stone-500">
-          <span>{t('footerAuthor')}</span>
+          <span>
+            {(() => {
+              const parts = t('footerAuthor', { author: '\u0000' }).split('\u0000');
+              return (
+                <>
+                  {parts[0]}
+                  <a
+                    href="https://disper.github.io/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-stone-300 underline decoration-stone-600 underline-offset-2 transition-colors hover:text-amber-300 hover:decoration-amber-400/70"
+                  >
+                    Disper
+                  </a>
+                  {parts[1] ?? ''}
+                </>
+              );
+            })()}
+          </span>
           <span className="hidden sm:inline">·</span>
           <span>{t('footerVersion', { version: APP_VERSION_FULL })}</span>
           {offlineReady && (
