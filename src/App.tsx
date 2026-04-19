@@ -9,6 +9,7 @@ import {
 import { armies } from './data/armies';
 import type { Army, TileCategory } from './data/types';
 import { APP_VERSION_FULL } from './version';
+import { NH_OFFLINE_READY_EVENT } from './pwa-register';
 import { armySearchHaystack, getArmyDescription, getArmyDisplayName } from './i18n/display';
 import { useLocale } from './i18n/locale';
 import { LanguageSwitcher } from './i18n/LanguageSwitcher';
@@ -92,6 +93,23 @@ export default function App() {
   const [selectionArmies, setSelectionArmies] = useState<[Army | null, Army | null]>([null, null]);
 
   const applyingPopStateRef = useRef(false);
+  const [offlineReady, setOfflineReady] = useState(false);
+
+  useEffect(() => {
+    if (!import.meta.env.PROD) return;
+    if (typeof window === 'undefined') return;
+    if (!('serviceWorker' in navigator)) return;
+
+    const apply = () => setOfflineReady(true);
+
+    if (window.__NH_OFFLINE_READY__) {
+      apply();
+      return;
+    }
+
+    window.addEventListener(NH_OFFLINE_READY_EVENT, apply, { passive: true });
+    return () => window.removeEventListener(NH_OFFLINE_READY_EVENT, apply);
+  }, []);
 
   const goHome = useCallback(() => {
     setScreen('home');
@@ -368,10 +386,33 @@ export default function App() {
       </main>
 
       <footer className="mt-auto border-t border-stone-800 py-4">
-        <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-sm text-stone-500">
+        <div className="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 sm:gap-x-2 sm:gap-y-1 text-sm text-stone-500">
           <span>{t('footerAuthor')}</span>
           <span className="hidden sm:inline">·</span>
           <span>{t('footerVersion', { version: APP_VERSION_FULL })}</span>
+          {offlineReady && (
+            <>
+              <span className="hidden sm:inline">·</span>
+              <span
+                role="status"
+                className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/35 bg-emerald-950/35 px-2.5 py-1 text-xs font-medium text-emerald-200/95"
+              >
+                <svg
+                  className="h-3.5 w-3.5 shrink-0 text-emerald-400/95"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden
+                >
+                  <path d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                {t('footerOfflineBadge')}
+              </span>
+            </>
+          )}
         </div>
       </footer>
     </div>

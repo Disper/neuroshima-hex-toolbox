@@ -11,6 +11,7 @@ export const UI_STRINGS = {
     navDraw: 'Draw',
     footerAuthor: 'App made by Disper',
     footerVersion: 'v{version}',
+    footerOfflineBadge: 'Available offline',
 
     homeHeroTitle: 'Neuroshima Hex',
     homeHeroSubtitle: 'Your personal Neuroshima Hex Toolbox',
@@ -172,6 +173,7 @@ export const UI_STRINGS = {
     navDraw: 'Dobieranie',
     footerAuthor: 'Aplikacja: Disper',
     footerVersion: 'wersja {version}',
+    footerOfflineBadge: 'Dostępne offline',
 
     homeHeroTitle: 'Neuroshima Hex',
     homeHeroSubtitle: 'Twój podręczny zestaw narzędzi do Neuroshimy Hex',

@@ -1,9 +1,13 @@
 // Registers the Workbox-generated service worker in production builds.
 // The SW is emitted by `scripts/build-pwa.mjs` after `vite build`.
 
+export const NH_OFFLINE_READY_EVENT = 'nh-offline-ready';
+
 declare global {
   interface Window {
     __NH_SW_REGISTERED__?: boolean;
+    /** Set when precache is done and an active worker exists (prod only). */
+    __NH_OFFLINE_READY__?: boolean;
   }
 }
 
@@ -28,6 +32,11 @@ export function registerServiceWorker(): void {
             }
           });
         });
+        return navigator.serviceWorker.ready;
+      })
+      .then(() => {
+        window.__NH_OFFLINE_READY__ = true;
+        window.dispatchEvent(new CustomEvent(NH_OFFLINE_READY_EVENT));
       })
       .catch((err) => {
         console.warn('Service worker registration failed:', err);
