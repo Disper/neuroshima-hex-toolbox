@@ -17,12 +17,18 @@
   <string name="homeFeatureRandomizer">🎲 Losowanie żetonów</string>
   <string name="homeFeatureCounter">📋 Licznik żetonów</string>
   <string name="homeFeatureTileflip">🪙 Rzut żetonem</string>
+  <string name="homeFeatureSelection">🪖 Wybór armii</string>
   <string name="homeBlurbRandomizer">Dobieraj żetony po kolei według wspólnego kodu talii — tak aby wszyscy gracze losowali w tej samej kolejności.</string>
   <string name="homeBlurbCounter">Wybierz dwie różne armie (najpierw pierwszą, potem drugą), a następnie śledź pozostałe żetony obu stron obok siebie.</string>
+  <string name="homeBlurbSelection">Wybierz maksymalnie dwie armie na kompaktowych kartach HQ, a potem przejdź do osobnego ekranu ujawnienia po zapełnieniu obu miejsc.</string>
   <string name="homeCounterStep1">Krok 1: wybierz pierwszą armię.</string>
   <string name="homeCounterStep2Prefix">Krok 2: wybierz </string>
   <string name="homeCounterStep2Emphasis">inną</string>
   <string name="homeCounterStep2Suffix"> armię (pierwsza jest już wybrana).</string>
+  <string name="homeSelectionStep1">Krok 1: wybierz pierwszą armię.</string>
+  <string name="homeSelectionStep2">Krok 2: wybierz drugą armię.</string>
+  <string name="homeSelectionComplete">Obie armie są wybrane. Kontynuuj, kiedy będziesz gotowy.</string>
+  <string name="homeSelectionReady">Wybór gotowy</string>
   <string name="homeFilterLabel">Filtruj armie po nazwie</string>
   <string name="homeArmyDeckInstant">{n} natychmiastowych</string>
   <string name="homeArmyDeckSoldier">{n} żołnierzy</string>
@@ -128,4 +134,8 @@
   <string name="flipAgain">Rzuć ponownie</string>
   <string name="flipButton">Rzut</string>
   <string name="flipResult">Wynik:</string>
+  <string name="selectionReadyTitle">Wybór armii został zakończony</string>
+  <string name="selectionReadySubtitle">Obie armie są już zablokowane. Naciśnij przycisk poniżej, aby ujawnić końcowy wybór.</string>
+  <string name="selectionRevealButton">Ujawnij wybór</string>
+  <string name="selectionHideButton">Ukryj wybór</string>
 </resources>

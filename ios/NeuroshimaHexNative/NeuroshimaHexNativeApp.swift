@@ -49,6 +49,7 @@ enum FeatureMode: String {
     case randomizer
     case counter
     case tileflip
+    case selection
 }
 
 enum FlipPhase {
@@ -63,6 +64,7 @@ enum Screen {
     case setup
     case draw
     case counter
+    case selectionReady
 }
 
 enum TileCategory: String, Codable {
@@ -166,6 +168,8 @@ final class AppModel: ObservableObject {
     @Published var deckCode = ""
     @Published var counterAId: String?
     @Published var counterBId: String?
+    @Published var selectionAId: String?
+    @Published var selectionBId: String?
 
     let content: AppContent
 
@@ -198,6 +202,8 @@ final class AppModel: ObservableObject {
     var selectedArmy: Army? { armyById[selectedArmyId ?? ""] }
     var counterArmyA: Army? { armyById[counterAId ?? ""] }
     var counterArmyB: Army? { armyById[counterBId ?? ""] }
+    var selectionArmyA: Army? { armyById[selectionAId ?? ""] }
+    var selectionArmyB: Army? { armyById[selectionBId ?? ""] }
 
     var armyById: [String: Army] {
         Dictionary(uniqueKeysWithValues: content.armies.map { ($0.id, $0) })
@@ -214,6 +220,10 @@ final class AppModel: ObservableObject {
             counterAId = nil
             counterBId = nil
         }
+        if featureMode != .selection {
+            selectionAId = nil
+            selectionBId = nil
+        }
     }
 
     func setFeatureMode(_ next: FeatureMode) {
@@ -225,6 +235,10 @@ final class AppModel: ObservableObject {
             counterAId = nil
             counterBId = nil
         }
+        if next != .selection {
+            selectionAId = nil
+            selectionBId = nil
+        }
     }
 
     func selectArmy(_ army: Army) {
@@ -234,6 +248,19 @@ final class AppModel: ObservableObject {
             } else if counterBId == nil && counterAId != army.id {
                 counterBId = army.id
                 screen = .counter
+            }
+            return
+        }
+        if featureMode == .selection {
+            if selectionAId == army.id {
+                selectionAId = selectionBId
+                selectionBId = nil
+            } else if selectionBId == army.id {
+                selectionBId = nil
+            } else if selectionAId == nil {
+                selectionAId = army.id
+            } else if selectionBId == nil {
+                selectionBId = army.id
             }
             return
         }
@@ -335,6 +362,10 @@ struct RootView: View {
                         if let a = model.counterArmyA, let b = model.counterArmyB {
                             CounterView(armyA: a, armyB: b)
                         }
+                    case .selectionReady:
+                        if let a = model.selectionArmyA, let b = model.selectionArmyB {
+                            SelectionReadyView(armyA: a, armyB: b)
+                        }
                     }
                 }
             }
@@ -394,6 +425,24 @@ struct HomeView: View {
                     .background(Color(white: 0.15), in: RoundedRectangle(cornerRadius: 16))
                 }
 
+                if model.featureMode == .selection {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(model.t("homeFeatureSelection"))
+                            .font(.headline)
+                            .foregroundStyle(.white)
+                        Text(selectionPrompt)
+                            .foregroundStyle(.gray)
+                        Button(model.t("homeSelectionReady")) {
+                            model.screen = .selectionReady
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .disabled(model.selectionArmyA == nil || model.selectionArmyB == nil)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(white: 0.15), in: RoundedRectangle(cornerRadius: 16))
+                }
+
                 TextField(model.t("homeSearchPlaceholder"), text: $query)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
@@ -401,26 +450,51 @@ struct HomeView: View {
                     .background(Color(white: 0.17), in: RoundedRectangle(cornerRadius: 12))
                     .foregroundStyle(.white)
 
-                ForEach(filteredArmies) { army in
-                    let counterPickFirst = model.counterArmyA?.id == army.id
-                    let counterBlockDuplicate =
-                        model.featureMode == .counter &&
-                        model.counterArmyA != nil &&
-                        model.counterArmyB == nil &&
-                        model.counterArmyA?.id == army.id
-                    Button {
-                        if !counterBlockDuplicate {
-                            model.selectArmy(army)
+                if model.featureMode == .selection {
+                    LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
+                        ForEach(filteredArmies) { army in
+                            let selectedIndex: Int? =
+                                model.selectionArmyA?.id == army.id ? 1 :
+                                model.selectionArmyB?.id == army.id ? 2 : nil
+                            let selectionAtLimit =
+                                model.selectionArmyA != nil &&
+                                model.selectionArmyB != nil &&
+                                selectedIndex == nil
+                            Button {
+                                model.selectArmy(army)
+                            } label: {
+                                ArmySelectionCardView(
+                                    army: army,
+                                    selectedIndex: selectedIndex,
+                                    disabled: selectionAtLimit
+                                )
+                            }
+                            .disabled(selectionAtLimit)
+                            .buttonStyle(.plain)
                         }
-                    } label: {
-                        ArmyCardView(
-                            army: army,
-                            disabled: counterBlockDuplicate,
-                            selectedRing: model.featureMode == .counter && counterPickFirst && model.counterArmyA != nil
-                        )
                     }
-                    .disabled(counterBlockDuplicate)
-                    .buttonStyle(.plain)
+                } else {
+                    ForEach(filteredArmies) { army in
+                        let counterPickFirst = model.counterArmyA?.id == army.id
+                        let counterBlockDuplicate =
+                            model.featureMode == .counter &&
+                            model.counterArmyA != nil &&
+                            model.counterArmyB == nil &&
+                            model.counterArmyA?.id == army.id
+                        Button {
+                            if !counterBlockDuplicate {
+                                model.selectArmy(army)
+                            }
+                        } label: {
+                            ArmyCardView(
+                                army: army,
+                                disabled: counterBlockDuplicate,
+                                selectedRing: model.featureMode == .counter && counterPickFirst && model.counterArmyA != nil
+                            )
+                        }
+                        .disabled(counterBlockDuplicate)
+                        .buttonStyle(.plain)
+                    }
                 }
 
                 VStack(alignment: .leading, spacing: 6) {
@@ -454,11 +528,22 @@ struct HomeView: View {
         return model.t("counterTitle")
     }
 
+    private var selectionPrompt: String {
+        if model.selectionArmyA == nil {
+            return model.t("homeSelectionStep1")
+        }
+        if model.selectionArmyB == nil {
+            return model.t("homeSelectionStep2")
+        }
+        return model.t("homeSelectionComplete")
+    }
+
     private var featurePicker: some View {
         HStack(spacing: 8) {
             featureButton(.randomizer, key: "homeFeatureRandomizer")
             featureButton(.counter, key: "homeFeatureCounter")
             featureButton(.tileflip, key: "homeFeatureTileflip")
+            featureButton(.selection, key: "homeFeatureSelection")
         }
     }
 
@@ -517,6 +602,129 @@ struct ArmyCardView: View {
                 .stroke(selectedRing ? Color.yellow.opacity(0.7) : Color.clear, lineWidth: 2)
         )
         .opacity(disabled ? 0.4 : 1)
+    }
+}
+
+struct ArmySelectionCardView: View {
+    @EnvironmentObject private var model: AppModel
+    let army: Army
+    let selectedIndex: Int?
+    var disabled = false
+
+    var body: some View {
+        VStack(spacing: 10) {
+            ZStack(alignment: .topTrailing) {
+                BundleAssetImage(repoPath: army.hqImageUrl)
+                    .frame(width: 96, height: 96)
+                    .background(Color(white: 0.22), in: RoundedRectangle(cornerRadius: 14))
+
+                if let selectedIndex {
+                    Text("\(selectedIndex)")
+                        .font(.caption.bold())
+                        .foregroundStyle(Color(red: 0.11, green: 0.10, blue: 0.09))
+                        .frame(width: 28, height: 28)
+                        .background(Color(red: 0.96, green: 0.62, blue: 0.04), in: Circle())
+                        .overlay(Circle().stroke(Color(red: 0.99, green: 0.88, blue: 0.51).opacity(0.45), lineWidth: 1))
+                        .offset(x: 8, y: -8)
+                }
+            }
+
+            Text(model.armyDisplayName(army))
+                .font(.headline)
+                .foregroundStyle(.white)
+                .multilineTextAlignment(.center)
+                .lineLimit(2)
+        }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .background(Color(white: 0.13), in: RoundedRectangle(cornerRadius: 16))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(selectedIndex != nil ? Color.yellow.opacity(0.7) : Color.clear, lineWidth: 2)
+        )
+        .opacity(disabled ? 0.4 : 1)
+    }
+}
+
+struct SelectionReadyView: View {
+    @EnvironmentObject private var model: AppModel
+    let armyA: Army
+    let armyB: Army
+    @State private var revealed = false
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                VStack(spacing: 12) {
+                    Text(model.t("selectionReadyTitle"))
+                        .font(.largeTitle.bold())
+                        .foregroundStyle(.white)
+                        .multilineTextAlignment(.center)
+                    Text(model.t("selectionReadySubtitle"))
+                        .foregroundStyle(.gray)
+                        .multilineTextAlignment(.center)
+                    Button(model.t(revealed ? "selectionHideButton" : "selectionRevealButton")) {
+                        revealed.toggle()
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color(white: 0.13), in: RoundedRectangle(cornerRadius: 18))
+
+                if revealed {
+                    SelectionRevealCardView(army: armyA, position: 1)
+                    SelectionRevealCardView(army: armyB, position: 2)
+                }
+            }
+            .padding()
+        }
+    }
+}
+
+struct SelectionRevealCardView: View {
+    @EnvironmentObject private var model: AppModel
+    let army: Army
+    let position: Int
+
+    private var markerBackground: Color {
+        position == 1 ? .white : Color(red: 0.22, green: 0.25, blue: 0.31)
+    }
+
+    private var markerBorder: Color {
+        position == 1 ? .white.opacity(0.7) : Color(red: 0.36, green: 0.40, blue: 0.44).opacity(0.9)
+    }
+
+    private var markerText: Color {
+        position == 1 ? Color(red: 0.07, green: 0.09, blue: 0.15) : Color(red: 0.9, green: 0.92, blue: 0.94)
+    }
+
+    var body: some View {
+        VStack(spacing: 16) {
+            HStack(spacing: 16) {
+                Text("\(position)")
+                    .font(.system(size: 40, weight: .black))
+                    .foregroundStyle(markerText)
+                    .frame(width: 96, height: 96)
+                    .background(markerBackground, in: RoundedRectangle(cornerRadius: 20))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(markerBorder, lineWidth: 2)
+                    )
+
+                BundleAssetImage(repoPath: army.hqImageUrl)
+                    .frame(width: 96, height: 96)
+                    .background(Color(white: 0.22), in: RoundedRectangle(cornerRadius: 20))
+            }
+
+            Text(model.armyDisplayName(army))
+                .font(.title2.bold())
+                .foregroundStyle(parseColor(army.accentColor))
+                .multilineTextAlignment(.center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding()
+        .background(Color(white: 0.13), in: RoundedRectangle(cornerRadius: 18))
     }
 }
 

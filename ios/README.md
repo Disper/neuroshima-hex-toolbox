@@ -16,6 +16,7 @@ This directory contains a SwiftUI implementation of the Neuroshima Hex native mo
 - Draw mode
 - Counter mode
 - Tile flip mode
+- Army selection mode
 
 ## Notes
 

@@ -17,12 +17,18 @@
   <string name="homeFeatureRandomizer">🎲 Tile Randomizer</string>
   <string name="homeFeatureCounter">📋 Tile Counter</string>
   <string name="homeFeatureTileflip">🪙 Tile flip</string>
+  <string name="homeFeatureSelection">🪖 Army Selection</string>
   <string name="homeBlurbRandomizer">Draw tiles one by one using a shareable deck code — so all players draw in the same order.</string>
   <string name="homeBlurbCounter">Select two different armies (first, then second). Then track remaining tiles for both side by side.</string>
+  <string name="homeBlurbSelection">Pick up to two armies on compact HQ cards, then move to a separate reveal screen once both slots are filled.</string>
   <string name="homeCounterStep1">Step 1: choose the first army.</string>
   <string name="homeCounterStep2Prefix">Step 2: choose a </string>
   <string name="homeCounterStep2Emphasis">different</string>
   <string name="homeCounterStep2Suffix"> army (the first is already selected).</string>
+  <string name="homeSelectionStep1">Step 1: choose the first army.</string>
+  <string name="homeSelectionStep2">Step 2: choose the second army.</string>
+  <string name="homeSelectionComplete">Both armies are selected. Continue when you are ready.</string>
+  <string name="homeSelectionReady">Selection ready</string>
   <string name="homeFilterLabel">Filter armies by name</string>
   <string name="homeArmyDeckInstant">{n} instant</string>
   <string name="homeArmyDeckSoldier">{n} soldiers</string>
@@ -128,4 +134,8 @@
   <string name="flipAgain">Flip again</string>
   <string name="flipButton">Flip</string>
   <string name="flipResult">Result:</string>
+  <string name="selectionReadyTitle">Armies selection has been completed</string>
+  <string name="selectionReadySubtitle">The two armies are locked in. Press the button below to reveal the final selection.</string>
+  <string name="selectionRevealButton">Reveal selection</string>
+  <string name="selectionHideButton">Hide selection</string>
 </resources>

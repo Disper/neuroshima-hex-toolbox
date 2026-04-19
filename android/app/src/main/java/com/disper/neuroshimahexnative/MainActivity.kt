@@ -98,8 +98,8 @@ class MainActivity : ComponentActivity() {
 }
 
 private enum class LocaleCode { EN, PL }
-private enum class FeatureMode { RANDOMIZER, COUNTER, TILEFLIP }
-private enum class Screen { HOME, ARMY, SETUP, DRAW, COUNTER }
+private enum class FeatureMode { RANDOMIZER, COUNTER, TILEFLIP, SELECTION }
+private enum class Screen { HOME, ARMY, SETUP, DRAW, COUNTER, SELECTION_READY }
 private enum class TileCategory { HQ, INSTANT, SOLDIER, IMPLANT, FOUNDATION, MODULE }
 private enum class FlipPhase { IDLE, ANIMATING, DONE }
 
@@ -340,6 +340,8 @@ private fun NativeMobileApp(content: AppContent) {
   var deckCode by rememberSaveable { mutableStateOf("") }
   var counterAId by rememberSaveable { mutableStateOf<String?>(null) }
   var counterBId by rememberSaveable { mutableStateOf<String?>(null) }
+  var selectionAId by rememberSaveable { mutableStateOf<String?>(null) }
+  var selectionBId by rememberSaveable { mutableStateOf<String?>(null) }
 
   fun t(key: String, params: Map<String, String> = emptyMap()): String {
     var value = content.uiStrings[locale]?.get(key) ?: content.uiStrings[LocaleCode.EN]?.get(key) ?: key
@@ -354,6 +356,8 @@ private fun NativeMobileApp(content: AppContent) {
   val selectedArmy = selectedArmyId?.let(armyById::get)
   val counterA = counterAId?.let(armyById::get)
   val counterB = counterBId?.let(armyById::get)
+  val selectionA = selectionAId?.let(armyById::get)
+  val selectionB = selectionBId?.let(armyById::get)
 
   fun saveLocale(next: LocaleCode) {
     locale = next
@@ -370,6 +374,10 @@ private fun NativeMobileApp(content: AppContent) {
     if (featureMode != FeatureMode.COUNTER) {
       counterAId = null
       counterBId = null
+    }
+    if (featureMode != FeatureMode.SELECTION) {
+      selectionAId = null
+      selectionBId = null
     }
   }
 
@@ -395,6 +403,8 @@ private fun NativeMobileApp(content: AppContent) {
             featureMode = featureMode,
             counterA = counterA,
             counterB = counterB,
+            selectionA = selectionA,
+            selectionB = selectionB,
             t = translator,
             onFeatureModeChange = {
               featureMode = it
@@ -404,6 +414,10 @@ private fun NativeMobileApp(content: AppContent) {
               if (it != FeatureMode.COUNTER) {
                 counterAId = null
                 counterBId = null
+              }
+              if (it != FeatureMode.SELECTION) {
+                selectionAId = null
+                selectionBId = null
               }
             },
             onArmySelected = { army ->
@@ -415,11 +429,26 @@ private fun NativeMobileApp(content: AppContent) {
                     screen = Screen.COUNTER
                   }
                 }
+              } else if (featureMode == FeatureMode.SELECTION) {
+                when (army.id) {
+                  selectionAId -> {
+                    selectionAId = selectionBId
+                    selectionBId = null
+                  }
+                  selectionBId -> {
+                    selectionBId = null
+                  }
+                  else -> when {
+                    selectionAId == null -> selectionAId = army.id
+                    selectionBId == null -> selectionBId = army.id
+                  }
+                }
               } else {
                 selectedArmyId = army.id
                 screen = Screen.ARMY
               }
             },
+            onSelectionReady = { screen = Screen.SELECTION_READY },
           )
         }
 
@@ -471,6 +500,16 @@ private fun NativeMobileApp(content: AppContent) {
             },
           )
         }
+
+        screen == Screen.SELECTION_READY && selectionA != null && selectionB != null -> {
+          SelectionReadyScreen(
+            armyA = selectionA,
+            armyB = selectionB,
+            content = content,
+            locale = locale,
+            t = translator,
+          )
+        }
       }
     }
   }
@@ -508,6 +547,7 @@ private fun AppHeader(
   }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun HomeScreen(
   armies: List<Army>,
@@ -516,9 +556,12 @@ private fun HomeScreen(
   featureMode: FeatureMode,
   counterA: Army?,
   counterB: Army?,
+  selectionA: Army?,
+  selectionB: Army?,
   t: Translator,
   onFeatureModeChange: (FeatureMode) -> Unit,
   onArmySelected: (Army) -> Unit,
+  onSelectionReady: () -> Unit,
 ) {
   var query by rememberSaveable { mutableStateOf("") }
   val filtered = remember(armies, query, locale) {
@@ -559,6 +602,28 @@ private fun HomeScreen(
       }
     }
 
+    if (featureMode == FeatureMode.SELECTION) {
+      Card(colors = CardDefaults.cardColors(containerColor = Color(0xFF222222))) {
+        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+          Text(t("homeFeatureSelection"), color = Color.White, fontWeight = FontWeight.Bold)
+          Text(
+            when {
+              selectionA == null -> t("homeSelectionStep1")
+              selectionB == null -> t("homeSelectionStep2")
+              else -> t("homeSelectionComplete")
+            },
+            color = Color(0xFFD0D0D0)
+          )
+          Button(
+            onClick = onSelectionReady,
+            enabled = selectionA != null && selectionB != null
+          ) {
+            Text(t("homeSelectionReady"))
+          }
+        }
+      }
+    }
+
     OutlinedTextField(
       value = query,
       onValueChange = { query = it },
@@ -567,22 +632,49 @@ private fun HomeScreen(
       textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.White),
     )
 
-    filtered.forEach { army ->
-      val counterPickFirst = counterA?.id == army.id
-      val counterBlockDuplicate =
-        featureMode == FeatureMode.COUNTER &&
-          counterA != null &&
-          counterB == null &&
-          counterA.id == army.id
-      ArmyCard(
-        army = army,
-        content = content,
-        locale = locale,
-        t = t,
-        disabled = counterBlockDuplicate,
-        selectedRing = featureMode == FeatureMode.COUNTER && counterPickFirst && counterA != null,
-        onClick = { onArmySelected(army) },
-      )
+    if (featureMode == FeatureMode.SELECTION) {
+      FlowRow(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        maxItemsInEachRow = 2
+      ) {
+        filtered.forEach { army ->
+          val selectedIndex =
+            when (army.id) {
+              selectionA?.id -> 1
+              selectionB?.id -> 2
+              else -> null
+            }
+          val selectionAtLimit = selectionA != null && selectionB != null && selectedIndex == null
+          ArmySelectionCard(
+            army = army,
+            content = content,
+            locale = locale,
+            selectedIndex = selectedIndex,
+            disabled = selectionAtLimit,
+            onClick = { onArmySelected(army) },
+          )
+        }
+      }
+    } else {
+      filtered.forEach { army ->
+        val counterPickFirst = counterA?.id == army.id
+        val counterBlockDuplicate =
+          featureMode == FeatureMode.COUNTER &&
+            counterA != null &&
+            counterB == null &&
+            counterA.id == army.id
+        ArmyCard(
+          army = army,
+          content = content,
+          locale = locale,
+          t = t,
+          disabled = counterBlockDuplicate,
+          selectedRing = featureMode == FeatureMode.COUNTER && counterPickFirst && counterA != null,
+          onClick = { onArmySelected(army) },
+        )
+      }
     }
 
     Card(colors = CardDefaults.cardColors(containerColor = Color(0xFF1A1A1A))) {
@@ -605,7 +697,8 @@ private fun FeatureModePicker(
     listOf(
       FeatureMode.RANDOMIZER to "homeFeatureRandomizer",
       FeatureMode.COUNTER to "homeFeatureCounter",
-      FeatureMode.TILEFLIP to "homeFeatureTileflip"
+      FeatureMode.TILEFLIP to "homeFeatureTileflip",
+      FeatureMode.SELECTION to "homeFeatureSelection",
     ).forEach { (mode, labelKey) ->
       val selected = mode == featureMode
       val background = if (selected) Color(0xFF6E8B3D) else Color(0xFF2A2A2A)
@@ -618,6 +711,81 @@ private fun FeatureModePicker(
           .clickable { onFeatureModeChange(mode) }
           .padding(horizontal = 12.dp, vertical = 14.dp)
       )
+    }
+  }
+}
+
+@Composable
+private fun ArmySelectionCard(
+  army: Army,
+  content: AppContent,
+  locale: LocaleCode,
+  selectedIndex: Int?,
+  disabled: Boolean = false,
+  onClick: () -> Unit,
+) {
+  val image = rememberAssetImage(assetPath(army.hqImageUrl))
+  Card(
+    modifier = Modifier.width(168.dp),
+    colors = CardDefaults.cardColors(containerColor = Color(0xFF1F1F1F)),
+    onClick = {
+      if (!disabled || selectedIndex != null) onClick()
+    }
+  ) {
+    Box(
+      modifier = Modifier
+        .then(if (disabled && selectedIndex == null) Modifier.graphicsLayer(alpha = 0.4f) else Modifier)
+    ) {
+      Box(
+        modifier = Modifier
+          .fillMaxWidth()
+          .height(6.dp)
+          .background(parseColor(army.accentColor))
+      )
+      if (selectedIndex != null) {
+        Box(
+          modifier = Modifier
+            .padding(12.dp)
+            .align(Alignment.TopEnd)
+            .size(28.dp)
+            .background(Color(0xFFFFB300), RoundedCornerShape(999.dp))
+            .border(1.dp, Color(0x66FFE082), RoundedCornerShape(999.dp)),
+          contentAlignment = Alignment.Center
+        ) {
+          Text(selectedIndex.toString(), color = Color(0xFF1C1917), fontWeight = FontWeight.Black)
+        }
+      }
+      Column(
+        modifier = Modifier
+          .padding(horizontal = 12.dp, vertical = 18.dp)
+          .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+      ) {
+        if (image != null) {
+          Image(
+            bitmap = image,
+            contentDescription = armyDisplayName(army, locale, content.display),
+            modifier = Modifier.size(96.dp)
+          )
+        } else {
+          Box(
+            modifier = Modifier
+              .size(96.dp)
+              .background(Color(0xFF302116), RoundedCornerShape(16.dp)),
+            contentAlignment = Alignment.Center
+          ) {
+            Text("🏛", fontSize = 36.sp)
+          }
+        }
+        Text(
+          text = armyDisplayName(army, locale, content.display),
+          color = Color.White,
+          fontWeight = FontWeight.Bold,
+          maxLines = 2,
+          overflow = TextOverflow.Ellipsis
+        )
+      }
     }
   }
 }
@@ -690,6 +858,102 @@ private fun ArmyCard(
           )
         }
       }
+    }
+  }
+}
+
+@Composable
+private fun SelectionReadyScreen(
+  armyA: Army,
+  armyB: Army,
+  content: AppContent,
+  locale: LocaleCode,
+  t: Translator,
+) {
+  var revealed by rememberSaveable { mutableStateOf(false) }
+
+  Column(
+    modifier = Modifier
+      .fillMaxSize()
+      .verticalScroll(rememberScrollState())
+      .padding(16.dp),
+    verticalArrangement = Arrangement.spacedBy(16.dp)
+  ) {
+    Card(colors = CardDefaults.cardColors(containerColor = Color(0xFF1F1F1F))) {
+      Column(
+        modifier = Modifier.padding(20.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+      ) {
+        Text(t("selectionReadyTitle"), color = Color.White, fontSize = 28.sp, fontWeight = FontWeight.Bold)
+        Text(t("selectionReadySubtitle"), color = Color(0xFFD0D0D0))
+        Button(onClick = { revealed = !revealed }) {
+          Text(t(if (revealed) "selectionHideButton" else "selectionRevealButton"))
+        }
+      }
+    }
+
+    if (revealed) {
+      SelectionRevealCard(army = armyA, position = 1, content = content, locale = locale)
+      SelectionRevealCard(army = armyB, position = 2, content = content, locale = locale)
+    }
+  }
+}
+
+@Composable
+private fun SelectionRevealCard(
+  army: Army,
+  position: Int,
+  content: AppContent,
+  locale: LocaleCode,
+) {
+  val image = rememberAssetImage(assetPath(army.hqImageUrl))
+  val markerBackground = if (position == 1) Color.White else Color(0xFF374151)
+  val markerBorder = if (position == 1) Color(0xB3FFFFFF) else Color(0x995B6470)
+  val markerText = if (position == 1) Color(0xFF111827) else Color(0xFFE5E7EB)
+
+  Card(colors = CardDefaults.cardColors(containerColor = Color(0xFF1F1F1F))) {
+    Column(
+      modifier = Modifier.padding(20.dp),
+      verticalArrangement = Arrangement.spacedBy(16.dp),
+      horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+      Row(
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalAlignment = Alignment.CenterVertically
+      ) {
+        Box(
+          modifier = Modifier
+            .size(96.dp)
+            .background(markerBackground, RoundedCornerShape(20.dp))
+            .border(2.dp, markerBorder, RoundedCornerShape(20.dp)),
+          contentAlignment = Alignment.Center
+        ) {
+          Text(position.toString(), color = markerText, fontSize = 42.sp, fontWeight = FontWeight.Black)
+        }
+        if (image != null) {
+          Image(
+            bitmap = image,
+            contentDescription = armyDisplayName(army, locale, content.display),
+            modifier = Modifier.size(96.dp)
+          )
+        } else {
+          Box(
+            modifier = Modifier
+              .size(96.dp)
+              .background(Color(0xFF302116), RoundedCornerShape(20.dp)),
+            contentAlignment = Alignment.Center
+          ) {
+            Text("🏛", fontSize = 36.sp)
+          }
+        }
+      }
+      Text(
+        text = armyDisplayName(army, locale, content.display),
+        color = parseColor(army.accentColor),
+        fontSize = 24.sp,
+        fontWeight = FontWeight.Bold
+      )
     }
   }
 }
