@@ -235,7 +235,14 @@ export default function App() {
             onClick={goHome}
             className="flex items-center gap-2 font-bold text-stone-100 hover:text-white transition-colors min-w-0"
           >
-            <span className="text-lg shrink-0">🎲</span>
+            <img
+              src={`${import.meta.env.BASE_URL}app-icon-source.png`}
+              alt=""
+              width={32}
+              height={32}
+              decoding="async"
+              className="h-8 w-8 shrink-0 rounded-lg object-cover shadow-sm ring-1 ring-white/10"
+            />
             <span className="hidden sm:inline truncate">{t('brandFull')}</span>
             <span className="sm:hidden truncate">{t('brandShort')}</span>
           </button>
