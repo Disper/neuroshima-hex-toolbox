@@ -1,0 +1,44 @@
+name: Deploy to disper.github.io/hex-toolbox
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: gh-pages-hex-toolbox
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (base=/hex-toolbox/)
+        run: npm run build:ghpages
+
+      - name: Publish to disper.github.io/hex-toolbox
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.DISPER_GH_IO_TOKEN }}
+          external_repository: Disper/disper.github.io
+          publish_branch: main
+          publish_dir: ./dist
+          destination_dir: hex-toolbox
+          # keep_files is critical: without it the action wipes everything else
+          # in disper.github.io on every deploy (hub page, /hex-stats/, /hex-faq/).
+          keep_files: true
+          commit_message: 'deploy hex-toolbox @ ${{ github.sha }}'
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'

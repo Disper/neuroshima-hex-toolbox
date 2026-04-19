@@ -1,5 +1,5 @@
 {
-  "name": "neuroshimahextoolbox",
+  "name": "neuroshima-hex-toolbox",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,8 @@
     "sample-army-accents": "node scripts/sample-army-accent.mjs",
     "mobile:generate": "node scripts/generate-native-shared.mjs",
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && node scripts/build-pwa.mjs",
+    "build:ghpages": "VITE_BASE=/hex-toolbox/ tsc -b && VITE_BASE=/hex-toolbox/ vite build && node scripts/build-pwa.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

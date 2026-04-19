@@ -1,73 +1,49 @@
-# React + TypeScript + Vite
+# Neuroshima Hex Toolbox
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Offline-capable randomizer, counter, and army-selection companion tools for the board game **Neuroshima Hex!** by Portal Games. Built with React + TypeScript + Vite + Tailwind v4, deployed as a PWA.
 
-Currently, two official plugins are available:
+Live:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Vercel: <https://neuroshima-hex-toolbox.vercel.app/>
+- GitHub Pages: <https://disper.github.io/hex-toolbox/>
 
-## React Compiler
+The old `https://neuroshima-hex-randomizer.vercel.app/` URL auto-redirects to the new Vercel hostname after the Vercel project was renamed.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Development
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Vite serves at <http://localhost:5173/>.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Building
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Two build targets, one source tree — controlled by the `VITE_BASE` env var read in [`vite.config.ts`](vite.config.ts):
+
+| Target | Command | Vite `base` |
+| --- | --- | --- |
+| Vercel (root) | `npm run build` | `/` |
+| GitHub Pages (subpath) | `npm run build:ghpages` | `/hex-toolbox/` |
+
+`npm run build` also runs [`scripts/build-pwa.mjs`](scripts/build-pwa.mjs), which generates the Workbox service worker (`dist/sw.js`) that precaches the whole bundle for offline use. The static manifest at [`public/manifest.webmanifest`](public/manifest.webmanifest) uses `start_url: "."` and `scope: "."`, so it works unchanged under either base.
+
+Vercel is wired to `npm run build`, so no configuration changes are needed there.
+
+## Deployment
+
+- **Vercel** — automatic on push to `main` (project: `neuroshima-hex-toolbox`).
+- **GitHub Pages** — the [`deploy-ghpages`](.github/workflows/deploy-ghpages.yml) workflow runs `npm run build:ghpages` and publishes `dist/` into the `hex-toolbox/` folder of the `Disper/disper.github.io` repo on every push to `main`. It authenticates with the `DISPER_GH_IO_TOKEN` secret (a fine-grained PAT with `contents:write` on `Disper/disper.github.io`).
+
+## Versioning
+
+Every push bumps the patch version in [`src/version.ts`](src/version.ts) (`APP_VERSION` + `APP_VERSION_DATE`) per the [version-bump rule](.cursor/rules/version-bump.mdc).
+
+## Mobile shells
+
+Native Android / iOS shells live under [`android/`](android) and [`ios/`](ios). Shared TypeScript → native resource generation runs via `npm run mobile:generate` (see [`scripts/generate-native-shared.mjs`](scripts/generate-native-shared.mjs)).
+
+## UI conventions
+
+See [`.cursor/skills/neuroshima-hex-ui-style/SKILL.md`](.cursor/skills/neuroshima-hex-ui-style/SKILL.md) for the dark-stone palette, army accent colors, tile category chrome, card shells, and typography used across the app.
