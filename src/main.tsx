@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { LocaleProvider } from './i18n/locale'
+import { registerServiceWorker } from './pwa-register'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -11,3 +12,5 @@ createRoot(document.getElementById('root')!).render(
     </LocaleProvider>
   </StrictMode>,
 )
+
+registerServiceWorker()
