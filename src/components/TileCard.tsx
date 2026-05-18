@@ -8,7 +8,7 @@ interface TileCardProps {
   tile: TileDefinition;
   /** Override displayed count (e.g. always show 1 for drawn instances) */
   count?: number;
-  /** When true with count above 1, show "Name (count)" in the label instead of name + ×count badge */
+  /** When true with count above 1, show "(count) Name" in the label instead of "×count Name" */
   countInParentheses?: boolean;
   dimmed?: boolean;
   /** Compact mode for grids of many tiles */
@@ -89,6 +89,12 @@ export function TileCard({
   const displayName = getTileDisplayName(tile, locale);
   const overlayText = getImageOverlayLabel(tile, locale) ?? tile.imageOverlayLabel;
   const displayCount = count ?? tile.count;
+  const stackedLabel =
+    displayCount > 1
+      ? countInParentheses
+        ? `(${displayCount}) ${displayName}`
+        : `×${displayCount} ${displayName}`
+      : displayName;
   const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
@@ -185,27 +191,10 @@ export function TileCard({
             'font-semibold text-stone-100 leading-tight truncate',
             small ? 'text-xs' : 'text-sm',
           ].join(' ')}
-          title={
-            countInParentheses && displayCount > 1
-              ? `${displayName} (${displayCount})`
-              : displayName
-          }
+          title={stackedLabel}
         >
-          {countInParentheses && displayCount > 1
-            ? `${displayName} (${displayCount})`
-            : displayName}
+          {stackedLabel}
         </span>
-        {!countInParentheses && displayCount > 1 && (
-          <span
-            className={[
-              'shrink-0 rounded-full font-bold leading-none',
-              cfg.badge,
-              'text-xs px-1.5 py-0.5',
-            ].join(' ')}
-          >
-            ×{displayCount}
-          </span>
-        )}
       </div>
 
       {/* Category badge — only on full size */}
