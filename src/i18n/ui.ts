@@ -12,6 +12,8 @@ export const UI_STRINGS = {
     footerAuthor: 'App made by {author}',
     footerVersion: 'v{version}',
     footerOfflineBadge: 'Available offline',
+    footerHardRefresh: 'Reload app',
+    footerHardRefreshAria: 'Reload the app and fetch the latest version',
 
     homeHeroTitle: 'Neuroshima Hex',
     homeHeroSubtitle: 'Your personal Neuroshima Hex Toolbox',
@@ -178,6 +180,8 @@ export const UI_STRINGS = {
     footerAuthor: 'Apka od {author}',
     footerVersion: 'wersja {version}',
     footerOfflineBadge: 'Dostępne offline',
+    footerHardRefresh: 'Odśwież aplikację',
+    footerHardRefreshAria: 'Odśwież aplikację i pobierz najnowszą wersję',
 
     homeHeroTitle: 'Neuroshima Hex',
     homeHeroSubtitle: 'Twój podręczny zestaw narzędzi do Neuroshimy Hex',

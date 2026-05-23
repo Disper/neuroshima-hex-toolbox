@@ -10,7 +10,7 @@ import { flushSync } from 'react-dom';
 import { armies } from './data/armies';
 import type { Army, TileCategory } from './data/types';
 import { APP_VERSION_FULL } from './version';
-import { NH_OFFLINE_READY_EVENT } from './pwa-register';
+import { NH_OFFLINE_READY_EVENT, hardRefreshApp } from './pwa-register';
 import { armySearchHaystack, getArmyDescription, getArmyDisplayName } from './i18n/display';
 import { useLocale } from './i18n/locale';
 import { LanguageSwitcher } from './i18n/LanguageSwitcher';
@@ -110,6 +110,16 @@ export default function App() {
 
   const applyingPopStateRef = useRef(false);
   const [offlineReady, setOfflineReady] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleHardRefresh = useCallback(() => {
+    if (refreshing) return;
+    setRefreshing(true);
+    void hardRefreshApp().catch(() => {
+      setRefreshing(false);
+      window.location.reload();
+    });
+  }, [refreshing]);
 
   useEffect(() => {
     if (!import.meta.env.PROD) return;
@@ -447,6 +457,29 @@ export default function App() {
               </span>
             </>
           )}
+          <span className="hidden sm:inline">·</span>
+          <button
+            type="button"
+            onClick={handleHardRefresh}
+            disabled={refreshing}
+            aria-label={t('footerHardRefreshAria')}
+            className="inline-flex items-center gap-1.5 rounded-full border border-stone-600/50 bg-stone-900/50 px-2.5 py-1 text-xs font-medium text-stone-300 transition-colors hover:border-stone-500 hover:text-stone-100 active:scale-95 disabled:opacity-60 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-white/20"
+          >
+            <svg
+              className={['h-3.5 w-3.5 shrink-0', refreshing ? 'animate-spin' : ''].join(' ')}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.85.83 6.72 2.24" />
+              <path d="M21 3v6h-6" />
+            </svg>
+            {t('footerHardRefresh')}
+          </button>
         </div>
       </footer>
     </div>
