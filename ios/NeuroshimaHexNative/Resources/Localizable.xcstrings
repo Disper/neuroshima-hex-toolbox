@@ -127,7 +127,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Implanty"
+            "value" : "Wszczepy"
           }
         }
       }
@@ -1609,7 +1609,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "{n} implantów"
+            "value" : "{n} wszczepów"
           }
         }
       }
@@ -2074,7 +2074,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Implant"
+            "value" : "Wszczep"
           }
         }
       }

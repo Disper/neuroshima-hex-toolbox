@@ -32,7 +32,7 @@
   <string name="homeFilterLabel">Filtruj armie po nazwie</string>
   <string name="homeArmyDeckInstant">{n} natychmiastowych</string>
   <string name="homeArmyDeckSoldier">{n} żołnierzy</string>
-  <string name="homeArmyDeckImplant">{n} implantów</string>
+  <string name="homeArmyDeckImplant">{n} wszczepów</string>
   <string name="homeArmyDeckModule">{n} modułów</string>
   <string name="homeArmyDeckFoundation">{n} fundamentów</string>
   <string name="homeDonation">Podoba się aplikacja? Wesprzyj Partyzantów</string>
@@ -43,7 +43,7 @@
   <string name="armySectionHqObjects">Sztab (obiekty)</string>
   <string name="armySectionInstant">Żetony natychmiastowe</string>
   <string name="armySectionSoldiers">Żołnierze</string>
-  <string name="armySectionImplants">Implanty</string>
+  <string name="armySectionImplants">Wszczepy</string>
   <string name="armySectionModules">Moduły</string>
   <string name="armySectionFoundations">Fundamenty</string>
   <string name="armyTileCount">{n} żeton</string>
@@ -51,7 +51,7 @@
   <string name="tileCatHq">Sztab</string>
   <string name="tileCatInstant">Natychmiastowy</string>
   <string name="tileCatSoldier">Żołnierz</string>
-  <string name="tileCatImplant">Implant</string>
+  <string name="tileCatImplant">Wszczep</string>
   <string name="tileCatFoundation">Fundament</string>
   <string name="tileCatModule">Moduł</string>
   <string name="counterTitle">Licznik żetonów</string>

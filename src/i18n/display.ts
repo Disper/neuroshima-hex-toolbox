@@ -1,4 +1,5 @@
 import type { Army, TileDefinition } from '../data/types';
+import type { PartisanTrapInstance } from '../utils/partisanTraps';
 import type { Locale } from './localeTypes';
 import { ARMY_DESCRIPTION_PL, ARMY_DISPLAY_NAME_PL, ARMY_HQ_ABILITY_PL } from './armyPl';
 import { polishTileNameFromEnglish } from './enToPlTileNames';
@@ -58,6 +59,13 @@ const POLISH_TILE_NAME_OVERRIDES: Record<string, string> = {
   'part-guard-drone': 'Dron Strażnik',
   'part-veteran-scout': 'Zwiadowca Weteran',
   'part-bunker-manager': 'Zarządca Bunkra',
+  'part-trap-mine': 'Mina',
+  'part-trap-smoke': 'Zasłona Dymna',
+  'part-trap-drill': 'Świder',
+  'part-trap-medpack': 'Medpack',
+  'part-trap-net': 'Sieć',
+  'part-trap-rabies': 'Wścieklizna',
+  'part-trap-paralysis': 'Paraliż',
 
   'pirates-water-cannon': 'Działko Wodne',
 
@@ -129,6 +137,13 @@ export function getTileDisplayName(tile: TileDefinition, locale: Locale): string
   const override = POLISH_TILE_NAME_OVERRIDES[tile.id];
   if (override) return override;
   return polishTileNameFromEnglish(tile.name);
+}
+
+export function getPartisanTrapDisplayName(trap: PartisanTrapInstance, locale: Locale): string {
+  if (locale !== 'pl') return trap.name;
+  const override = POLISH_TILE_NAME_OVERRIDES[trap.trapId];
+  if (override) return override;
+  return polishTileNameFromEnglish(trap.name);
 }
 
 export function getImageOverlayLabel(tile: TileDefinition, locale: Locale): string | undefined {
