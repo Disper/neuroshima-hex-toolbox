@@ -162,7 +162,7 @@ struct TileGroup: Identifiable {
 @MainActor
 final class AppModel: ObservableObject {
     @Published var locale: LocaleCode
-    @Published var featureMode: FeatureMode = .randomizer
+    @Published var featureMode: FeatureMode = .counter
     @Published var screen: Screen = .home
     @Published var selectedArmyId: String?
     @Published var deckCode = ""
@@ -211,7 +211,7 @@ final class AppModel: ObservableObject {
 
     func goHome() {
         if featureMode == .tileflip {
-            featureMode = .randomizer
+            featureMode = .counter
         }
         screen = .home
         selectedArmyId = nil
@@ -462,6 +462,7 @@ struct HomeView: View {
                                 selectedIndex == nil
                             Button {
                                 model.selectArmy(army)
+                                query = ""
                             } label: {
                                 ArmySelectionCardView(
                                     army: army,
@@ -484,6 +485,9 @@ struct HomeView: View {
                         Button {
                             if !counterBlockDuplicate {
                                 model.selectArmy(army)
+                                if model.featureMode == .counter {
+                                    query = ""
+                                }
                             }
                         } label: {
                             ArmyCardView(
@@ -540,10 +544,10 @@ struct HomeView: View {
 
     private var featurePicker: some View {
         HStack(spacing: 8) {
-            featureButton(.randomizer, key: "homeFeatureRandomizer")
             featureButton(.counter, key: "homeFeatureCounter")
             featureButton(.tileflip, key: "homeFeatureTileflip")
             featureButton(.selection, key: "homeFeatureSelection")
+            featureButton(.randomizer, key: "homeFeatureRandomizer")
         }
     }
 
@@ -1319,6 +1323,7 @@ struct NativeTileCardView: View {
                 }
                 .frame(height: imageHeight)
                 .padding(small ? 4 : 8)
+                .grayscale(drawnOverlay ? 1.0 : 0.0)
 
                 HStack(spacing: 6) {
                     Text(displayTitle)
@@ -1356,10 +1361,6 @@ struct NativeTileCardView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 14)
                     .stroke(borderColor, lineWidth: 1)
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 14)
-                    .fill(drawnOverlay ? Color.red.opacity(0.10) : .clear)
             )
             .opacity(dimmed ? 0.3 : 1)
             .scaleEffect(dimmed ? 0.95 : 1)
