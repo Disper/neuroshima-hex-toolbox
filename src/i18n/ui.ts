@@ -86,6 +86,10 @@ export const UI_STRINGS = {
     wiremenBonusMatka: 'Mother',
     wiremenBonusMeleePlus1: 'Melee attack +1',
     wiremenBonusRangedPlus1: 'Ranged attack +1',
+    counterPartisanTrapsTitle: 'Traps',
+    counterPartisanTrapsBlurb:
+      'Tap traps the opponent has discarded from the game (activated and removed). Traps are not part of the draw deck.',
+    counterPartisanTrapsStatus: '{remaining} of {total} still available',
 
     deckBack: '← Back to Army',
     deckTitle: 'Set Up Deck',
@@ -200,7 +204,7 @@ export const UI_STRINGS = {
     homeFilterLabel: 'Filtruj armie po nazwie',
     homeArmyDeckInstant: '{n} natychmiastowych',
     homeArmyDeckSoldier: '{n} żołnierzy',
-    homeArmyDeckImplant: '{n} implantów',
+    homeArmyDeckImplant: '{n} wszczepów',
     homeArmyDeckModule: '{n} modułów',
     homeArmyDeckFoundation: '{n} fundamentów',
     homeDonation: 'Podoba się aplikacja? Wesprzyj Partyzantów',
@@ -213,7 +217,7 @@ export const UI_STRINGS = {
     armySectionHqObjects: 'Sztab (obiekty)',
     armySectionInstant: 'Żetony natychmiastowe',
     armySectionSoldiers: 'Żołnierze',
-    armySectionImplants: 'Implanty',
+    armySectionImplants: 'Wszczepy',
     armySectionModules: 'Moduły',
     armySectionFoundations: 'Fundamenty',
     armyTileCount: '{n} żeton',
@@ -222,7 +226,7 @@ export const UI_STRINGS = {
     tileCatHq: 'Sztab',
     tileCatInstant: 'Natychmiastowy',
     tileCatSoldier: 'Żołnierz',
-    tileCatImplant: 'Implant',
+    tileCatImplant: 'Wszczep',
     tileCatFoundation: 'Fundament',
     tileCatModule: 'Moduł',
 
@@ -249,6 +253,10 @@ export const UI_STRINGS = {
     wiremenBonusMatka: 'Matka',
     wiremenBonusMeleePlus1: 'Atak wręcz +1',
     wiremenBonusRangedPlus1: 'Atak dystansowy +1',
+    counterPartisanTrapsTitle: 'Pułapki',
+    counterPartisanTrapsBlurb:
+      'Kliknij pułapki odrzucone z gry przez przeciwnika (aktywowane i usunięte). Pułapki nie wchodzą w skład talii do dobierania.',
+    counterPartisanTrapsStatus: '{remaining} z {total} nadal dostępnych',
 
     deckBack: '← Powrót do armii',
     deckTitle: 'Ustawienie talii',

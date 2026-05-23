@@ -1,6 +1,7 @@
-import { useState, useCallback, useMemo, useEffect, useId } from 'react';
+import { useState, useCallback, useMemo, useEffect, useId, type Dispatch, type SetStateAction } from 'react';
 import type { Army, TileCategory, TileDefinition } from '../data/types';
 import { getArmyDisplayName } from '../i18n/display';
+import { TileCard } from './TileCard';
 import { useLocale } from '../i18n/locale';
 import type { UiMessageKey } from '../i18n/ui';
 import type { TileInstance } from '../utils/deck';
@@ -11,7 +12,11 @@ import {
   wiremenTechBonusesFullDeck,
   wiremenTechBonusesRemaining,
 } from '../utils/wiremenTechBonuses';
-import { TileCard } from './TileCard';
+import {
+  buildPartisanTrapPool,
+  PARTISAN_TRAP_POOL_SIZE,
+  PARTISANS_ARMY_ID,
+} from '../utils/partisanTraps';
 
 /** Three columns below lg (narrower on phones); four from lg up; slightly tighter gap on small screens */
 const COUNTER_TILE_GRID = 'grid grid-cols-3 lg:grid-cols-4 gap-1.5 sm:gap-2';
@@ -184,6 +189,50 @@ function WiremenTechRemainingBlock({
           );
         })}
       </div>
+    </div>
+  );
+}
+
+function PartisanTrapsBlock({
+  usedTrapIds,
+  onToggleTrap,
+}: {
+  usedTrapIds: Set<string>;
+  onToggleTrap: (instanceId: string) => void;
+}) {
+  const { t } = useLocale();
+  const pool = useMemo(() => buildPartisanTrapPool(), []);
+  const remaining = pool.length - usedTrapIds.size;
+
+  return (
+    <div className="min-w-0">
+      <h4 className="text-sm font-semibold mb-2 inline-flex items-center gap-2 px-2.5 py-1 rounded border bg-rose-950/60 border-rose-500/30 text-rose-400">
+        {t('counterPartisanTrapsTitle')}
+      </h4>
+      <p className="text-stone-500 text-xs mb-3 leading-relaxed">{t('counterPartisanTrapsBlurb')}</p>
+      <div className={`${COUNTER_TILE_GRID} mt-2`}>
+        {pool.map((trap) => {
+          const used = usedTrapIds.has(trap.instanceId);
+          return (
+            <TileCard
+              key={trap.instanceId}
+              tile={{
+                id: trap.trapId,
+                name: trap.name,
+                category: 'module',
+                count: 1,
+                imageUrl: trap.imageUrl,
+              }}
+              small
+              drawnOverlay={used}
+              onClick={() => onToggleTrap(trap.instanceId)}
+            />
+          );
+        })}
+      </div>
+      <p className="text-stone-500 text-xs mt-3 tabular-nums">
+        {t('counterPartisanTrapsStatus', { remaining, total: PARTISAN_TRAP_POOL_SIZE })}
+      </p>
     </div>
   );
 }
@@ -394,6 +443,8 @@ function CounterArmyFullPanel({
   remaining,
   drawn,
   stackIdentical,
+  usedTrapIds,
+  onToggleTrap,
   onRemainingClick,
   onDrawnClick,
 }: {
@@ -401,6 +452,8 @@ function CounterArmyFullPanel({
   remaining: TileInstance[];
   drawn: TileInstance[];
   stackIdentical: boolean;
+  usedTrapIds: Set<string>;
+  onToggleTrap: (instanceId: string) => void;
   onRemainingClick: (instance: TileInstance) => void;
   onDrawnClick: (instance: TileInstance) => void;
 }) {
@@ -435,6 +488,11 @@ function CounterArmyFullPanel({
                   onRemainingClick={onRemainingClick}
                 />
               </div>
+              {cat === 'module' && army.id === PARTISANS_ARMY_ID ? (
+                <div className="border-t border-stone-800/80 pt-6 mt-6">
+                  <PartisanTrapsBlock usedTrapIds={usedTrapIds} onToggleTrap={onToggleTrap} />
+                </div>
+              ) : null}
             </div>
           ))}
         </div>
@@ -448,6 +506,18 @@ interface CounterModeProps {
   onBack: () => void;
 }
 
+function toggleUsedTrap(
+  setUsed: Dispatch<SetStateAction<Set<string>>>,
+  instanceId: string
+) {
+  setUsed((prev) => {
+    const next = new Set(prev);
+    if (next.has(instanceId)) next.delete(instanceId);
+    else next.add(instanceId);
+    return next;
+  });
+}
+
 export function CounterMode({ armies, onBack }: CounterModeProps) {
   const { t } = useLocale();
   const [army0, army1] = armies;
@@ -457,6 +527,8 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
   const [remaining1, setRemaining1] = useState<TileInstance[]>(() => buildDeck(army1));
   const [drawn1, setDrawn1] = useState<TileInstance[]>([]);
   const [stackIdentical, setStackIdentical] = useState(false);
+  const [usedTraps0, setUsedTraps0] = useState<Set<string>>(() => new Set());
+  const [usedTraps1, setUsedTraps1] = useState<Set<string>>(() => new Set());
 
   const categoriesInEitherDeck = useMemo(() => {
     const t0 = deckTotalsByCategory(army0);
@@ -489,6 +561,8 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
     setDrawn0([]);
     setRemaining1(buildDeck(army1));
     setDrawn1([]);
+    setUsedTraps0(new Set());
+    setUsedTraps1(new Set());
   }, [army0, army1]);
 
   const wideLayout = useCounterWideLayout();
@@ -598,6 +672,27 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
                     />
                   </div>
                 </div>
+                {cat === 'module' &&
+                (army0.id === PARTISANS_ARMY_ID || army1.id === PARTISANS_ARMY_ID) ? (
+                  <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-start border-t border-stone-800/80 pt-6 mt-6">
+                    <div className="min-w-0">
+                      {army0.id === PARTISANS_ARMY_ID ? (
+                        <PartisanTrapsBlock
+                          usedTrapIds={usedTraps0}
+                          onToggleTrap={(id) => toggleUsedTrap(setUsedTraps0, id)}
+                        />
+                      ) : null}
+                    </div>
+                    <div className={`min-w-0 ${colClass}`}>
+                      {army1.id === PARTISANS_ARMY_ID ? (
+                        <PartisanTrapsBlock
+                          usedTrapIds={usedTraps1}
+                          onToggleTrap={(id) => toggleUsedTrap(setUsedTraps1, id)}
+                        />
+                      ) : null}
+                    </div>
+                  </div>
+                ) : null}
               </div>
             ))}
           </div>
@@ -610,6 +705,8 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
           remaining={remaining0}
           drawn={drawn0}
           stackIdentical={stackIdentical}
+          usedTrapIds={usedTraps0}
+          onToggleTrap={(id) => toggleUsedTrap(setUsedTraps0, id)}
           onRemainingClick={handleRemaining0}
           onDrawnClick={handleDrawn0}
         />
@@ -619,6 +716,8 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
             remaining={remaining1}
             drawn={drawn1}
             stackIdentical={stackIdentical}
+            usedTrapIds={usedTraps1}
+            onToggleTrap={(id) => toggleUsedTrap(setUsedTraps1, id)}
             onRemainingClick={handleRemaining1}
             onDrawnClick={handleDrawn1}
           />
