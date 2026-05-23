@@ -462,6 +462,7 @@ struct HomeView: View {
                                 selectedIndex == nil
                             Button {
                                 model.selectArmy(army)
+                                query = ""
                             } label: {
                                 ArmySelectionCardView(
                                     army: army,
@@ -484,6 +485,9 @@ struct HomeView: View {
                         Button {
                             if !counterBlockDuplicate {
                                 model.selectArmy(army)
+                                if model.featureMode == .counter {
+                                    query = ""
+                                }
                             }
                         } label: {
                             ArmyCardView(

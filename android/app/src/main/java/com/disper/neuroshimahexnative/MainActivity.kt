@@ -653,7 +653,10 @@ private fun HomeScreen(
             locale = locale,
             selectedIndex = selectedIndex,
             disabled = selectionAtLimit,
-            onClick = { onArmySelected(army) },
+            onClick = {
+              onArmySelected(army)
+              query = ""
+            },
           )
         }
       }
@@ -672,7 +675,12 @@ private fun HomeScreen(
           t = t,
           disabled = counterBlockDuplicate,
           selectedRing = featureMode == FeatureMode.COUNTER && counterPickFirst && counterA != null,
-          onClick = { onArmySelected(army) },
+          onClick = {
+            onArmySelected(army)
+            if (featureMode == FeatureMode.COUNTER) {
+              query = ""
+            }
+          },
         )
       }
     }

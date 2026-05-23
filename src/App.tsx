@@ -462,6 +462,13 @@ function HomeScreen({
     return armies.filter((a) => armySearchHaystack(a).includes(q));
   }, [armies, armySearch]);
 
+  const handleSelectArmy = (army: Army) => {
+    onSelectArmy(army);
+    if (featureMode === 'counter' || featureMode === 'selection') {
+      setArmySearch('');
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-10">
       <div className="text-center space-y-3">
@@ -621,7 +628,7 @@ function HomeScreen({
                       army={army}
                       disabled={selectionAtLimit}
                       selectedIndex={selectionIndex}
-                      onClick={() => onSelectArmy(army)}
+                      onClick={() => handleSelectArmy(army)}
                     />
                   ) : (
                     <ArmyCard
@@ -631,7 +638,7 @@ function HomeScreen({
                       selectedRing={
                         featureMode === 'counter' && counterPickFirst && Boolean(counterArmies[0])
                       }
-                      onClick={() => onSelectArmy(army)}
+                      onClick={() => handleSelectArmy(army)}
                     />
                   )
                 );
