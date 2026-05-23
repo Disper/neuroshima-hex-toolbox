@@ -6,6 +6,7 @@ import {
   useCallback,
   useMemo,
 } from 'react';
+import { flushSync } from 'react-dom';
 import { armies } from './data/armies';
 import type { Army, TileCategory } from './data/types';
 import { APP_VERSION_FULL } from './version';
@@ -21,7 +22,22 @@ import { DrawMode } from './components/DrawMode';
 import { TileFlipMode } from './components/TileFlipMode';
 
 type Screen = 'home' | 'army' | 'setup' | 'draw' | 'counter' | 'selection-ready';
-type FeatureMode = 'randomizer' | 'counter' | 'tileflip' | 'selection';
+type FeatureMode = 'counter' | 'tileflip' | 'selection' | 'randomizer';
+
+/** Home tab order: counter default, randomizer last. */
+const HOME_FEATURE_MODES: readonly FeatureMode[] = [
+  'counter',
+  'tileflip',
+  'selection',
+  'randomizer',
+];
+
+const HOME_FEATURE_MODE_LABELS: Record<FeatureMode, UiMessageKey> = {
+  counter: 'homeFeatureCounter',
+  tileflip: 'homeFeatureTileflip',
+  selection: 'homeFeatureSelection',
+  randomizer: 'homeFeatureRandomizer',
+};
 
 /** Serialized app state for History API — lets mobile Back step inside the SPA instead of closing the tab. */
 type AppHistoryStateV1 = {
@@ -88,7 +104,7 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>('home');
   const [selectedArmy, setSelectedArmy] = useState<Army | null>(null);
   const [deckCode, setDeckCode] = useState<string>('');
-  const [featureMode, setFeatureMode] = useState<FeatureMode>('randomizer');
+  const [featureMode, setFeatureMode] = useState<FeatureMode>('counter');
   const [counterArmies, setCounterArmies] = useState<[Army | null, Army | null]>([null, null]);
   const [selectionArmies, setSelectionArmies] = useState<[Army | null, Army | null]>([null, null]);
 
@@ -456,16 +472,35 @@ function HomeScreen({
 }) {
   const { t } = useLocale();
   const [armySearch, setArmySearch] = useState('');
+  const armySearchRef = useRef<HTMLInputElement>(null);
   const filteredArmies = useMemo(() => {
     const q = armySearch.trim().toLowerCase();
     if (!q) return armies;
     return armies.filter((a) => armySearchHaystack(a).includes(q));
   }, [armies, armySearch]);
 
+  const focusArmySearchInput = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    const input =
+      armySearchRef.current ??
+      (document.getElementById('army-search') as HTMLInputElement | null);
+    if (!input) return;
+    input.focus({ preventScroll: true });
+  };
+
   const handleSelectArmy = (army: Army) => {
-    onSelectArmy(army);
-    if (featureMode === 'counter' || featureMode === 'selection') {
-      setArmySearch('');
+    const shouldFocusSearch =
+      featureMode === 'counter' && !counterArmies[0] && !counterArmies[1];
+
+    flushSync(() => {
+      if (featureMode === 'counter' || featureMode === 'selection') {
+        setArmySearch('');
+      }
+      onSelectArmy(army);
+    });
+
+    if (shouldFocusSearch) {
+      focusArmySearchInput();
     }
   };
 
@@ -482,50 +517,20 @@ function HomeScreen({
 
       {/* Feature selector */}
       <div className="flex flex-wrap gap-2 sm:gap-3 justify-center">
-        <button
-          onClick={() => onFeatureModeChange('randomizer')}
-          className={[
-            'px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 border',
-            featureMode === 'randomizer'
-              ? 'bg-stone-700 border-stone-500 text-stone-100'
-              : 'border-stone-700 text-stone-500 hover:border-stone-600 hover:text-stone-300',
-          ].join(' ')}
-        >
-          {t('homeFeatureRandomizer')}
-        </button>
-        <button
-          onClick={() => onFeatureModeChange('counter')}
-          className={[
-            'px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 border',
-            featureMode === 'counter'
-              ? 'bg-stone-700 border-stone-500 text-stone-100'
-              : 'border-stone-700 text-stone-500 hover:border-stone-600 hover:text-stone-300',
-          ].join(' ')}
-        >
-          {t('homeFeatureCounter')}
-        </button>
-        <button
-          onClick={() => onFeatureModeChange('tileflip')}
-          className={[
-            'px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 border',
-            featureMode === 'tileflip'
-              ? 'bg-stone-700 border-stone-500 text-stone-100'
-              : 'border-stone-700 text-stone-500 hover:border-stone-600 hover:text-stone-300',
-          ].join(' ')}
-        >
-          {t('homeFeatureTileflip')}
-        </button>
-        <button
-          onClick={() => onFeatureModeChange('selection')}
-          className={[
-            'px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 border',
-            featureMode === 'selection'
-              ? 'bg-stone-700 border-stone-500 text-stone-100'
-              : 'border-stone-700 text-stone-500 hover:border-stone-600 hover:text-stone-300',
-          ].join(' ')}
-        >
-          {t('homeFeatureSelection')}
-        </button>
+        {HOME_FEATURE_MODES.map((mode) => (
+          <button
+            key={mode}
+            onClick={() => onFeatureModeChange(mode)}
+            className={[
+              'px-4 sm:px-6 py-3 rounded-xl font-semibold text-sm sm:text-base transition-all duration-200 border',
+              featureMode === mode
+                ? 'bg-stone-700 border-stone-500 text-stone-100'
+                : 'border-stone-700 text-stone-500 hover:border-stone-600 hover:text-stone-300',
+            ].join(' ')}
+          >
+            {t(HOME_FEATURE_MODE_LABELS[mode])}
+          </button>
+        ))}
       </div>
 
       {featureMode === 'tileflip' ? (
@@ -585,8 +590,11 @@ function HomeScreen({
               {t('homeFilterLabel')}
             </label>
             <input
+              ref={armySearchRef}
               id="army-search"
-              type="search"
+              type="text"
+              inputMode="search"
+              enterKeyHint="search"
               value={armySearch}
               onChange={(e) => setArmySearch(e.target.value)}
               placeholder={t('homeSearchPlaceholder')}
@@ -635,6 +643,7 @@ function HomeScreen({
                       key={army.id}
                       army={army}
                       disabled={counterBlockDuplicate}
+                      preventFocusSteal={featureMode === 'counter' && !counterArmies[1]}
                       selectedRing={
                         featureMode === 'counter' && counterPickFirst && Boolean(counterArmies[0])
                       }
@@ -683,11 +692,13 @@ function ArmyCard({
   onClick,
   disabled = false,
   selectedRing = false,
+  preventFocusSteal = false,
 }: {
   army: Army;
   onClick: () => void;
   disabled?: boolean;
   selectedRing?: boolean;
+  preventFocusSteal?: boolean;
 }) {
   const { t, locale } = useLocale();
   const displayName = getArmyDisplayName(army, locale);
@@ -717,22 +728,21 @@ function ArmyCard({
     .map((row) => ({ ...row, count: deckTileCount(army, row.category) }))
     .filter((row) => row.count > 0);
 
-  return (
-    <button
-      type="button"
-      onClick={() => {
-        if (!disabled) onClick();
-      }}
-      disabled={disabled}
-      className={[
-        'text-left rounded-2xl border border-stone-700 overflow-hidden transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 group',
-        disabled
-          ? 'opacity-40 cursor-not-allowed'
-          : 'hover:border-stone-500 hover:scale-[1.02] active:scale-95',
-        selectedRing ? 'ring-2 ring-amber-500/70 ring-offset-2 ring-offset-stone-950' : '',
-      ].join(' ')}
-      style={{ background: 'linear-gradient(135deg, #1c1917 0%, #292524 100%)' }}
-    >
+  const cardClassName = [
+    'text-left rounded-2xl border border-stone-700 overflow-hidden transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/20 group w-full',
+    disabled
+      ? 'opacity-40 cursor-not-allowed'
+      : 'hover:border-stone-500 hover:scale-[1.02] active:scale-95 cursor-pointer',
+    selectedRing ? 'ring-2 ring-amber-500/70 ring-offset-2 ring-offset-stone-950' : '',
+  ].join(' ');
+  const cardStyle = { background: 'linear-gradient(135deg, #1c1917 0%, #292524 100%)' };
+
+  const activate = () => {
+    if (!disabled) onClick();
+  };
+
+  const cardBody = (
+    <>
       <div className="h-1.5 w-full" style={{ background: army.accentColor }} />
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
@@ -766,6 +776,40 @@ function ArmyCard({
           </div>
         )}
       </div>
+    </>
+  );
+
+  if (preventFocusSteal) {
+    return (
+      <div
+        role="button"
+        tabIndex={disabled ? -1 : 0}
+        aria-disabled={disabled || undefined}
+        onClick={activate}
+        onKeyDown={(e) => {
+          if (disabled) return;
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            activate();
+          }
+        }}
+        className={cardClassName}
+        style={cardStyle}
+      >
+        {cardBody}
+      </div>
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={activate}
+      disabled={disabled}
+      className={cardClassName}
+      style={cardStyle}
+    >
+      {cardBody}
     </button>
   );
 }

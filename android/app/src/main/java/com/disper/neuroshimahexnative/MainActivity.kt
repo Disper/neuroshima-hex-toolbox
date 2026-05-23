@@ -56,6 +56,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.graphicsLayer
@@ -334,7 +336,7 @@ private fun NativeMobileApp(content: AppContent) {
       }
     )
   }
-  var featureMode by rememberSaveable { mutableStateOf(FeatureMode.RANDOMIZER) }
+  var featureMode by rememberSaveable { mutableStateOf(FeatureMode.COUNTER) }
   var screen by rememberSaveable { mutableStateOf(Screen.HOME) }
   var selectedArmyId by rememberSaveable { mutableStateOf<String?>(null) }
   var deckCode by rememberSaveable { mutableStateOf("") }
@@ -366,7 +368,7 @@ private fun NativeMobileApp(content: AppContent) {
 
   fun goHome() {
     if (featureMode == FeatureMode.TILEFLIP) {
-      featureMode = FeatureMode.RANDOMIZER
+      featureMode = FeatureMode.COUNTER
     }
     screen = Screen.HOME
     selectedArmyId = null
@@ -571,7 +573,7 @@ private fun HomeScreen(
   }
 
   if (featureMode == FeatureMode.TILEFLIP) {
-    TileFlipScreen(t = t, onBack = { onFeatureModeChange(FeatureMode.RANDOMIZER) })
+    TileFlipScreen(t = t, onBack = { onFeatureModeChange(FeatureMode.COUNTER) })
     return
   }
 
@@ -703,10 +705,10 @@ private fun FeatureModePicker(
 ) {
   Row(horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = Modifier.fillMaxWidth()) {
     listOf(
-      FeatureMode.RANDOMIZER to "homeFeatureRandomizer",
       FeatureMode.COUNTER to "homeFeatureCounter",
       FeatureMode.TILEFLIP to "homeFeatureTileflip",
       FeatureMode.SELECTION to "homeFeatureSelection",
+      FeatureMode.RANDOMIZER to "homeFeatureRandomizer",
     ).forEach { (mode, labelKey) ->
       val selected = mode == featureMode
       val background = if (selected) Color(0xFF6E8B3D) else Color(0xFF2A2A2A)
@@ -1546,6 +1548,11 @@ private fun NativeTileCard(
     small -> 80.dp
     else -> 128.dp
   }
+  val drawnColorFilter = if (drawnOverlay) {
+    ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
+  } else {
+    null
+  }
   val cardWidth = when {
     spotlight -> 156.dp
     small -> 124.dp
@@ -1589,7 +1596,8 @@ private fun NativeTileCard(
                 contentDescription = title,
                 modifier = Modifier
                   .fillMaxSize()
-                  .graphicsLayer(alpha = 0.22f)
+                  .graphicsLayer(alpha = 0.22f),
+                colorFilter = drawnColorFilter,
               )
               Box(
                 modifier = Modifier
@@ -1604,7 +1612,12 @@ private fun NativeTileCard(
               )
             }
           } else {
-            Image(bitmap = image, contentDescription = title, modifier = Modifier.fillMaxSize())
+            Image(
+              bitmap = image,
+              contentDescription = title,
+              modifier = Modifier.fillMaxSize(),
+              colorFilter = drawnColorFilter,
+            )
           }
         } else {
           Text(
@@ -1658,15 +1671,6 @@ private fun NativeTileCard(
             .padding(horizontal = 6.dp, vertical = 3.dp)
         )
       }
-    }
-
-    if (drawnOverlay) {
-      Box(
-        modifier = Modifier
-          .matchParentSize()
-          .background(Color(0x19FF4D4D), shape)
-          .border(1.dp, Color(0x33FF6B6B), shape)
-      )
     }
   }
 }
