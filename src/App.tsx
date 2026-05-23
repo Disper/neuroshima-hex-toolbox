@@ -9,7 +9,6 @@ import {
 import { flushSync } from 'react-dom';
 import { armies } from './data/armies';
 import type { Army, TileCategory } from './data/types';
-import { APP_VERSION_FULL } from './version';
 import { NH_OFFLINE_READY_EVENT, hardRefreshApp } from './pwa-register';
 import { armySearchHaystack, getArmyDescription, getArmyDisplayName } from './i18n/display';
 import { useLocale } from './i18n/locale';
@@ -19,6 +18,7 @@ import { ArmyView } from './components/ArmyView';
 import { CounterMode } from './components/CounterMode';
 import { DeckSetup } from './components/DeckSetup';
 import { DrawMode } from './components/DrawMode';
+import { FooterVersionNotes } from './components/FooterVersionNotes';
 import { TileFlipMode } from './components/TileFlipMode';
 
 type Screen = 'home' | 'army' | 'setup' | 'draw' | 'counter' | 'selection-ready';
@@ -433,7 +433,7 @@ export default function App() {
             })()}
           </span>
           <span className="hidden sm:inline">·</span>
-          <span>{t('footerVersion', { version: APP_VERSION_FULL })}</span>
+          <FooterVersionNotes />
           {offlineReady && (
             <>
               <span className="hidden sm:inline">·</span>

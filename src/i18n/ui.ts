@@ -14,6 +14,8 @@ export const UI_STRINGS = {
     footerOfflineBadge: 'Available offline',
     footerHardRefresh: 'Reload app',
     footerHardRefreshAria: 'Reload the app and fetch the latest version',
+    footerReleaseNotesTitle: 'Recent releases',
+    footerReleaseNotesAria: 'Show recent release notes',
 
     homeHeroTitle: 'Neuroshima Hex',
     homeHeroSubtitle: 'Your personal Neuroshima Hex Toolbox',
@@ -182,6 +184,8 @@ export const UI_STRINGS = {
     footerOfflineBadge: 'Dostępne offline',
     footerHardRefresh: 'Odśwież aplikację',
     footerHardRefreshAria: 'Odśwież aplikację i pobierz najnowszą wersję',
+    footerReleaseNotesTitle: 'Ostatnie wydania',
+    footerReleaseNotesAria: 'Pokaż notatki z ostatnich wydań',
 
     homeHeroTitle: 'Neuroshima Hex',
     homeHeroSubtitle: 'Twój podręczny zestaw narzędzi do Neuroshimy Hex',
