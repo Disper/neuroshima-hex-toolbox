@@ -71,6 +71,7 @@ export const UI_STRINGS = {
     counterTitle: 'Tile Counter',
     counterInstruction: 'Click tiles to move them between Remaining and Drawn for each army.',
     counterStackIdentical: 'Stack identical tiles',
+    counterSplitByCategory: 'Split by category',
     counterResetBoth: '↺ Reset both',
     counterBackArmies: '← Army List',
     counterDrawn: 'Drawn ({n})',
@@ -242,6 +243,7 @@ export const UI_STRINGS = {
     counterInstruction:
       'Klikaj żetony, aby przenosić je między Pozostałymi a Dobranymi dla każdej armii.',
     counterStackIdentical: 'Układaj identyczne żetony w stosy',
+    counterSplitByCategory: 'Podziel na kategorie',
     counterResetBoth: '↺ Resetuj obie',
     counterBackArmies: '← Lista armii',
     counterDrawn: 'Dobrane ({n})',
