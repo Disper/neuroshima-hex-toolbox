@@ -443,6 +443,7 @@ function CounterArmyFullPanel({
   remaining,
   drawn,
   stackIdentical,
+  splitByCategory,
   usedTrapIds,
   onToggleTrap,
   onRemainingClick,
@@ -452,6 +453,7 @@ function CounterArmyFullPanel({
   remaining: TileInstance[];
   drawn: TileInstance[];
   stackIdentical: boolean;
+  splitByCategory: boolean;
   usedTrapIds: Set<string>;
   onToggleTrap: (instanceId: string) => void;
   onRemainingClick: (instance: TileInstance) => void;
@@ -475,27 +477,54 @@ function CounterArmyFullPanel({
         <h3 className="text-base font-semibold text-stone-400">
           {t('counterRemaining', { n: remaining.length })}
         </h3>
-        <div className="space-y-8">
-          {categories.map((cat) => (
-            <div key={cat}>
-              {cat === 'instant' ? <WiremenTechRemainingBlock army={army} remaining={remaining} /> : null}
-              <div className="border-t border-stone-800/80 pt-6 first:border-t-0 first:pt-0">
-                <CategoryRemainingBlock
-                  army={army}
-                  category={cat}
-                  remaining={remaining}
-                  stackIdentical={stackIdentical}
-                  onRemainingClick={onRemainingClick}
-                />
-              </div>
-              {cat === 'module' && army.id === PARTISANS_ARMY_ID ? (
-                <div className="border-t border-stone-800/80 pt-6 mt-6">
-                  <PartisanTrapsBlock usedTrapIds={usedTrapIds} onToggleTrap={onToggleTrap} />
+        {splitByCategory ? (
+          <div className="space-y-8">
+            {categories.map((cat) => (
+              <div key={cat}>
+                {cat === 'instant' ? <WiremenTechRemainingBlock army={army} remaining={remaining} /> : null}
+                <div className="border-t border-stone-800/80 pt-6 first:border-t-0 first:pt-0">
+                  <CategoryRemainingBlock
+                    army={army}
+                    category={cat}
+                    remaining={remaining}
+                    stackIdentical={stackIdentical}
+                    onRemainingClick={onRemainingClick}
+                  />
                 </div>
-              ) : null}
+                {cat === 'module' && army.id === PARTISANS_ARMY_ID ? (
+                  <div className="border-t border-stone-800/80 pt-6 mt-6">
+                    <PartisanTrapsBlock usedTrapIds={usedTrapIds} onToggleTrap={onToggleTrap} />
+                  </div>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="space-y-6">
+            <div className={COUNTER_TILE_GRID}>
+              {(stackIdentical
+                ? sortGroupsByCategory(groupInstancesByTileId(remaining.filter((i) => i.tile.category !== 'hq')))
+                : sortByCategory(remaining.filter((i) => i.tile.category !== 'hq')).map((instance) => ({
+                    tile: instance.tile,
+                    instances: [instance],
+                  }))
+              ).map(({ tile, instances }) => (
+                <TileCard
+                  key={instances.map((i) => i.instanceId).join('|')}
+                  tile={tile}
+                  count={instances.length}
+                  countInParentheses={stackIdentical && instances.length > 1}
+                  small
+                  onClick={() => onRemainingClick(instances[0])}
+                />
+              ))}
             </div>
-          ))}
-        </div>
+            <WiremenTechRemainingBlock army={army} remaining={remaining} />
+            {army.id === PARTISANS_ARMY_ID ? (
+              <PartisanTrapsBlock usedTrapIds={usedTrapIds} onToggleTrap={onToggleTrap} />
+            ) : null}
+          </div>
+        )}
       </div>
     </section>
   );
@@ -717,6 +746,7 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
           remaining={remaining0}
           drawn={drawn0}
           stackIdentical={stackIdentical}
+          splitByCategory={splitByCategory}
           usedTrapIds={usedTraps0}
           onToggleTrap={(id) => toggleUsedTrap(setUsedTraps0, id)}
           onRemainingClick={handleRemaining0}
@@ -728,6 +758,7 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
             remaining={remaining1}
             drawn={drawn1}
             stackIdentical={stackIdentical}
+            splitByCategory={splitByCategory}
             usedTrapIds={usedTraps1}
             onToggleTrap={(id) => toggleUsedTrap(setUsedTraps1, id)}
             onRemainingClick={handleRemaining1}
