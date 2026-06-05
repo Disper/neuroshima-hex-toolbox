@@ -684,59 +684,118 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
             </h3>
           </div>
 
-          <div className="space-y-8">
-            {categoriesInEitherDeck.map((cat) => (
-              <div key={cat}>
-                {cat === 'instant' ? (
-                  <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-start mb-6">
-                    <WiremenTechRemainingBlock army={army0} remaining={remaining0} />
-                    <div className={colClass}>
-                      <WiremenTechRemainingBlock army={army1} remaining={remaining1} />
+          {splitByCategory ? (
+            <div className="space-y-8">
+              {categoriesInEitherDeck.map((cat) => (
+                <div key={cat}>
+                  {cat === 'instant' ? (
+                    <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-start mb-6">
+                      <WiremenTechRemainingBlock army={army0} remaining={remaining0} />
+                      <div className={colClass}>
+                        <WiremenTechRemainingBlock army={army1} remaining={remaining1} />
+                      </div>
                     </div>
-                  </div>
-                ) : null}
-                <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-start border-t border-stone-800/80 pt-6 first:border-t-0 first:pt-0">
-                  <CategoryRemainingBlock
-                    army={army0}
-                    category={cat}
-                    remaining={remaining0}
-                    stackIdentical={stackIdentical}
-                    onRemainingClick={handleRemaining0}
-                  />
-                  <div className={colClass}>
+                  ) : null}
+                  <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-start border-t border-stone-800/80 pt-6 first:border-t-0 first:pt-0">
                     <CategoryRemainingBlock
-                      army={army1}
+                      army={army0}
                       category={cat}
-                      remaining={remaining1}
+                      remaining={remaining0}
                       stackIdentical={stackIdentical}
-                      onRemainingClick={handleRemaining1}
+                      onRemainingClick={handleRemaining0}
                     />
+                    <div className={colClass}>
+                      <CategoryRemainingBlock
+                        army={army1}
+                        category={cat}
+                        remaining={remaining1}
+                        stackIdentical={stackIdentical}
+                        onRemainingClick={handleRemaining1}
+                      />
+                    </div>
                   </div>
+                  {cat === 'module' &&
+                  (army0.id === PARTISANS_ARMY_ID || army1.id === PARTISANS_ARMY_ID) ? (
+                    <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-start border-t border-stone-800/80 pt-6 mt-6">
+                      <div className="min-w-0">
+                        {army0.id === PARTISANS_ARMY_ID ? (
+                          <PartisanTrapsBlock
+                            usedTrapIds={usedTraps0}
+                            onToggleTrap={(id) => toggleUsedTrap(setUsedTraps0, id)}
+                          />
+                        ) : null}
+                      </div>
+                      <div className={`min-w-0 ${colClass}`}>
+                        {army1.id === PARTISANS_ARMY_ID ? (
+                          <PartisanTrapsBlock
+                            usedTrapIds={usedTraps1}
+                            onToggleTrap={(id) => toggleUsedTrap(setUsedTraps1, id)}
+                          />
+                        ) : null}
+                      </div>
+                    </div>
+                  ) : null}
                 </div>
-                {cat === 'module' &&
-                (army0.id === PARTISANS_ARMY_ID || army1.id === PARTISANS_ARMY_ID) ? (
-                  <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-start border-t border-stone-800/80 pt-6 mt-6">
-                    <div className="min-w-0">
-                      {army0.id === PARTISANS_ARMY_ID ? (
-                        <PartisanTrapsBlock
-                          usedTrapIds={usedTraps0}
-                          onToggleTrap={(id) => toggleUsedTrap(setUsedTraps0, id)}
-                        />
-                      ) : null}
-                    </div>
-                    <div className={`min-w-0 ${colClass}`}>
-                      {army1.id === PARTISANS_ARMY_ID ? (
-                        <PartisanTrapsBlock
-                          usedTrapIds={usedTraps1}
-                          onToggleTrap={(id) => toggleUsedTrap(setUsedTraps1, id)}
-                        />
-                      ) : null}
-                    </div>
-                  </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-start">
+              <div className="min-w-0 space-y-6">
+                <div className={COUNTER_TILE_GRID}>
+                  {(stackIdentical
+                    ? sortGroupsByCategory(groupInstancesByTileId(remaining0.filter((i) => i.tile.category !== 'hq')))
+                    : sortByCategory(remaining0.filter((i) => i.tile.category !== 'hq')).map((instance) => ({
+                        tile: instance.tile,
+                        instances: [instance],
+                      }))
+                  ).map(({ tile, instances }) => (
+                    <TileCard
+                      key={instances.map((i) => i.instanceId).join('|')}
+                      tile={tile}
+                      count={instances.length}
+                      countInParentheses={stackIdentical && instances.length > 1}
+                      small
+                      onClick={() => handleRemaining0(instances[0])}
+                    />
+                  ))}
+                </div>
+                <WiremenTechRemainingBlock army={army0} remaining={remaining0} />
+                {army0.id === PARTISANS_ARMY_ID ? (
+                  <PartisanTrapsBlock
+                    usedTrapIds={usedTraps0}
+                    onToggleTrap={(id) => toggleUsedTrap(setUsedTraps0, id)}
+                  />
                 ) : null}
               </div>
-            ))}
-          </div>
+              <div className={`min-w-0 ${colClass} space-y-6`}>
+                <div className={COUNTER_TILE_GRID}>
+                  {(stackIdentical
+                    ? sortGroupsByCategory(groupInstancesByTileId(remaining1.filter((i) => i.tile.category !== 'hq')))
+                    : sortByCategory(remaining1.filter((i) => i.tile.category !== 'hq')).map((instance) => ({
+                        tile: instance.tile,
+                        instances: [instance],
+                      }))
+                  ).map(({ tile, instances }) => (
+                    <TileCard
+                      key={instances.map((i) => i.instanceId).join('|')}
+                      tile={tile}
+                      count={instances.length}
+                      countInParentheses={stackIdentical && instances.length > 1}
+                      small
+                      onClick={() => handleRemaining1(instances[0])}
+                    />
+                  ))}
+                </div>
+                <WiremenTechRemainingBlock army={army1} remaining={remaining1} />
+                {army1.id === PARTISANS_ARMY_ID ? (
+                  <PartisanTrapsBlock
+                    usedTrapIds={usedTraps1}
+                    onToggleTrap={(id) => toggleUsedTrap(setUsedTraps1, id)}
+                  />
+                ) : null}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       ) : (
