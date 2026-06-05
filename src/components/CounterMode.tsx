@@ -339,7 +339,7 @@ function DrawnFoldable({
   onDrawnClick: (instance: TileInstance) => void;
 }) {
   const { t } = useLocale();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const panelId = useId();
   const triggerId = `${panelId}-drawn-trigger`;
 

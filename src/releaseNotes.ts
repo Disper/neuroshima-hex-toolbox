@@ -9,6 +9,12 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
+    version: '1.6.2',
+    date: '2026-06-05',
+    summaryEn: 'Tile Counter: drawn tiles section is collapsed by default.',
+    summaryPl: 'Licznik żetonów: sekcja zagranych żetonów domyślnie zwinięta.',
+  },
+  {
     version: '1.6.1',
     date: '2026-06-05',
     summaryEn: 'Tile Counter: after selecting the first army, page scrolls to the search input instead of the top.',
@@ -31,12 +37,6 @@ export const RELEASE_NOTES: readonly ReleaseNote[] = [
     date: '2026-06-05',
     summaryEn: 'Stack identical tiles enabled by default in Tile Counter.',
     summaryPl: 'Układanie identycznych żetonów w stosy domyślnie włączone w liczniku.',
-  },
-  {
-    version: '1.4.3',
-    date: '2026-05-23',
-    summaryEn: 'Release notes popover on the footer version (hover or tap).',
-    summaryPl: 'Notatki wydania przy numerze wersji w stopce (najechanie lub dotknięcie).',
   },
 ];
 
