@@ -9,7 +9,7 @@ Whenever the user asks to **push** (or otherwise ship) changes:
    - Set `APP_VERSION_DATE` to **today's date** in `YYYY-MM-DD` format.
 2. **Update `src/releaseNotes.ts`**:
    - Prepend a new entry (newest first) with the new version, today's date, and a short bilingual summary (`summaryEn` + `summaryPl`) describing the changes.
-   - Remove the oldest entry so the array never exceeds 5 items.
+   - Remove the oldest entry so the array never exceeds 7 items.
 3. **Include** `src/version.ts` and `src/releaseNotes.ts` in the same commit as the other changes (or the commit that you push).
 4. Then run **`git push`**.
 

@@ -1,4 +1,4 @@
-/** Recent release notes — keep in sync when bumping APP_VERSION (newest first, max 5 shown). */
+/** Recent release notes — keep in sync when bumping APP_VERSION (newest first, max 7 shown). */
 
 export interface ReleaseNote {
   version: string;
@@ -9,6 +9,12 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
+    version: '1.6.5',
+    date: '2026-06-05',
+    summaryEn: 'Release notes popover now shows the last 7 versions.',
+    summaryPl: 'Popover z notatkami wydania pokazuje teraz ostatnie 7 wersji.',
+  },
+  {
     version: '1.6.4',
     date: '2026-06-05',
     summaryEn: 'Army search: scrolls to the search input on first keystroke so it stays visible as the list filters.',
@@ -17,8 +23,8 @@ export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
     version: '1.6.3',
     date: '2026-06-05',
-    summaryEn: 'Result screens now have an “Open Tile Counter” button that loads the counter with the matched armies. Split by category is disabled by default.',
-    summaryPl: 'Ekrany wyników mają teraz przycisk „Otwórz licznik żetonów” ładujący licznik z dobranymi armiami. Podział na kategorie domyślnie wyłączony.',
+    summaryEn: 'Result screens now have an "Open Tile Counter" button that loads the counter with the matched armies. Split by category is disabled by default.',
+    summaryPl: 'Ekrany wyników mają teraz przycisk „Otwórz licznik żetonów" ładujący licznik z dobranymi armiami. Podział na kategorie domyślnie wyłączony.',
   },
   {
     version: '1.6.2',
@@ -35,9 +41,15 @@ export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
     version: '1.6.0',
     date: '2026-06-05',
-    summaryEn: 'New “Random Matchup” tab — pick two armies at random with a Re-roll button.',
-    summaryPl: 'Nowa zakładka „Losowe starcie” — wylosuj dwie armie z możliwością ponownego losowania.',
+    summaryEn: 'New "Random Matchup" tab — pick two armies at random with a Re-roll button.',
+    summaryPl: 'Nowa zakładka „Losowe starcie" — wylosuj dwie armie z możliwością ponownego losowania.',
+  },
+  {
+    version: '1.5.0',
+    date: '2026-06-05',
+    summaryEn: 'Tile Counter: "Split by category" toggle — view all remaining tiles in a flat grid.',
+    summaryPl: 'Licznik żetonów: przełącznik „Podziel na kategorie" — widok wszystkich żetonów w jednej siatce.',
   },
 ];
 
-export const RELEASE_NOTES_DISPLAY_COUNT = 5;
+export const RELEASE_NOTES_DISPLAY_COUNT = 7;
