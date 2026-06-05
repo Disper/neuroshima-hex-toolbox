@@ -9,6 +9,12 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
+    version: '1.5.0',
+    date: '2026-06-05',
+    summaryEn: 'Tile Counter: “Split by category” toggle — view all remaining tiles in a flat grid.',
+    summaryPl: 'Licznik żetonów: przełącznik „Podziel na kategorie” — widok wszystkich żetonów w jednej siatce.',
+  },
+  {
     version: '1.4.4',
     date: '2026-06-05',
     summaryEn: 'Stack identical tiles enabled by default in Tile Counter.',
@@ -31,12 +37,6 @@ export const RELEASE_NOTES: readonly ReleaseNote[] = [
     date: '2026-05-23',
     summaryEn: 'Partisans trap tracker in Tile Counter; Polish “Wszczep” for implant tiles.',
     summaryPl: 'Śledzenie pułapek Partyzantów w liczniku żetonów; polska etykieta „Wszczep” zamiast implantów.',
-  },
-  {
-    version: '1.4.0',
-    date: '2026-05-23',
-    summaryEn: 'Tile Counter UX: default tab, army search focus, grayscale drawn tiles.',
-    summaryPl: 'Licznik żetonów: domyślna zakładka, fokus wyszukiwania armii, szare dobrane żetony.',
   },
 ];
 
