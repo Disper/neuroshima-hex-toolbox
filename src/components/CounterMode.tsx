@@ -526,7 +526,7 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
   const [drawn0, setDrawn0] = useState<TileInstance[]>([]);
   const [remaining1, setRemaining1] = useState<TileInstance[]>(() => buildDeck(army1));
   const [drawn1, setDrawn1] = useState<TileInstance[]>([]);
-  const [stackIdentical, setStackIdentical] = useState(false);
+  const [stackIdentical, setStackIdentical] = useState(true);
   const [usedTraps0, setUsedTraps0] = useState<Set<string>>(() => new Set());
   const [usedTraps1, setUsedTraps1] = useState<Set<string>>(() => new Set());
 
