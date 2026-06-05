@@ -9,6 +9,12 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
+    version: '1.6.1',
+    date: '2026-06-05',
+    summaryEn: 'Tile Counter: after selecting the first army, page scrolls to the search input instead of the top.',
+    summaryPl: 'Licznik żetonów: po wybraniu pierwszej armii strona przewija do pola wyszukiwania zamiast na górę.',
+  },
+  {
     version: '1.6.0',
     date: '2026-06-05',
     summaryEn: 'New “Random Matchup” tab — pick two armies at random with a Re-roll button.',
@@ -31,12 +37,6 @@ export const RELEASE_NOTES: readonly ReleaseNote[] = [
     date: '2026-05-23',
     summaryEn: 'Release notes popover on the footer version (hover or tap).',
     summaryPl: 'Notatki wydania przy numerze wersji w stopce (najechanie lub dotknięcie).',
-  },
-  {
-    version: '1.4.2',
-    date: '2026-05-23',
-    summaryEn: 'Footer reload button for mobile browsers (hard refresh without keyboard).',
-    summaryPl: 'Przycisk odświeżania w stopce dla przeglądarek mobilnych (twarde odświeżenie bez skrótu klawiszowego).',
   },
 ];
 

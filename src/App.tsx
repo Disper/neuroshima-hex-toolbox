@@ -569,11 +569,11 @@ function HomeScreen({
   }, [armies, armySearch]);
 
   const focusArmySearchInput = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     const input =
       armySearchRef.current ??
       (document.getElementById('army-search') as HTMLInputElement | null);
     if (!input) return;
+    input.scrollIntoView({ behavior: 'auto', block: 'start' });
     input.focus({ preventScroll: true });
   };
 
@@ -701,6 +701,7 @@ function HomeScreen({
               placeholder={t('homeSearchPlaceholder')}
               autoComplete="off"
               spellCheck={false}
+              style={{ scrollMarginTop: '72px' }}
               className="w-full rounded-lg border border-stone-600 bg-stone-900/80 px-3 py-2 text-sm text-stone-100 placeholder:text-stone-500 shadow-inner focus:border-amber-600/60 focus:outline-none focus:ring-2 focus:ring-amber-500/25"
             />
           </div>
