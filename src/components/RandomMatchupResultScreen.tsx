@@ -12,7 +12,6 @@ export function RandomMatchupResultScreen({
   onBack: () => void;
 }) {
   const { t, locale } = useLocale();
-  const [army0, army1] = armies;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-12 space-y-8">
@@ -30,7 +29,7 @@ export function RandomMatchupResultScreen({
           </p>
 
           <div className="grid grid-cols-2 gap-4 sm:gap-6 max-w-lg mx-auto">
-            {([army0, army1] as [Army, Army]).map((army, index) => (
+            {armies.map((army, index) => (
               <div
                 key={army.id}
                 className="rounded-xl border border-stone-700 overflow-hidden"

@@ -128,6 +128,7 @@ export default function App() {
   const [randomMatchupArmies, setRandomMatchupArmies] = useState<[Army | null, Army | null]>([null, null]);
 
   const applyingPopStateRef = useRef(false);
+  const rerollingRef = useRef(false);
   const [offlineReady, setOfflineReady] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -283,7 +284,8 @@ export default function App() {
     const cur = window.history.state;
     const curJson = cur === null || cur === undefined ? null : JSON.stringify(cur);
     if (curJson === next) return;
-    if (cur === null || cur === undefined) {
+    if (cur === null || cur === undefined || rerollingRef.current) {
+      rerollingRef.current = false;
       window.history.replaceState(snapshot, '');
       return;
     }
@@ -451,6 +453,7 @@ export default function App() {
           <RandomMatchupResultScreen
             armies={[randomMatchupArmies[0], randomMatchupArmies[1]]}
             onReroll={() => {
+              rerollingRef.current = true;
               const [a, b] = pickTwoArmies();
               setRandomMatchupArmies([a, b]);
             }}
