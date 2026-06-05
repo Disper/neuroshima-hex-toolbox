@@ -9,6 +9,12 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
+    version: '1.6.0',
+    date: '2026-06-05',
+    summaryEn: 'New “Random Matchup” tab — pick two armies at random with a Re-roll button.',
+    summaryPl: 'Nowa zakładka „Losowe starcie” — wylosuj dwie armie z możliwością ponownego losowania.',
+  },
+  {
     version: '1.5.0',
     date: '2026-06-05',
     summaryEn: 'Tile Counter: “Split by category” toggle — view all remaining tiles in a flat grid.',
@@ -31,12 +37,6 @@ export const RELEASE_NOTES: readonly ReleaseNote[] = [
     date: '2026-05-23',
     summaryEn: 'Footer reload button for mobile browsers (hard refresh without keyboard).',
     summaryPl: 'Przycisk odświeżania w stopce dla przeglądarek mobilnych (twarde odświeżenie bez skrótu klawiszowego).',
-  },
-  {
-    version: '1.4.1',
-    date: '2026-05-23',
-    summaryEn: 'Partisans trap tracker in Tile Counter; Polish “Wszczep” for implant tiles.',
-    summaryPl: 'Śledzenie pułapek Partyzantów w liczniku żetonów; polska etykieta „Wszczep” zamiast implantów.',
   },
 ];
 
