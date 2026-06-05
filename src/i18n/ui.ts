@@ -180,6 +180,7 @@ export const UI_STRINGS = {
     randomMatchupBack: '← Back',
     randomMatchupPlayer1: 'Player 1',
     randomMatchupPlayer2: 'Player 2',
+    openTileCounter: '📋 Open Tile Counter',
   },
   pl: {
     appHtmlTitle: 'Neuroshima Hex Toolbox',
@@ -362,6 +363,7 @@ export const UI_STRINGS = {
     randomMatchupBack: '← Wróć',
     randomMatchupPlayer1: 'Gracz 1',
     randomMatchupPlayer2: 'Gracz 2',
+    openTileCounter: '📋 Otwórz licznik żetonów',
   },
 } as const;
 

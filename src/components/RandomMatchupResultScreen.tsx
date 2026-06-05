@@ -6,10 +6,12 @@ export function RandomMatchupResultScreen({
   armies,
   onReroll,
   onBack,
+  onOpenCounter,
 }: {
   armies: [Army, Army];
   onReroll: () => void;
   onBack: () => void;
+  onOpenCounter: () => void;
 }) {
   const { t, locale } = useLocale();
 
@@ -69,6 +71,13 @@ export function RandomMatchupResultScreen({
               className="rounded-xl bg-amber-600 px-6 py-3 font-bold text-white transition-all duration-200 hover:brightness-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/30"
             >
               {t('randomMatchupReroll')}
+            </button>
+            <button
+              type="button"
+              onClick={onOpenCounter}
+              className="rounded-xl border border-stone-600 bg-stone-900 px-6 py-3 font-semibold text-stone-300 transition-all duration-200 hover:border-stone-500 hover:text-stone-100 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/20"
+            >
+              {t('openTileCounter')}
             </button>
             <button
               type="button"

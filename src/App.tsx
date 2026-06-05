@@ -129,6 +129,7 @@ export default function App() {
 
   const applyingPopStateRef = useRef(false);
   const rerollingRef = useRef(false);
+  const counterReturnScreen = useRef<'home' | 'selection-ready' | 'random-matchup-result'>('home');
   const [offlineReady, setOfflineReady] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -441,13 +442,26 @@ export default function App() {
             key={`${counterArmies[0].id}-${counterArmies[1].id}`}
             armies={[counterArmies[0], counterArmies[1]]}
             onBack={() => {
-              setScreen('home');
-              setCounterArmies([null, null]);
+              const ret = counterReturnScreen.current;
+              counterReturnScreen.current = 'home';
+              if (ret === 'selection-ready' || ret === 'random-matchup-result') {
+                setScreen(ret);
+              } else {
+                setScreen('home');
+                setCounterArmies([null, null]);
+              }
             }}
           />
         )}
         {screen === 'selection-ready' && selectionArmies[0] && selectionArmies[1] && (
-          <ArmySelectionReadyView armies={[selectionArmies[0], selectionArmies[1]]} />
+          <ArmySelectionReadyView
+            armies={[selectionArmies[0], selectionArmies[1]]}
+            onOpenCounter={() => {
+              counterReturnScreen.current = 'selection-ready';
+              setCounterArmies([selectionArmies[0]!, selectionArmies[1]!]);
+              setScreen('counter');
+            }}
+          />
         )}
         {screen === 'random-matchup-result' && randomMatchupArmies[0] && randomMatchupArmies[1] && (
           <RandomMatchupResultScreen
@@ -456,6 +470,11 @@ export default function App() {
               rerollingRef.current = true;
               const [a, b] = pickTwoArmies();
               setRandomMatchupArmies([a, b]);
+            }}
+            onOpenCounter={() => {
+              counterReturnScreen.current = 'random-matchup-result';
+              setCounterArmies([randomMatchupArmies[0]!, randomMatchupArmies[1]!]);
+              setScreen('counter');
             }}
             onBack={() => {
               setScreen('home');
@@ -967,7 +986,7 @@ function ArmySelectionCard({
   );
 }
 
-function ArmySelectionReadyView({ armies }: { armies: [Army, Army] }) {
+function ArmySelectionReadyView({ armies, onOpenCounter }: { armies: [Army, Army]; onOpenCounter: () => void }) {
   const { t, locale } = useLocale();
   const [revealed, setRevealed] = useState(false);
 
@@ -996,7 +1015,8 @@ function ArmySelectionReadyView({ armies }: { armies: [Army, Army] }) {
       </div>
 
       {revealed && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {armies.map((army, index) => (
             (() => {
               const markerClassName =
@@ -1047,6 +1067,16 @@ function ArmySelectionReadyView({ armies }: { armies: [Army, Army] }) {
             })()
           ))}
         </div>
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={onOpenCounter}
+            className="rounded-xl border border-stone-600 bg-stone-900 px-6 py-3 font-semibold text-stone-300 transition-all duration-200 hover:border-stone-500 hover:text-stone-100 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/20"
+          >
+            {t('openTileCounter')}
+          </button>
+        </div>
+        </>
       )}
     </div>
   );

@@ -9,6 +9,12 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
+    version: '1.6.3',
+    date: '2026-06-05',
+    summaryEn: 'Result screens now have an “Open Tile Counter” button that loads the counter with the matched armies. Split by category is disabled by default.',
+    summaryPl: 'Ekrany wyników mają teraz przycisk „Otwórz licznik żetonów” ładujący licznik z dobranymi armiami. Podział na kategorie domyślnie wyłączony.',
+  },
+  {
     version: '1.6.2',
     date: '2026-06-05',
     summaryEn: 'Tile Counter: drawn tiles section is collapsed by default.',
@@ -31,12 +37,6 @@ export const RELEASE_NOTES: readonly ReleaseNote[] = [
     date: '2026-06-05',
     summaryEn: 'Tile Counter: “Split by category” toggle — view all remaining tiles in a flat grid.',
     summaryPl: 'Licznik żetonów: przełącznik „Podziel na kategorie” — widok wszystkich żetonów w jednej siatce.',
-  },
-  {
-    version: '1.4.4',
-    date: '2026-06-05',
-    summaryEn: 'Stack identical tiles enabled by default in Tile Counter.',
-    summaryPl: 'Układanie identycznych żetonów w stosy domyślnie włączone w liczniku.',
   },
 ];
 
