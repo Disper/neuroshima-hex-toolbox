@@ -20,9 +20,10 @@ import { DeckSetup } from './components/DeckSetup';
 import { DrawMode } from './components/DrawMode';
 import { FooterVersionNotes } from './components/FooterVersionNotes';
 import { TileFlipMode } from './components/TileFlipMode';
+import { RandomMatchupResultScreen } from './components/RandomMatchupResultScreen';
 
-type Screen = 'home' | 'army' | 'setup' | 'draw' | 'counter' | 'selection-ready';
-type FeatureMode = 'counter' | 'tileflip' | 'selection' | 'randomizer';
+type Screen = 'home' | 'army' | 'setup' | 'draw' | 'counter' | 'selection-ready' | 'random-matchup-result';
+type FeatureMode = 'counter' | 'tileflip' | 'selection' | 'randomizer' | 'random-matchup';
 
 /** Home tab order: counter default, randomizer last. */
 const HOME_FEATURE_MODES: readonly FeatureMode[] = [
@@ -30,6 +31,7 @@ const HOME_FEATURE_MODES: readonly FeatureMode[] = [
   'tileflip',
   'selection',
   'randomizer',
+  'random-matchup',
 ];
 
 const HOME_FEATURE_MODE_LABELS: Record<FeatureMode, UiMessageKey> = {
@@ -37,6 +39,7 @@ const HOME_FEATURE_MODE_LABELS: Record<FeatureMode, UiMessageKey> = {
   tileflip: 'homeFeatureTileflip',
   selection: 'homeFeatureSelection',
   randomizer: 'homeFeatureRandomizer',
+  'random-matchup': 'homeFeatureRandomMatchup',
 };
 
 /** Serialized app state for History API — lets mobile Back step inside the SPA instead of closing the tab. */
@@ -50,6 +53,8 @@ type AppHistoryStateV1 = {
   counterBId: string | null;
   selectionAId: string | null;
   selectionBId: string | null;
+  randomMatchupAId: string | null;
+  randomMatchupBId: string | null;
 };
 
 function parseAppHistoryState(raw: unknown): AppHistoryStateV1 | null {
@@ -64,7 +69,8 @@ function parseAppHistoryState(raw: unknown): AppHistoryStateV1 | null {
     screen !== 'setup' &&
     screen !== 'draw' &&
     screen !== 'counter' &&
-    screen !== 'selection-ready'
+    screen !== 'selection-ready' &&
+    screen !== 'random-matchup-result'
   ) {
     return null;
   }
@@ -72,7 +78,8 @@ function parseAppHistoryState(raw: unknown): AppHistoryStateV1 | null {
     featureMode !== 'randomizer' &&
     featureMode !== 'counter' &&
     featureMode !== 'tileflip' &&
-    featureMode !== 'selection'
+    featureMode !== 'selection' &&
+    featureMode !== 'random-matchup'
   ) {
     return null;
   }
@@ -86,6 +93,8 @@ function parseAppHistoryState(raw: unknown): AppHistoryStateV1 | null {
     counterBId: typeof o.counterBId === 'string' ? o.counterBId : null,
     selectionAId: typeof o.selectionAId === 'string' ? o.selectionAId : null,
     selectionBId: typeof o.selectionBId === 'string' ? o.selectionBId : null,
+    randomMatchupAId: typeof o.randomMatchupAId === 'string' ? o.randomMatchupAId : null,
+    randomMatchupBId: typeof o.randomMatchupBId === 'string' ? o.randomMatchupBId : null,
   };
 }
 
@@ -107,6 +116,7 @@ export default function App() {
   const [featureMode, setFeatureMode] = useState<FeatureMode>('counter');
   const [counterArmies, setCounterArmies] = useState<[Army | null, Army | null]>([null, null]);
   const [selectionArmies, setSelectionArmies] = useState<[Army | null, Army | null]>([null, null]);
+  const [randomMatchupArmies, setRandomMatchupArmies] = useState<[Army | null, Army | null]>([null, null]);
 
   const applyingPopStateRef = useRef(false);
   const [offlineReady, setOfflineReady] = useState(false);
