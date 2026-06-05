@@ -103,6 +103,15 @@ function findArmy(id: string | null): Army | null {
   return armies.find((a) => a.id === id) ?? null;
 }
 
+function pickTwoArmies(): [Army, Army] {
+  const pool = [...armies];
+  const idxA = Math.floor(Math.random() * pool.length);
+  const a = pool[idxA];
+  pool.splice(idxA, 1);
+  const idxB = Math.floor(Math.random() * pool.length);
+  return [a, pool[idxB]];
+}
+
 export default function App() {
   const { t, locale } = useLocale();
 
@@ -153,6 +162,7 @@ export default function App() {
     setDeckCode('');
     setCounterArmies([null, null]);
     setSelectionArmies([null, null]);
+    setRandomMatchupArmies([null, null]);
   }, []);
 
   const applyHistorySnapshot = useCallback((s: AppHistoryStateV1) => {
@@ -168,6 +178,9 @@ export default function App() {
     if (nextScreen === 'draw' && !s.deckCode) nextScreen = 'setup';
     if (nextScreen === 'counter' && (!ca || !cb)) nextScreen = 'home';
     if (nextScreen === 'selection-ready' && (!sa || !sb)) nextScreen = 'home';
+    const rma = findArmy(s.randomMatchupAId);
+    const rmb = findArmy(s.randomMatchupBId);
+    if (nextScreen === 'random-matchup-result' && (!rma || !rmb)) nextScreen = 'home';
 
     setFeatureMode(s.featureMode);
     setDeckCode(s.deckCode);
@@ -186,6 +199,11 @@ export default function App() {
       setSelectionArmies([sa, sb]);
     } else {
       setSelectionArmies([null, null]);
+    }
+    if (nextScreen === 'random-matchup-result' || s.featureMode === 'random-matchup') {
+      setRandomMatchupArmies([rma, rmb]);
+    } else {
+      setRandomMatchupArmies([null, null]);
     }
   }, []);
 
@@ -240,6 +258,8 @@ export default function App() {
   const counterBId = counterArmies[1]?.id ?? null;
   const selectionAId = selectionArmies[0]?.id ?? null;
   const selectionBId = selectionArmies[1]?.id ?? null;
+  const randomMatchupAId = randomMatchupArmies[0]?.id ?? null;
+  const randomMatchupBId = randomMatchupArmies[1]?.id ?? null;
 
   useEffect(() => {
     if (applyingPopStateRef.current) {
@@ -256,6 +276,8 @@ export default function App() {
       counterBId,
       selectionAId,
       selectionBId,
+      randomMatchupAId,
+      randomMatchupBId,
     };
     const next = JSON.stringify(snapshot);
     const cur = window.history.state;
@@ -266,7 +288,7 @@ export default function App() {
       return;
     }
     window.history.pushState(snapshot, '');
-  }, [screen, featureMode, selectedArmyId, deckCode, counterAId, counterBId, selectionAId, selectionBId]);
+  }, [screen, featureMode, selectedArmyId, deckCode, counterAId, counterBId, selectionAId, selectionBId, randomMatchupAId, randomMatchupBId]);
 
   /** Reset scroll when switching home feature tabs or navigating between screens (same document scroll). */
   useLayoutEffect(() => {
