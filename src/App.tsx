@@ -581,6 +581,7 @@ function HomeScreen({
   const { t } = useLocale();
   const [armySearch, setArmySearch] = useState('');
   const armySearchRef = useRef<HTMLInputElement>(null);
+  const prevArmySearchEmpty = useRef(true);
   const filteredArmies = useMemo(() => {
     const q = armySearch.trim().toLowerCase();
     if (!q) return armies;
@@ -598,7 +599,8 @@ function HomeScreen({
 
   const handleSelectArmy = (army: Army) => {
     const shouldFocusSearch =
-      featureMode === 'counter' && !counterArmies[0] && !counterArmies[1];
+      (featureMode === 'counter' && !counterArmies[0] && !counterArmies[1]) ||
+      (featureMode === 'selection' && !selectionArmies[0] && !selectionArmies[1]);
 
     flushSync(() => {
       if (featureMode === 'counter' || featureMode === 'selection') {
@@ -716,7 +718,14 @@ function HomeScreen({
               inputMode="search"
               enterKeyHint="search"
               value={armySearch}
-              onChange={(e) => setArmySearch(e.target.value)}
+              onChange={(e) => {
+                const val = e.target.value;
+                if (prevArmySearchEmpty.current && val) {
+                  e.target.scrollIntoView({ behavior: 'auto', block: 'start' });
+                }
+                prevArmySearchEmpty.current = !val;
+                setArmySearch(val);
+              }}
               placeholder={t('homeSearchPlaceholder')}
               autoComplete="off"
               spellCheck={false}

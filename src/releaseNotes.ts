@@ -9,6 +9,12 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
+    version: '1.6.4',
+    date: '2026-06-05',
+    summaryEn: 'Army search: scrolls to the search input on first keystroke so it stays visible as the list filters.',
+    summaryPl: 'Wyszukiwanie armii: przewija do pola wyszukiwania przy pierwszym znaku, aby pozostało widoczne podczas filtrowania.',
+  },
+  {
     version: '1.6.3',
     date: '2026-06-05',
     summaryEn: 'Result screens now have an “Open Tile Counter” button that loads the counter with the matched armies. Split by category is disabled by default.',
@@ -31,12 +37,6 @@ export const RELEASE_NOTES: readonly ReleaseNote[] = [
     date: '2026-06-05',
     summaryEn: 'New “Random Matchup” tab — pick two armies at random with a Re-roll button.',
     summaryPl: 'Nowa zakładka „Losowe starcie” — wylosuj dwie armie z możliwością ponownego losowania.',
-  },
-  {
-    version: '1.5.0',
-    date: '2026-06-05',
-    summaryEn: 'Tile Counter: “Split by category” toggle — view all remaining tiles in a flat grid.',
-    summaryPl: 'Licznik żetonów: przełącznik „Podziel na kategorie” — widok wszystkich żetonów w jednej siatce.',
   },
 ];
 
