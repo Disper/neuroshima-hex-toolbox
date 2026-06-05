@@ -7,7 +7,10 @@ Whenever the user asks to **push** (or otherwise ship) changes:
 1. **Before committing**, update `src/version.ts`:
    - Increment **`APP_VERSION`** with a **patch** bump by default (e.g. `1.1.1` → `1.1.2`), unless the user explicitly asks for a **minor** bump (`1.1.x` → `1.2.0`) or **major** bump (`1.x.x` → `2.0.0`).
    - Set `APP_VERSION_DATE` to **today's date** in `YYYY-MM-DD` format.
-2. **Include** `src/version.ts` in the same commit as the other changes (or the commit that you push).
-3. Then run **`git push`**.
+2. **Update `src/releaseNotes.ts`**:
+   - Prepend a new entry (newest first) with the new version, today's date, and a short bilingual summary (`summaryEn` + `summaryPl`) describing the changes.
+   - Remove the oldest entry so the array never exceeds 5 items.
+3. **Include** `src/version.ts` and `src/releaseNotes.ts` in the same commit as the other changes (or the commit that you push).
+4. Then run **`git push`**.
 
-If there is nothing else to commit, still bump the patch version and push that version-only commit.
+If there is nothing else to commit, still bump the patch version, update release notes, and push that version-only commit.

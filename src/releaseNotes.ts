@@ -9,6 +9,12 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
+    version: '1.4.4',
+    date: '2026-06-05',
+    summaryEn: 'Stack identical tiles enabled by default in Tile Counter.',
+    summaryPl: 'Układanie identycznych żetonów w stosy domyślnie włączone w liczniku.',
+  },
+  {
     version: '1.4.3',
     date: '2026-05-23',
     summaryEn: 'Release notes popover on the footer version (hover or tap).',
@@ -31,12 +37,6 @@ export const RELEASE_NOTES: readonly ReleaseNote[] = [
     date: '2026-05-23',
     summaryEn: 'Tile Counter UX: default tab, army search focus, grayscale drawn tiles.',
     summaryPl: 'Licznik żetonów: domyślna zakładka, fokus wyszukiwania armii, szare dobrane żetony.',
-  },
-  {
-    version: '1.3.4',
-    date: '2026-05-18',
-    summaryEn: 'Footer author link to Disper; Polish “Apka od” label.',
-    summaryPl: 'Link do autora w stopce; polska etykieta „Apka od”.',
   },
 ];
 
