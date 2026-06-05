@@ -527,6 +527,7 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
   const [remaining1, setRemaining1] = useState<TileInstance[]>(() => buildDeck(army1));
   const [drawn1, setDrawn1] = useState<TileInstance[]>([]);
   const [stackIdentical, setStackIdentical] = useState(true);
+  const [splitByCategory, setSplitByCategory] = useState(true);
   const [usedTraps0, setUsedTraps0] = useState<Set<string>>(() => new Set());
   const [usedTraps1, setUsedTraps1] = useState<Set<string>>(() => new Set());
 
@@ -593,15 +594,26 @@ export function CounterMode({ armies, onBack }: CounterModeProps) {
       >
         <h1 className="text-2xl font-bold text-stone-100">{t('counterTitle')}</h1>
         <p className="text-stone-500 text-sm mt-2">{t('counterInstruction')}</p>
-        <label className="mt-4 flex items-center gap-2.5 cursor-pointer select-none text-sm text-stone-300 hover:text-stone-100">
-          <input
-            type="checkbox"
-            className="rounded border-stone-600 bg-stone-800 text-amber-600 focus:ring-amber-500/40 focus:ring-offset-0"
-            checked={stackIdentical}
-            onChange={(e) => setStackIdentical(e.target.checked)}
-          />
-          <span>{t('counterStackIdentical')}</span>
-        </label>
+        <div className="mt-4 flex flex-col gap-2">
+          <label className="flex items-center gap-2.5 cursor-pointer select-none text-sm text-stone-300 hover:text-stone-100">
+            <input
+              type="checkbox"
+              className="rounded border-stone-600 bg-stone-800 text-amber-600 focus:ring-amber-500/40 focus:ring-offset-0"
+              checked={stackIdentical}
+              onChange={(e) => setStackIdentical(e.target.checked)}
+            />
+            <span>{t('counterStackIdentical')}</span>
+          </label>
+          <label className="flex items-center gap-2.5 cursor-pointer select-none text-sm text-stone-300 hover:text-stone-100">
+            <input
+              type="checkbox"
+              className="rounded border-stone-600 bg-stone-800 text-amber-600 focus:ring-amber-500/40 focus:ring-offset-0"
+              checked={splitByCategory}
+              onChange={(e) => setSplitByCategory(e.target.checked)}
+            />
+            <span>{t('counterSplitByCategory')}</span>
+          </label>
+        </div>
       </div>
 
       {/* Stacked portrait phone; wide: side-by-side (desktop lg+ or landscape with room) */}
