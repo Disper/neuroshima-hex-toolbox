@@ -404,9 +404,15 @@ export default function App() {
               setFeatureMode(m);
               if (m !== 'counter') setCounterArmies([null, null]);
               if (m !== 'selection') setSelectionArmies([null, null]);
+              if (m !== 'random-matchup') setRandomMatchupArmies([null, null]);
             }}
             onSelectArmy={selectArmy}
             onSelectionReady={() => setScreen('selection-ready')}
+            onRandomize={() => {
+              const [a, b] = pickTwoArmies();
+              setRandomMatchupArmies([a, b]);
+              setScreen('random-matchup-result');
+            }}
           />
         )}
         {screen === 'army' && selectedArmy && (
@@ -440,6 +446,19 @@ export default function App() {
         )}
         {screen === 'selection-ready' && selectionArmies[0] && selectionArmies[1] && (
           <ArmySelectionReadyView armies={[selectionArmies[0], selectionArmies[1]]} />
+        )}
+        {screen === 'random-matchup-result' && randomMatchupArmies[0] && randomMatchupArmies[1] && (
+          <RandomMatchupResultScreen
+            armies={[randomMatchupArmies[0], randomMatchupArmies[1]]}
+            onReroll={() => {
+              const [a, b] = pickTwoArmies();
+              setRandomMatchupArmies([a, b]);
+            }}
+            onBack={() => {
+              setScreen('home');
+              setRandomMatchupArmies([null, null]);
+            }}
+          />
         )}
       </main>
 
@@ -526,6 +545,7 @@ function HomeScreen({
   onFeatureModeChange,
   onSelectArmy,
   onSelectionReady,
+  onRandomize,
 }: {
   armies: Army[];
   featureMode: FeatureMode;
@@ -534,6 +554,7 @@ function HomeScreen({
   onFeatureModeChange: (m: FeatureMode) => void;
   onSelectArmy: (a: Army) => void;
   onSelectionReady: () => void;
+  onRandomize: () => void;
 }) {
   const { t } = useLocale();
   const [armySearch, setArmySearch] = useState('');
@@ -600,6 +621,18 @@ function HomeScreen({
 
       {featureMode === 'tileflip' ? (
         <TileFlipMode />
+      ) : featureMode === 'random-matchup' ? (
+        <div className="flex flex-col items-center gap-6 py-6">
+          <p className="text-stone-500 text-sm text-center">{t('homeBlurbRandomMatchup')}</p>
+          <button
+            type="button"
+            onClick={onRandomize}
+            className="rounded-xl bg-amber-600 px-8 py-4 text-lg font-extrabold text-white transition-all duration-200 hover:brightness-110 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/30"
+          >
+            {t('homeRandomMatchupButton')}
+          </button>
+          <p className="text-stone-600 text-xs">{t('homeRandomMatchupPool', { n: armies.length })}</p>
+        </div>
       ) : (
         <>
           <div className="space-y-2">
