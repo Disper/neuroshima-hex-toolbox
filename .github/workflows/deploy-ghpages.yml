@@ -35,7 +35,7 @@ jobs:
       - name: Publish to disper.github.io/hex-toolbox
         uses: peaceiris/actions-gh-pages@v4
         with:
-          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          personal_token: ${{ secrets.DISPER_GH_IO_TOKEN }}
           external_repository: Disper/disper.github.io
           publish_branch: main
           publish_dir: ./dist
