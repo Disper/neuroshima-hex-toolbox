@@ -1,0 +1,106 @@
+<h2>Full design — Tile Counter with "Split by category" toggle</h2>
+<p class="subtitle">Left: split ON (default). Right: split OFF (flat view). Does this look right?</p>
+
+<div class="split">
+  <div class="mockup">
+    <div class="mockup-header">Split by category: ON (default)</div>
+    <div class="mockup-body" style="font-family:system-ui;font-size:13px;color:#e7e5e4;background:#0c0a09;">
+
+      <!-- Options panel -->
+      <div style="background:linear-gradient(135deg,#1c1917,#292524);border:1px solid #44403c;border-radius:12px;padding:14px 16px;margin-bottom:14px;">
+        <div style="font-size:15px;font-weight:700;color:#f5f5f4;">Tile Counter</div>
+        <div style="font-size:11px;color:#78716c;margin:4px 0 10px;">Click tiles to move them between Remaining and Drawn.</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <label style="display:flex;align-items:center;gap:8px;color:#d6d3d1;cursor:pointer;">
+            <div style="width:13px;height:13px;border-radius:3px;border:1.5px solid #78716c;background:#292524;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <div style="width:7px;height:7px;background:#d97706;border-radius:1px;"></div>
+            </div>
+            Stack identical tiles
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;color:#d6d3d1;cursor:pointer;">
+            <div style="width:13px;height:13px;border-radius:3px;border:1.5px solid #78716c;background:#292524;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <div style="width:7px;height:7px;background:#d97706;border-radius:1px;"></div>
+            </div>
+            Split by category
+          </label>
+        </div>
+      </div>
+
+      <!-- Remaining section -->
+      <div style="font-size:13px;font-weight:600;color:#a8a29e;margin-bottom:10px;">Remaining (12)</div>
+
+      <!-- Instants -->
+      <div style="margin-bottom:10px;">
+        <div style="display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px;border:1px solid #ef444450;background:#450a0a80;color:#f87171;margin-bottom:6px;">Instant — 2 remaining</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">
+          <div style="background:#1c1917;border:1px solid #ef444450;border-radius:8px;padding:10px 4px;text-align:center;font-size:10px;color:#fca5a5;">Bomb (2)</div>
+        </div>
+      </div>
+
+      <!-- Soldiers -->
+      <div style="margin-bottom:10px;">
+        <div style="display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px;border:1px solid #3b82f650;background:#172554 80;color:#93c5fd;margin-bottom:6px;">Soldier — 5 remaining</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">
+          <div style="background:#1c1917;border:1px solid #3b82f650;border-radius:8px;padding:10px 4px;text-align:center;font-size:10px;color:#93c5fd;">Scout (3)</div>
+          <div style="background:#1c1917;border:1px solid #3b82f650;border-radius:8px;padding:10px 4px;text-align:center;font-size:10px;color:#93c5fd;">Archer (2)</div>
+        </div>
+      </div>
+
+      <!-- Modules -->
+      <div>
+        <div style="display:inline-flex;align-items:center;font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px;border:1px solid #10b98150;background:#052e1680;color:#6ee7b7;margin-bottom:6px;">Module — 5 remaining</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">
+          <div style="background:#1c1917;border:1px solid #10b98150;border-radius:8px;padding:10px 4px;text-align:center;font-size:10px;color:#6ee7b7;">Bot (4)</div>
+          <div style="background:#1c1917;border:1px solid #10b98150;border-radius:8px;padding:10px 4px;text-align:center;font-size:10px;color:#6ee7b7;">Turret</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="mockup">
+    <div class="mockup-header">Split by category: OFF (flat view)</div>
+    <div class="mockup-body" style="font-family:system-ui;font-size:13px;color:#e7e5e4;background:#0c0a09;">
+
+      <!-- Options panel -->
+      <div style="background:linear-gradient(135deg,#1c1917,#292524);border:1px solid #44403c;border-radius:12px;padding:14px 16px;margin-bottom:14px;">
+        <div style="font-size:15px;font-weight:700;color:#f5f5f4;">Tile Counter</div>
+        <div style="font-size:11px;color:#78716c;margin:4px 0 10px;">Click tiles to move them between Remaining and Drawn.</div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <label style="display:flex;align-items:center;gap:8px;color:#d6d3d1;cursor:pointer;">
+            <div style="width:13px;height:13px;border-radius:3px;border:1.5px solid #78716c;background:#292524;flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+              <div style="width:7px;height:7px;background:#d97706;border-radius:1px;"></div>
+            </div>
+            Stack identical tiles
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;color:#57534e;cursor:pointer;">
+            <div style="width:13px;height:13px;border-radius:3px;border:1.5px solid #44403c;background:#1c1917;flex-shrink:0;"></div>
+            Split by category
+          </label>
+        </div>
+      </div>
+
+      <!-- Remaining section — flat -->
+      <div style="font-size:13px;font-weight:600;color:#a8a29e;margin-bottom:10px;">Remaining (12)</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;">
+        <!-- Instants first -->
+        <div style="background:#1c1917;border:1px solid #ef444450;border-radius:8px;padding:10px 4px;text-align:center;font-size:10px;color:#fca5a5;">Bomb (2)</div>
+        <!-- Soldiers -->
+        <div style="background:#1c1917;border:1px solid #3b82f650;border-radius:8px;padding:10px 4px;text-align:center;font-size:10px;color:#93c5fd;">Scout (3)</div>
+        <div style="background:#1c1917;border:1px solid #3b82f650;border-radius:8px;padding:10px 4px;text-align:center;font-size:10px;color:#93c5fd;">Archer (2)</div>
+        <!-- Modules -->
+        <div style="background:#1c1917;border:1px solid #10b98150;border-radius:8px;padding:10px 4px;text-align:center;font-size:10px;color:#6ee7b7;">Bot (4)</div>
+        <div style="background:#1c1917;border:1px solid #10b98150;border-radius:8px;padding:10px 4px;text-align:center;font-size:10px;color:#6ee7b7;">Turret</div>
+      </div>
+      <div style="font-size:10px;color:#44403c;margin-top:8px;">No headers — border color still indicates category</div>
+
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:20px;background:#1c1917;border:1px solid #44403c;border-radius:8px;padding:12px 14px;font-size:12px;color:#a8a29e;">
+  <strong style="color:#d6d3d1;">Design summary:</strong>
+  A second checkbox "Split by category" (checked by default) appears below "Stack identical tiles".
+  When unchecked, all remaining tiles flow into one grid sorted by category — no headers, border color still shows type.
+  The drawn section is unaffected. Both checkboxes remain independent.
+</div>

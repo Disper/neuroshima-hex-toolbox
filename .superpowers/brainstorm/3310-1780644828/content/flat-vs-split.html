@@ -1,0 +1,50 @@
+<h2>How should tiles look when "Split by category" is OFF?</h2>
+<p class="subtitle">When the toggle is unchecked, all remaining tiles appear in one flat list. Which ordering feels most useful during a game?</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1c1917;border-radius:8px;padding:16px;font-family:system-ui;color:#e7e5e4;">
+        <div style="font-size:11px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Remaining (14)</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+          <!-- stacked by tile id, sorted by category -->
+          <div style="background:#292524;border:1px solid #ef444466;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#fca5a5;">⚡ (2)</div>
+          <div style="background:#292524;border:1px solid #3b82f666;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#93c5fd;">🗡 (3)</div>
+          <div style="background:#292524;border:1px solid #3b82f666;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#93c5fd;">🗡</div>
+          <div style="background:#292524;border:1px solid #a78bfa66;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#c4b5fd;">💉</div>
+          <div style="background:#292524;border:1px solid #64748b66;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#94a3b8;">🏗 (2)</div>
+          <div style="background:#292524;border:1px solid #10b98166;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#6ee7b7;">⚙ (4)</div>
+          <div style="background:#292524;border:1px solid #10b98166;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#6ee7b7;">⚙</div>
+        </div>
+        <div style="font-size:10px;color:#57534e;margin-top:8px;">Sorted: Instant → Soldier → Implant → Foundation → Module</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Sorted by category</h3>
+      <p>Tiles stay in the same order as split view (Instant first, then Soldiers, etc.) but without the section headers. Familiar ordering, just more compact.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1c1917;border-radius:8px;padding:16px;font-family:system-ui;color:#e7e5e4;">
+        <div style="font-size:11px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;">Remaining (14)</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;">
+          <!-- sorted alphabetically / by tile name -->
+          <div style="background:#292524;border:1px solid #3b82f666;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#93c5fd;">Archer (2)</div>
+          <div style="background:#292524;border:1px solid #ef444466;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#fca5a5;">Bomb</div>
+          <div style="background:#292524;border:1px solid #10b98166;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#6ee7b7;">Bot (4)</div>
+          <div style="background:#292524;border:1px solid #64748b66;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#94a3b8;">Bunker (2)</div>
+          <div style="background:#292524;border:1px solid #a78bfa66;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#c4b5fd;">Implant</div>
+          <div style="background:#292524;border:1px solid #3b82f666;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#93c5fd;">Scout</div>
+          <div style="background:#292524;border:1px solid #10b98166;border-radius:8px;padding:8px 4px;text-align:center;font-size:10px;color:#6ee7b7;">Turret</div>
+        </div>
+        <div style="font-size:10px;color:#57534e;margin-top:8px;">Alphabetical order — border color still indicates category</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Alphabetical order</h3>
+      <p>All tiles sorted A–Z by name, border color still shows category. Easy to find a specific tile by name.</p>
+    </div>
+  </div>
+</div>

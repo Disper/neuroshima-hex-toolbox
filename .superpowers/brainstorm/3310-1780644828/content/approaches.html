@@ -1,0 +1,91 @@
+<h2>How should the "Split by category" option work?</h2>
+<p class="subtitle">Three approaches for implementing the toggle, each with different trade-offs</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1c1917;border-radius:8px;padding:16px;font-family:system-ui;color:#e7e5e4;">
+        <!-- Two checkboxes side by side -->
+        <div style="font-size:11px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;">Tile Counter</div>
+        <div style="font-size:11px;color:#57534e;margin-bottom:12px;">Click tiles to move them between Remaining and Drawn.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#d6d3d1;cursor:pointer;">
+            <div style="width:14px;height:14px;border-radius:3px;border:1.5px solid #78716c;background:#292524;display:flex;align-items:center;justify-content:center;">
+              <div style="width:8px;height:8px;background:#d97706;border-radius:1px;"></div>
+            </div>
+            Stack identical tiles
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#d6d3d1;cursor:pointer;">
+            <div style="width:14px;height:14px;border-radius:3px;border:1.5px solid #78716c;background:#292524;display:flex;align-items:center;justify-content:center;">
+              <div style="width:8px;height:8px;background:#d97706;border-radius:1px;"></div>
+            </div>
+            Split by category
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Second checkbox (recommended)</h3>
+      <p>A second checkbox directly below "Stack identical tiles". Simple, consistent with existing UI. Both options are independently toggleable. Default: both checked.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1c1917;border-radius:8px;padding:16px;font-family:system-ui;color:#e7e5e4;">
+        <!-- Segmented control -->
+        <div style="font-size:11px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;">Tile Counter</div>
+        <div style="font-size:11px;color:#57534e;margin-bottom:12px;">Click tiles to move them between Remaining and Drawn.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#d6d3d1;cursor:pointer;">
+            <div style="width:14px;height:14px;border-radius:3px;border:1.5px solid #78716c;background:#292524;display:flex;align-items:center;justify-content:center;">
+              <div style="width:8px;height:8px;background:#d97706;border-radius:1px;"></div>
+            </div>
+            Stack identical tiles
+          </label>
+          <div style="display:flex;align-items:center;gap:6px;margin-top:2px;">
+            <span style="font-size:12px;color:#78716c;">View:</span>
+            <div style="display:flex;border-radius:6px;overflow:hidden;border:1px solid #44403c;">
+              <button style="background:#292524;color:#d97706;font-size:12px;padding:4px 10px;border:none;border-right:1px solid #44403c;cursor:pointer;font-weight:600;">By category</button>
+              <button style="background:#1c1917;color:#78716c;font-size:12px;padding:4px 10px;border:none;cursor:pointer;">All together</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Segmented toggle</h3>
+      <p>A "View: By category | All together" segmented control. More explicit about what it does, but introduces a different visual pattern than the checkboxes already there.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1c1917;border-radius:8px;padding:16px;font-family:system-ui;color:#e7e5e4;">
+        <!-- Single checkbox, different label -->
+        <div style="font-size:11px;color:#78716c;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;">Tile Counter</div>
+        <div style="font-size:11px;color:#57534e;margin-bottom:12px;">Click tiles to move them between Remaining and Drawn.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#d6d3d1;cursor:pointer;">
+            <div style="width:14px;height:14px;border-radius:3px;border:1.5px solid #78716c;background:#292524;display:flex;align-items:center;justify-content:center;">
+              <div style="width:8px;height:8px;background:#d97706;border-radius:1px;"></div>
+            </div>
+            Stack identical tiles
+          </label>
+          <label style="display:flex;align-items:center;gap:8px;font-size:13px;color:#d6d3d1;cursor:pointer;">
+            <div style="width:14px;height:14px;border-radius:3px;border:1.5px solid #78716c;background:#1c1917;"></div>
+            Group by category
+            <span style="font-size:10px;color:#57534e;padding:1px 5px;background:#292524;border-radius:4px;border:1px solid #44403c;">default on</span>
+          </label>
+        </div>
+        <div style="margin-top:10px;font-size:10px;color:#57534e;border-top:1px solid #292524;padding-top:8px;">
+          Unchecked → all tiles shown flat, sorted by category
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — "Group by category" checkbox (inverted)</h3>
+      <p>A checkbox labelled "Group by category" (checked = split view, unchecked = flat view). Positive framing — checking it turns the feature on. Default: checked.</p>
+    </div>
+  </div>
+</div>

@@ -23,6 +23,7 @@ import { partisans } from './partisans';
 import { merchantsGuild } from './merchantsguild';
 import { deathBreath } from './deathbreath';
 import { doomsdayMachine } from './doomsdaymachine';
+import { purifiers } from './purifiers';
 import type { Army } from '../types';
 
 // Order: Outpost, Borgo, Hegemony, Moloch first, then by release date (neuroshimahex.pl/produkty/dodatki-armijne/)
@@ -49,6 +50,7 @@ export const armies: Army[] = [
   partisans,        // Nov 2023
   desertPeople,     // Sep 2024
   wiremen,          // Sep 2025
+  purifiers,        // Oct 2025
 ];
 
 export const getArmy = (id: string): Army | undefined =>

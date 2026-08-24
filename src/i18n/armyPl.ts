@@ -25,6 +25,7 @@ export const ARMY_DISPLAY_NAME_PL: Record<string, string> = {
   partisans: 'Partyzanci',
   'desert-people': 'Ludzie Pustyni',
   wiremen: 'Druciarze',
+  purifiers: 'Czyściciele',
 };
 
 /** Polish army descriptions shown in the UI. */
@@ -79,6 +80,8 @@ export const ARMY_DESCRIPTION_PL: Record<string, string> = {
     'Plemienni wojownicy pustkowi łączący skradanie, walkę dystansową i wsparcie szamańskie. Ludzie Pustyni wystawiają Kojoty, Łuczników, Młodych Wojowników i Szamanki - wszechstronną mieszankę zwiadowców oraz wojowników wspieraną przez żetony Mirażu.',
   wiremen:
     'Społeczność buntowników żyjących wewnątrz samego Molocha - zbuntowanych cyborgów, uciekinierów, badaczy i ocalałych. Druciarze walczą skradzionymi zasobami Maszyn oraz zaawansowaną cybernetyką, stale zacierając granicę między sojusznikiem a wrogiem.',
+  purifiers:
+    'Ogień to najdoskonalsze narzędzie oczyszczenia: wszystko, co zetknęło się z chorobą, musi spłonąć. Ci piromani i ekstremiści oczyszczają miasta, wypalając zarazę i wykorzeniając zepsucie. Wędrują od miasta do miasta, pustosząc ulice swoimi bezlitosnymi płomieniami. Jeśli dostrzegą choćby ślad skażenia, nie zawahają się podpalić samochodów ani nawet budynków pełnych ludzi, bo w ich oczach chorzy już są martwi. Czyściciele są bez reszty oddani swojemu celowi, a jeśli ktokolwiek lub cokolwiek stanie im na drodze – również spłonie.',
 };
 
 /** Polish HQ special abilities shown in the UI. */
@@ -127,4 +130,6 @@ export const ARMY_HQ_ABILITY_PL: Record<string, string> = {
     'Samoobrona - w swojej Inicjatywie niszczy jedną sąsiednią wrogą jednostkę. Nie działa na wrogie Sztaby.',
   wiremen:
     'Inspirator - raz na turę gracz Druciarzy może umieścić znacznik Inspiracji na dowolnym żetonie Technologii.',
+  purifiers:
+    'Przypalanie - gdy Sztab zniszczy wrogą jednostkę własnym atakiem, na miejscu zniszczonej jednostki należy położyć znacznik Ognia. Liczy się wyłącznie zniszczenie dokonane bezpośrednio przez Sztab. Cecha działa tylko podczas Bitwy i jest wyłączona, gdy Sztab jest zasieciowany.',
 };

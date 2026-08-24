@@ -9,6 +9,12 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
+    version: '1.7.0',
+    date: '2026-08-24',
+    summaryEn: 'New army: Purifiers — a pyromaniac faction that spreads Fire tokens across the board. HQ ability: Scorch (left behind after destroying enemies). Weakness: Fire disappears at the start of Battle.',
+    summaryPl: 'Nowa armia: Czyściciele — piratoryczna frakcja rozprzestrzeniająca znaczniki Ognia na planszy. Zdolność Sztabu: Przypalanie (pozostawia Ogień po zniszczeniu wrogów). Słabość: Ogień znika na początku Bitwy.',
+  },
+  {
     version: '1.6.5',
     date: '2026-06-05',
     summaryEn: 'Release notes popover now shows the last 7 versions.',

@@ -1,0 +1,76 @@
+<h2>How could army pool filtering look?</h2>
+<p class="subtitle">Three approaches — from simplest to most powerful. All show the Randomize button below.</p>
+
+<div class="cards">
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1c1917;border-radius:8px;padding:16px;font-family:system-ui;font-size:13px;color:#e7e5e4;">
+        <div style="font-size:15px;font-weight:700;color:#f5f5f4;margin-bottom:4px;">🎲 Random Matchup</div>
+        <div style="font-size:11px;color:#78716c;margin-bottom:14px;">Pick two armies at random from all available.</div>
+        <button style="width:100%;background:#d97706;color:#fff;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;">Randomize!</button>
+        <div style="font-size:10px;color:#57534e;text-align:center;margin-top:6px;">Always picks from all 26 armies</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — No filtering (simplest)</h3>
+      <p>Just a big "Randomize!" button. Picks 2 from all armies. No setup required.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1c1917;border-radius:8px;padding:16px;font-family:system-ui;font-size:13px;color:#e7e5e4;">
+        <div style="font-size:15px;font-weight:700;color:#f5f5f4;margin-bottom:4px;">🎲 Random Matchup</div>
+        <div style="font-size:11px;color:#78716c;margin-bottom:10px;">Tap armies to exclude them from the draw.</div>
+        <!-- Mini army grid with some greyed out -->
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-bottom:12px;">
+          <div style="background:#292524;border:1.5px solid #d97706;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#fbbf24;">Borgo</div>
+          <div style="background:#111;border:1.5px solid #44403c;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#44403c;text-decoration:line-through;opacity:.45;">Beasts</div>
+          <div style="background:#292524;border:1.5px solid #d97706;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#fbbf24;">Drones</div>
+          <div style="background:#292524;border:1.5px solid #d97706;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#fbbf24;">Factions</div>
+          <div style="background:#111;border:1.5px solid #44403c;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#44403c;text-decoration:line-through;opacity:.45;">Moloch</div>
+          <div style="background:#292524;border:1.5px solid #d97706;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#fbbf24;">Outpost</div>
+          <div style="background:#292524;border:1.5px solid #d97706;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#fbbf24;">Neojungle</div>
+          <div style="background:#111;border:1.5px solid #44403c;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#44403c;text-decoration:line-through;opacity:.45;">Steel Police</div>
+          <div style="background:#292524;border:1.5px solid #d97706;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#fbbf24;">Troglodytes</div>
+          <div style="background:#292524;border:1.5px solid #d97706;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#fbbf24;">Uranopolis</div>
+          <div style="background:#292524;border:1.5px solid #d97706;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#fbbf24;">Wiremen</div>
+          <div style="background:#292524;border:1.5px solid #d97706;border-radius:6px;padding:6px 2px;text-align:center;font-size:9px;color:#fbbf24;">…more</div>
+        </div>
+        <div style="font-size:10px;color:#78716c;text-align:center;margin-bottom:8px;">23 of 26 armies in pool</div>
+        <button style="width:100%;background:#d97706;color:#fff;border:none;border-radius:10px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;">Randomize!</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Exclude armies (tap to remove)</h3>
+      <p>A compact grid of all armies — tap any to exclude it from the pool. Strikethrough shows excluded armies. Counter shows how many remain.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1c1917;border-radius:8px;padding:16px;font-family:system-ui;font-size:13px;color:#e7e5e4;">
+        <div style="font-size:15px;font-weight:700;color:#f5f5f4;margin-bottom:4px;">🎲 Random Matchup</div>
+        <div style="font-size:11px;color:#78716c;margin-bottom:10px;">Pick which armies are in the draw pool.</div>
+        <!-- Toggle chips -->
+        <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;">
+          <span style="padding:4px 8px;border-radius:20px;border:1.5px solid #d97706;background:#292524;font-size:10px;color:#fbbf24;font-weight:600;">Borgo ✓</span>
+          <span style="padding:4px 8px;border-radius:20px;border:1.5px solid #44403c;background:#1c1917;font-size:10px;color:#57534e;">Beasts</span>
+          <span style="padding:4px 8px;border-radius:20px;border:1.5px solid #d97706;background:#292524;font-size:10px;color:#fbbf24;font-weight:600;">Drones ✓</span>
+          <span style="padding:4px 8px;border-radius:20px;border:1.5px solid #44403c;background:#1c1917;font-size:10px;color:#57534e;">Factions</span>
+          <span style="padding:4px 8px;border-radius:20px;border:1.5px solid #d97706;background:#292524;font-size:10px;color:#fbbf24;font-weight:600;">Moloch ✓</span>
+          <span style="padding:4px 8px;border-radius:20px;border:1.5px solid #d97706;background:#292524;font-size:10px;color:#fbbf24;font-weight:600;">Outpost ✓</span>
+          <span style="padding:4px 8px;border-radius:20px;border:1.5px solid #44403c;background:#1c1917;font-size:10px;color:#57534e;">Neojungle</span>
+          <span style="padding:4px 8px;border-radius:20px;border:1.5px solid #d97706;background:#292524;font-size:10px;color:#fbbf24;font-weight:600;">Wiremen ✓</span>
+          <span style="padding:4px 8px;border-radius:20px;border:1.5px solid #44403c;background:#1c1917;font-size:10px;color:#57534e;">Troglodytes</span>
+        </div>
+        <div style="font-size:10px;color:#78716c;text-align:center;margin-bottom:8px;">5 of 26 armies selected — need at least 2</div>
+        <button style="width:100%;background:#d97706;color:#fff;border:none;border-radius:10px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;">Randomize!</button>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Opt-in pool (select which armies to include)</h3>
+      <p>All armies are off by default — you explicitly pick which ones go into the pool. Pill-shaped toggles, compact. Good for "I only have these expansions" use case.</p>
+    </div>
+  </div>
+</div>

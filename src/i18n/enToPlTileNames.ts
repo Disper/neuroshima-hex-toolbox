@@ -271,7 +271,15 @@ export const EN_TO_PL_TILE_NAME: Record<string, string> = {
   "Mourner": "Płaczka",
   "UMO Soldier": "Żołnierz UMO",
   "Error": "Error",
-  "Wireman": "Druciarz"
+  "Wireman": "Druciarz",
+  "Fuel Drum": "Beczka Paliwa",
+  "Purifier": "Czyściciel",
+  "Sweeper": "Zamiatacz",
+  "Chemist": "Chemik",
+  "Gambler": "Hazarder",
+  "Angel": "Anioł",
+  "Arsonist": "Podpalacz",
+  "Eruption": "Erupcja Ognia"
 };
 
 export function polishTileNameFromEnglish(english: string): string {

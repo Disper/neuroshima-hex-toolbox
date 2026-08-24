@@ -108,6 +108,15 @@ const POLISH_TILE_NAME_OVERRIDES: Record<string, string> = {
   'wiremen-weeper': 'Płaczka',
   'wiremen-umo-soldier': 'Żołnierz UMO',
   'wiremen-wireman': 'Druciarz',
+
+  'purifiers-fuel-drum': 'Beczka Paliwa',
+  'purifiers-purifier': 'Czyściciel',
+  'purifiers-sweeper': 'Zamiatacz',
+  'purifiers-chemist': 'Chemik',
+  'purifiers-gambler': 'Hazarder',
+  'purifiers-angel': 'Anioł',
+  'purifiers-arsonist': 'Podpalacz',
+  'purifiers-eruption': 'Erupcja Ognia'
 };
 
 export function getArmyDisplayName(army: Army, locale: Locale): string {

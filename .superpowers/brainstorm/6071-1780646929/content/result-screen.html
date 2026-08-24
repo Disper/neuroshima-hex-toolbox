@@ -1,0 +1,26 @@
+<h2>After two random armies are picked — what happens?</h2>
+<p class="subtitle">The app already has an "Army Selection" reveal screen. Should random matchup reuse it, or get its own result view?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Reuse the existing reveal screen (recommended)</h3>
+      <p>Show the same "Army Selection Ready" screen that manual selection uses — hidden behind a Reveal button, showing both armies with player 1 / player 2 markers. Zero new UI to build.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Show result immediately on the same tab (no separate screen)</h3>
+      <p>The two picked armies appear inline below a "Randomize!" button on the home tab — no navigation, no reveal animation. Simpler, but less dramatic.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>New dedicated result screen with re-roll</h3>
+      <p>A separate screen that shows the two armies and a "Re-roll" button to randomize again without going back. More capable but more work to build.</p>
+    </div>
+  </div>
+</div>
