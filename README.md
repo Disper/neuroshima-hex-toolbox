@@ -42,7 +42,7 @@ Every push bumps the patch version in [`src/version.ts`](src/version.ts) (`APP_V
 
 ## Mobile shells
 
-Native Android / iOS shells live under [`android/`](android) and [`ios/`](ios). Shared TypeScript → native resource generation runs via `npm run mobile:generate` (see [`scripts/generate-native-shared.mjs`](scripts/generate-native-shared.mjs)).
+Native Android / iOS apps live in a separate repository, `neuroshima-hex-toolbox-mobile`. Its generator reads army data, i18n strings and assets from this repo's `src/` (expected as a sibling checkout), so re-run `npm run generate` there after changing content here.
 
 ## UI conventions
 
