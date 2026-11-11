@@ -226,7 +226,7 @@ export const UI_STRINGS = {
     homeArmyDeckSoldier: '{n} żołnierzy',
     homeArmyDeckImplant: '{n} wszczepów',
     homeArmyDeckModule: '{n} modułów',
-    homeArmyDeckFoundation: '{n} fundamentów',
+    homeArmyDeckFoundation: '{n} podłoży',
     homeDonation: 'Podoba się aplikacja? Wesprzyj Partyzantów',
 
     langSwitcherAria: 'Język',
@@ -239,7 +239,7 @@ export const UI_STRINGS = {
     armySectionSoldiers: 'Żołnierze',
     armySectionImplants: 'Wszczepy',
     armySectionModules: 'Moduły',
-    armySectionFoundations: 'Fundamenty',
+    armySectionFoundations: 'Podłoża',
     armyTileCount: '{n} żeton',
     armyTileCountPlural: '{n} żetonów',
 
@@ -247,7 +247,7 @@ export const UI_STRINGS = {
     tileCatInstant: 'Natychmiastowy',
     tileCatSoldier: 'Żołnierz',
     tileCatImplant: 'Wszczep',
-    tileCatFoundation: 'Fundament',
+    tileCatFoundation: 'Podłoże',
     tileCatModule: 'Moduł',
 
     counterTitle: 'Licznik żetonów',

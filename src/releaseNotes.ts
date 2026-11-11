@@ -9,6 +9,12 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
+    version: '1.7.2',
+    date: '2026-11-11',
+    summaryEn: 'Polish translation: Foundation tiles are now called "Podłoża" instead of "Fundamenty".',
+    summaryPl: 'Tłumaczenie: żetony typu Fundament nazywają się teraz poprawnie „Podłoża".',
+  },
+  {
     version: '1.7.0',
     date: '2026-08-24',
     summaryEn: 'New army: Purifiers — a pyromaniac faction that spreads Fire tokens across the board. HQ ability: Scorch (left behind after destroying enemies). Weakness: Fire disappears at the start of Battle.',
@@ -43,18 +49,6 @@ export const RELEASE_NOTES: readonly ReleaseNote[] = [
     date: '2026-06-05',
     summaryEn: 'Tile Counter: after selecting the first army, page scrolls to the search input instead of the top.',
     summaryPl: 'Licznik żetonów: po wybraniu pierwszej armii strona przewija do pola wyszukiwania zamiast na górę.',
-  },
-  {
-    version: '1.6.0',
-    date: '2026-06-05',
-    summaryEn: 'New "Random Matchup" tab — pick two armies at random with a Re-roll button.',
-    summaryPl: 'Nowa zakładka „Losowe starcie" — wylosuj dwie armie z możliwością ponownego losowania.',
-  },
-  {
-    version: '1.5.0',
-    date: '2026-06-05',
-    summaryEn: 'Tile Counter: "Split by category" toggle — view all remaining tiles in a flat grid.',
-    summaryPl: 'Licznik żetonów: przełącznik „Podziel na kategorie" — widok wszystkich żetonów w jednej siatce.',
   },
 ];
 
