@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import type { Army } from '../data/types';
 import { useLocale } from '../i18n/locale';
 import type { UiMessageKey } from '../i18n/ui';
@@ -45,6 +45,13 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
   const [error, setError] = useState('');
   const [copied, setCopied] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  // Bumped whenever "Enter a Code" is selected; the effect below focuses the
+  // input after it has mounted (it is rendered only in join mode).
+  const [focusRequest, setFocusRequest] = useState(0);
+
+  useEffect(() => {
+    if (focusRequest > 0) inputRef.current?.focus();
+  }, [focusRequest]);
 
   const handleRegenerate = useCallback(() => {
     setCode(isIronGang ? generateIronGangDeckCode() : generateCode());
@@ -123,6 +130,7 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
             onClick={() => {
               setMode(m);
               setError('');
+              if (m === 'join') setFocusRequest((n) => n + 1);
             }}
             className={[
               'flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200',
@@ -225,7 +233,7 @@ export function DeckSetup({ army, onStart, onBack }: DeckSetupProps) {
               autoComplete="off"
               autoCapitalize="characters"
               spellCheck={false}
-              className="mt-3 w-full bg-stone-800 border border-stone-600 rounded-xl px-4 py-2.5 text-stone-100 text-base font-mono tracking-widest uppercase placeholder:text-stone-600 focus:outline-none focus:border-stone-400 transition-colors"
+              className="mt-3 w-full bg-stone-800 border border-stone-600 rounded-xl px-4 py-2.5 text-stone-100 text-base font-mono tracking-widest uppercase placeholder:text-stone-600 focus:outline-none focus:border-amber-400 transition-colors"
             />
             {error && <p className="text-red-400 text-xs mt-2">{error}</p>}
           </div>

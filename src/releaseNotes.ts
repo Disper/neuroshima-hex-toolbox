@@ -9,6 +9,12 @@ export interface ReleaseNote {
 
 export const RELEASE_NOTES: readonly ReleaseNote[] = [
   {
+    version: '1.7.3',
+    date: '2026-11-11',
+    summaryEn: 'Randomizer: choosing "Enter a Code" now puts the cursor straight into the code field, which gets a yellow border while you type.',
+    summaryPl: 'Losowanie żetonów: wybranie „Wpisz kod" od razu ustawia kursor w polu kodu, które podczas wpisywania ma żółtą ramkę.',
+  },
+  {
     version: '1.7.2',
     date: '2026-11-11',
     summaryEn: 'Polish translation: Foundation tiles are now called "Podłoża" instead of "Fundamenty".',
@@ -43,12 +49,6 @@ export const RELEASE_NOTES: readonly ReleaseNote[] = [
     date: '2026-06-05',
     summaryEn: 'Tile Counter: drawn tiles section is collapsed by default.',
     summaryPl: 'Licznik żetonów: sekcja zagranych żetonów domyślnie zwinięta.',
-  },
-  {
-    version: '1.6.1',
-    date: '2026-06-05',
-    summaryEn: 'Tile Counter: after selecting the first army, page scrolls to the search input instead of the top.',
-    summaryPl: 'Licznik żetonów: po wybraniu pierwszej armii strona przewija do pola wyszukiwania zamiast na górę.',
   },
 ];
 
